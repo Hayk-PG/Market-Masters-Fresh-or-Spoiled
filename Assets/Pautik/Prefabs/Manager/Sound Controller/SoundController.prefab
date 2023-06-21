@@ -549,6 +549,9 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: 0c4cfb44b5f87a948b15e25089570dce, type: 3}
     - {fileID: 8300000, guid: a9de8b6cb1e869342a9bb8feff559455, type: 3}
+  - _title: Error
+    _clips:
+    - {fileID: 8300000, guid: 87d09e7a0c27b8b43b5d8e556cd71abb, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0
