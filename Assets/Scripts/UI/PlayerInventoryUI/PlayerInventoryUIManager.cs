@@ -30,13 +30,19 @@ public class PlayerInventoryUIManager : MonoBehaviour
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.SelectInventoryItem)
+        OnInventoryItemSelect(gameEventType, data);
+    }
+
+    private void OnInventoryItemSelect(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.SelectInventoryItem)
         {
             return;
         }
 
+        AddSelectedItemToList(playerInventoryItemButton: (PlayerInventoryItemButton)data[0]);
         PlayClickSoundEffect(9);
-        UpdateSelectedItemButtonsList(playerInventoryItemButton: (PlayerInventoryItemButton)data[0]);
+        DeselectConfirmButton();
     }
 
     private void OnConfirmButtonSelect()
@@ -48,23 +54,46 @@ public class PlayerInventoryUIManager : MonoBehaviour
             return;
         }
 
-        foreach (var itemButton in _selectedItemButtonsList)
-        {
-            itemButton.Deselect();
-        }
-
-        _confirmButton.Deselect();
-        DismissConfirmation();
+        TryConfirmSelectedItem(out bool isNoBuyingItemSelected);
+        DismissItemConfirmation(isNoBuyingItemSelected);
+        RemoveAllSelectedItems();
+        PlayClickSoundEffect(11);
     }
 
-    private void UpdateSelectedItemButtonsList(PlayerInventoryItemButton playerInventoryItemButton, bool isRemoving = false)
+    private void TryConfirmSelectedItem(out bool isNoBuyingItemSelected)
     {
-        if (!isRemoving)
-        {
-            _selectedItemButtonsList.Add(playerInventoryItemButton);
-            return;
-        }
+        isNoBuyingItemSelected = true;
 
+        for (int i = 0; i < _selectedItemButtonsList.Count; i++)
+        {
+            bool isSelectedItemBuyingItem = _selectedItemButtonsList[i].AssosiatedItem == GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem;
+
+            if (isSelectedItemBuyingItem)
+            {
+                _selectedItemButtonsList[i] = null;
+                isNoBuyingItemSelected = false;
+                continue;
+            }
+
+            _selectedItemButtonsList[i].Deselect();
+        }
+    }
+
+    private void DismissItemConfirmation(bool isNoBuyingItemSelected)
+    {
+        if (isNoBuyingItemSelected)
+        {
+            PlayErrorAnimationAndSound();
+        }
+    }
+
+    private void DeselectConfirmButton()
+    {
+        _confirmButton.Deselect();
+    }
+
+    private void RemoveAllSelectedItems()
+    {
         bool isListEmpty = _selectedItemButtonsList.Count == 0;
 
         if (isListEmpty)
@@ -72,57 +101,19 @@ public class PlayerInventoryUIManager : MonoBehaviour
             return;
         }
 
-        _selectedItemButtonsList.Remove(playerInventoryItemButton);
+        _selectedItemButtonsList = new List<PlayerInventoryItemButton>();
     }
 
-    private void DismissConfirmation()
+    private void AddSelectedItemToList(PlayerInventoryItemButton playerInventoryItemButton)
+    {
+        _selectedItemButtonsList.Add(playerInventoryItemButton);
+    }
+
+    private void PlayErrorAnimationAndSound()
     {
         _animator.Play(_errorAnimation, 0, 0);
         UISoundController.PlaySound(4, 0);
     }
-
-    private void DeselectButtons(Btn button = null)
-    {
-        for (int i = 0; i < _inventoryItemButtons.Length; i++)
-        {
-            if (_inventoryItemButtons[i] == button)
-            {
-                continue;
-            }
-
-            _inventoryItemButtons[i].Button.Deselect();
-        }
-    }
-
-    private void OnSelect(int number = 0)
-    {
-        //bool isConfirmButtonSelected = number == 0;
-
-        //if (isConfirmButtonSelected)
-        //{
-        //    PlayClickSoundEffect(11);
-        //    ConfirmSelectedNumber();
-        //    DeselectButtons(_inventoryItemButtons[8]);
-        //    return;
-        //}
-
-        //PlayClickSoundEffect(9);
-        //SetSelectedNumber(number);
-        //DeselectButtons(_inventoryItemButtons[number - 1]);
-    }
-
-    //private void ConfirmSelectedNumber()
-    //{
-    //    _data[0] = _selectedNumber;
-    //    GameEventHandler.RaiseEvent(GameEventType.ConfirmSelectedNumber, _data);
-    //}
-
-    //private void SetSelectedNumber(int number)
-    //{
-    //    _selectedNumber = number;
-    //}
-
-    
 
     private void PlayClickSoundEffect(int clipIndex)
     {

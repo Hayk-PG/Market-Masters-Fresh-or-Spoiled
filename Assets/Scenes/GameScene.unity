@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &65460487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6350851372131627096, guid: d968e7727a1d0c54ab62e888b8488b35, type: 3}
+  m_PrefabInstance: {fileID: 3283913712959171039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30dcd0ee47dfc749ba5e1afcf1ee403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &67465167
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +600,7 @@ MonoBehaviour:
   _gameTimeManager: {fileID: 319595011}
   _gameTurnManager: {fileID: 319595012}
   _remoteRPCWrapper: {fileID: 319595018}
+  _itemsBuyerManager: {fileID: 319595019}
   _playerUIGroups:
   - {fileID: 3283913712959171043}
   - {fileID: 3283913712959171042}
@@ -598,6 +610,7 @@ MonoBehaviour:
   - {fileID: 3283913712959171045}
   - {fileID: 3283913712959171044}
   _playerInventoryUIManager: {fileID: 1725895386}
+  _itemsBuyerUIManager: {fileID: 65460487}
   _playersContainer: {fileID: 1639146100}
   _items: {fileID: 11400000, guid: 34b935355a4867a4dba9c621455a4b7c, type: 2}
 --- !u!114 &319595011

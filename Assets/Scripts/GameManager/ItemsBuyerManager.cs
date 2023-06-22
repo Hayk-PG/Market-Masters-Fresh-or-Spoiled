@@ -48,7 +48,7 @@ public class ItemsBuyerManager : MonoBehaviourPun
     {
         BuyingItem = GameSceneReferences.Manager.Items.Collection[randomItemIndexFromCollection];
         WrapBuyingItemData(BuyingItem);
-        SendBuyingItemData();
+        UpdateBuyingItemIcon(BuyingItem.Icon);
     }
 
     private void WrapBuyingItemData(Item item)
@@ -56,8 +56,8 @@ public class ItemsBuyerManager : MonoBehaviourPun
         _buyingItemData[0] = item;
     }
 
-    private void SendBuyingItemData()
+    private void UpdateBuyingItemIcon(Sprite sprite)
     {
-        GameEventHandler.RaiseEvent(GameEventType.UpdateBuyingItem, _buyingItemData);
+        GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateBuyingItemIcon(sprite);
     }
 }

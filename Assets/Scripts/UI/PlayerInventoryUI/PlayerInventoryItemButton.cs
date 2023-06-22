@@ -9,7 +9,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     private Item _item;
     private object[] _buttonData = new object[3];
 
-    public Btn Button => _button;
+    public Item AssosiatedItem => _item;
 
 
 
@@ -22,11 +22,12 @@ public class PlayerInventoryItemButton : MonoBehaviour
     public void AssignItem(Item item)
     {
         _item = item;
-        _icon.ChangeIconHolder(item.Icon);
+        _icon.IconSpriteChangedDelegate (item.Icon);
     }
 
     private void OnSelect()
     {
+        UpdateBtnDefaultIcon();
         WrapData();
         SendData();
     }
@@ -34,6 +35,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
     public void Deselect()
     {
         _button.Deselect();
+    }
+
+    private void UpdateBtnDefaultIcon()
+    {
+        _icon.ChangeReleasedSpriteDelegate();
     }
 
     private void WrapData()

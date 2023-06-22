@@ -16,42 +16,41 @@ public class Btn_Icon : MonoBehaviour
     private Color _clrPressed;
     private Color _clrReleased;
 
-    // ChangeIconHolder is used for public access to ChangeIconSprite
-    public Action<Sprite> ChangeIconHolder => ChangeIconSprite;
+    /// <summary>
+    /// Delegate for the action of changing the released sprite.
+    /// </summary>
+    public Action ChangeReleasedSpriteDelegate  => delegate { _sprtReleased = _imgIcon.sprite; };
+
+    /// <summary>
+    /// Delegate that provides public access to the ChangeIconSprite method.
+    /// </summary>
+    public Action<Sprite> IconSpriteChangedDelegate  => ChangeIconSprite;
+
 
 
 
     private void Awake()
     {
         _imgIcon = Get<Image>.From(gameObject);
-
         _btn = Get<Btn>.From(gameObject);
-
-        _sprtReleased = _imgIcon.sprite;
-
-        _clrReleased = _imgIcon.color;
-
         CacheIconDefaultLook();
     }
 
     private void OnEnable()
     {
         _btn.OnSelect += delegate { ChangeIconLook(_btn._buttonClickType, _sprtPressed, _clrPressed); };
-
         _btn.OnDeselect += delegate { ChangeIconLook(_btn._buttonClickType, _sprtReleased, _clrReleased); };
     }
 
     private void OnDisable()
     {
         _btn.OnSelect -= delegate { ChangeIconLook(_btn._buttonClickType, _sprtPressed, _clrPressed); };
-
         _btn.OnDeselect -= delegate { ChangeIconLook(_btn._buttonClickType, _sprtReleased, _clrReleased); };
     }
 
     private void CacheIconDefaultLook()
     {
         _sprtReleased = _imgIcon.sprite;
-
         _clrReleased = _imgIcon.color;
     }
 
@@ -86,5 +85,8 @@ public class Btn_Icon : MonoBehaviour
         _imgIcon.sprite = sprite;
     }
 
-    private void ChangeIconColor(Color color) => _imgIcon.color = color;
+    private void ChangeIconColor(Color color)
+    {
+        _imgIcon.color = color;
+    }
 }

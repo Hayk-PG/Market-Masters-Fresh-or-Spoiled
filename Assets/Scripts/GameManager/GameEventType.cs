@@ -9,7 +9,6 @@ public enum GameEventType
    OverrideGameTime,
    UpdateGameTime,
    UpdateGameTurn,
-   UpdateBuyingItem,
    SelectInventoryItem,
    ConfirmSelectedNumber,
    PublishConfirmedNumber,
