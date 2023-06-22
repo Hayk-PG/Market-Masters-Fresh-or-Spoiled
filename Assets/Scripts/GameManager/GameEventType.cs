@@ -11,8 +11,7 @@ public enum GameEventType
    UpdateGameTurn,
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,
-   PublishConfirmedItemForSale,
+   PublishSellingItemQuantity,
    ConfirmSelectedNumber,
-   PublishConfirmedNumber,
    PublishTeamCombinedNumber
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Pautik;
 using Photon.Pun;
+using System.Collections.Generic;
 
 public class ItemsBuyerManager : MonoBehaviourPun
 {
@@ -39,7 +40,15 @@ public class ItemsBuyerManager : MonoBehaviourPun
 
     private void AssignBuyingItem()
     {
-        int randomItemIndexFromCollection = Random.Range(0, GameSceneReferences.Manager.Items.Collection.Count);
+        List<Item> entitiesInventoryItems = new List<Item>();
+        GlobalFunctions.Loop<EntityInventoryManager>.Foreach(FindObjectsOfType<EntityInventoryManager>(), entityInventorManager => entitiesInventoryItems.AddRange(entityInventorManager.InventoryItems));
+
+        if(entitiesInventoryItems.Count == 0)
+        {
+            return;
+        }
+
+        int randomItemIndexFromCollection = GameSceneReferences.Manager.Items.Collection.IndexOf(entitiesInventoryItems[Random.Range(0, entitiesInventoryItems.Count)]);
         photonView.RPC("AssignBuyingItemRPC", RpcTarget.AllViaServer, randomItemIndexFromCollection);
     }
 

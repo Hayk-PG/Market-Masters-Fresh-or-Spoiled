@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2672252008488531266}
   - component: {fileID: 6259782857860524274}
   - component: {fileID: 5321536150595682518}
-  - component: {fileID: 45904448876504802}
+  - component: {fileID: 416946880765359621}
+  - component: {fileID: 7270068839082451180}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MonoBehaviour:
   _entityIndex: 0
   _teamIndex: 0
   _entityManager: {fileID: 6259782857860524274}
---- !u!114 &45904448876504802
+--- !u!114 &416946880765359621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,8 +74,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3375853837013526397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caccfc1eafd4010489645c3b137e8eaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 19490b7ed062b89438eea855ea0c51af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _entityManager: {fileID: 6259782857860524274}
   _entityIndexManager: {fileID: 5321536150595682518}
+  _inventoryItems: []
+--- !u!114 &7270068839082451180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375853837013526397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d8fe76ab7070a41ad4a66ab726b25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityManager: {fileID: 6259782857860524274}
+  _entityIndexManager: {fileID: 5321536150595682518}
+  _entityInventoryManager: {fileID: 416946880765359621}

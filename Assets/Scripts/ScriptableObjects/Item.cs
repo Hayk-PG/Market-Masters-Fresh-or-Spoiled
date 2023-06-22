@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Item")]
@@ -41,5 +42,9 @@ public class Item : ScriptableObject
     public void SetID(int id)
     {
         ID = id;
+
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
     }
 }

@@ -55,7 +55,7 @@ public class SelectedNumberUIManager : MonoBehaviour
 
     private void TryRetrieveDataAndExecute(GameEventType gameEventType, object[] data)
     {
-        if (gameEventType != GameEventType.PublishConfirmedNumber)
+        if (gameEventType != GameEventType.PublishSellingItemQuantity)
         {
             return;
         }

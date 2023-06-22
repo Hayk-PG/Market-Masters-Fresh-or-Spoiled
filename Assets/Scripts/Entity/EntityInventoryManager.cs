@@ -23,11 +23,6 @@ public class EntityInventoryManager : MonoBehaviourPun
         InitializeInventory();
     }
 
-    protected virtual bool HavePermission()
-    {
-        return true;
-    }
-
     protected virtual void InitializeInventory()
     {
         if (!HavePermission())
@@ -39,6 +34,11 @@ public class EntityInventoryManager : MonoBehaviourPun
         {
             AddRandomItemFromCollection(out Item item);
         }
+    }
+
+    protected virtual bool HavePermission()
+    {
+        return true;
     }
 
     protected virtual void AddRandomItemFromCollection(out Item item)

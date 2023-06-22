@@ -1,24 +1,8 @@
 using Photon.Pun;
-using UnityEngine;
 
-public class PlayerInventoryItemSellManager : MonoBehaviourPun
+public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 {
-    [Header("Components")]
-    [SerializeField] private EntityManager _entityManager;
-    [SerializeField] private EntityIndexManager _entityIndexManager;
-    [SerializeField] private EntityInventoryManager _entityInventoryManager;
-
-    private object[] _sellingItemData = new object[4];
-
-
-
-
-    private void OnEnable()
-    {
-        GameEventHandler.OnEvent += OnGameEvent;
-    }
-
-    private void OnGameEvent(GameEventType gameEventType, object[] data)
+    protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         TryRetrieveDataAndExecute(gameEventType, data);
     }
@@ -44,7 +28,7 @@ public class PlayerInventoryItemSellManager : MonoBehaviourPun
         RemoveSoldItems(sellingItemQuantity, sellingItemId);
     }
 
-    private void PublishConfirmedItemForSale(int sellingItemQuantity, int sellingItemId)
+    public override void PublishConfirmedItemForSale(int sellingItemQuantity, int sellingItemId)
     {
         photonView.RPC("PublishConfirmedItemForSaleRPC", RpcTarget.AllViaServer, _entityManager.EntityName, _entityManager.EntityActorNumber, sellingItemQuantity, sellingItemId);
     }
@@ -56,14 +40,6 @@ public class PlayerInventoryItemSellManager : MonoBehaviourPun
         _sellingItemData[1] = entityActorNumber;
         _sellingItemData[2] = sellingItemQuantity;
         _sellingItemData[3] = sellingItemId;
-        GameEventHandler.RaiseEvent(GameEventType.PublishConfirmedItemForSale, _sellingItemData);
-    }
-
-    private void RemoveSoldItems(int sellingItemQuantity, int sellingItemId)
-    {
-        for (int i = 0; i < sellingItemQuantity; i++)
-        {
-            _entityInventoryManager.RemoveItem(null, sellingItemId);
-        }
+        GameEventHandler.RaiseEvent(GameEventType. PublishSellingItemQuantity, _sellingItemData);
     }
 }

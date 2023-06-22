@@ -64,6 +64,6 @@ public class PlayerNumericChoiceManager : MonoBehaviourPun
         _data[1] = entityActorNumber;
         _data[2] = confirmedNumber;
 
-        GameEventHandler.RaiseEvent(GameEventType.PublishConfirmedNumber, _data);
+        GameEventHandler.RaiseEvent(GameEventType.PublishSellingItemQuantity, _data);
     }
 }
