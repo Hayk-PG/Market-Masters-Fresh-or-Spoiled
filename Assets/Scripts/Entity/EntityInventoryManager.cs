@@ -48,7 +48,7 @@ public class EntityInventoryManager : MonoBehaviourPun
         AddItem(item);
     }
 
-    protected virtual void AddItem(Item item = null, int itemId = 0)
+    public virtual void AddItem(Item item = null, int itemId = 0)
     {
         if(item != null)
         {
@@ -60,7 +60,7 @@ public class EntityInventoryManager : MonoBehaviourPun
         }
     }
 
-    protected virtual void RemoveItem(Item item = null, int itemId = 0)
+    public virtual void RemoveItem(Item item = null, int itemId = 0)
     {
         if (item != null)
         {

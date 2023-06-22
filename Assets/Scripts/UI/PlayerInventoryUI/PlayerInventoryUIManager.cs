@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Pautik;
 
 public class PlayerInventoryUIManager : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class PlayerInventoryUIManager : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private string _errorAnimation = "ErrorAnim";
-
+    private object[] _sellingInventoryItemData = new object[2];
+    private bool _isItemConfirmed;
+    private TeamIndex _controllerTeamIndex;
     private List<PlayerInventoryItemButton> _selectedItemButtonsList = new List<PlayerInventoryItemButton>();
+
+    private bool CanConfirmItem
+    {
+        get => GameSceneReferences.Manager.GameTurnManager.CurrentTeamTurn == _controllerTeamIndex && !_isItemConfirmed;
+    }
 
 
 
@@ -28,14 +36,20 @@ public class PlayerInventoryUIManager : MonoBehaviour
         _inventoryItemButtons[inventoryItemButtonIndex].AssignItem(item);
     }
 
+    public void GetControllerTeam(TeamIndex teamIndex)
+    {
+        _controllerTeamIndex = teamIndex;
+    }
+
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         OnInventoryItemSelect(gameEventType, data);
+        AllowItemConfirmation(gameEventType);
     }
 
     private void OnInventoryItemSelect(GameEventType gameEventType, object[] data)
     {
-        if (gameEventType != GameEventType.SelectInventoryItem)
+        if (gameEventType != GameEventType.SelectInventoryItemForSale)
         {
             return;
         }
@@ -43,6 +57,16 @@ public class PlayerInventoryUIManager : MonoBehaviour
         AddSelectedItemToList(playerInventoryItemButton: (PlayerInventoryItemButton)data[0]);
         PlayClickSoundEffect(9);
         DeselectConfirmButton();
+    }
+
+    private void AllowItemConfirmation(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.UpdateGameTurn)
+        {
+            return;
+        }
+
+        _isItemConfirmed = false;
     }
 
     private void OnConfirmButtonSelect()
@@ -64,18 +88,43 @@ public class PlayerInventoryUIManager : MonoBehaviour
     {
         isNoBuyingItemSelected = true;
 
+        if (!CanConfirmItem)
+        {
+            GlobalFunctions.Loop<PlayerInventoryItemButton>.Foreach(_selectedItemButtonsList, button => button.Deselect());
+            return;
+        }
+
+        int sellingItemQuantity = 0;
+        int sellingItemId = 0;
+
         for (int i = 0; i < _selectedItemButtonsList.Count; i++)
         {
             bool isSelectedItemBuyingItem = _selectedItemButtonsList[i].AssosiatedItem == GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem;
 
             if (isSelectedItemBuyingItem)
-            {
-                _selectedItemButtonsList[i] = null;
+            {               
+                sellingItemQuantity++;
+                sellingItemId = _selectedItemButtonsList[i].AssosiatedItem.ID;
                 isNoBuyingItemSelected = false;
+                _selectedItemButtonsList[i].RemoveAssosiatedItem();
+                _selectedItemButtonsList[i] = null;
+                _isItemConfirmed = true;
                 continue;
             }
 
             _selectedItemButtonsList[i].Deselect();
+        }
+
+        SendSellingItemData(sellingItemQuantity, sellingItemId);
+    }
+
+    private void SendSellingItemData(int sellingItemQuantity, int sellingItemId)
+    {
+        if (sellingItemQuantity > 0)
+        {
+            _sellingInventoryItemData[0] = sellingItemQuantity;
+            _sellingInventoryItemData[1] = sellingItemId;
+            GameEventHandler.RaiseEvent(GameEventType.ConfirmInventoryItemForSale, _sellingInventoryItemData);
         }
     }
 

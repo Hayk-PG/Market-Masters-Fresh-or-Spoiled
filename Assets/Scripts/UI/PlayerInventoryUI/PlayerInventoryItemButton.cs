@@ -25,6 +25,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
         _icon.IconSpriteChangedDelegate (item.Icon);
     }
 
+    public void RemoveAssosiatedItem()
+    {
+        _item = null;
+    }
+
     private void OnSelect()
     {
         UpdateBtnDefaultIcon();
@@ -49,6 +54,6 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     private void SendData()
     {
-        GameEventHandler.RaiseEvent(GameEventType.SelectInventoryItem, _buttonData);
+        GameEventHandler.RaiseEvent(GameEventType.SelectInventoryItemForSale, _buttonData);
     }
 }
