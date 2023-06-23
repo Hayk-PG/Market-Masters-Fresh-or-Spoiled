@@ -552,6 +552,9 @@ MonoBehaviour:
   - _title: Error
     _clips:
     - {fileID: 8300000, guid: 87d09e7a0c27b8b43b5d8e556cd71abb, type: 3}
+  - _title: Cash
+    _clips:
+    - {fileID: 8300000, guid: 916a1244ddaba6c4f8e8ede1fe568849, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0

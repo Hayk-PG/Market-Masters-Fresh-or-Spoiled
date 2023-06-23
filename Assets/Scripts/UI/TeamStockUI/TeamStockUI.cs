@@ -37,6 +37,8 @@ public class TeamStockUI : MonoBehaviour
             return;
         }
 
-        _moneyText.text = _controllerTeam == TeamIndex.Team1 ? ((int)data[1]).ToString() : ((int)data[2]).ToString();
+        int moneyAmount = _controllerTeam == TeamIndex.Team1 ? ((int)data[1]) : ((int)data[2]);
+        _moneyText.text = $"${Converter.ThousandsSeparatorString(moneyAmount, true)}";
+        UISoundController.PlaySound(6, 0);
     }
 }

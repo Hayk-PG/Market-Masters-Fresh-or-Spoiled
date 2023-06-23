@@ -1,5 +1,4 @@
 using UnityEngine;
-using Coffee.UIEffects;
 
 public class PlayerInventoryItemButton : MonoBehaviour
 {
@@ -10,7 +9,8 @@ public class PlayerInventoryItemButton : MonoBehaviour
     [SerializeField] private Btn _button;
     [SerializeField] private Btn_Icon _icon;
 
-    private Item _item;
+    [Header("Assosiated Item")]
+    [SerializeField] private Item _item;
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
 
