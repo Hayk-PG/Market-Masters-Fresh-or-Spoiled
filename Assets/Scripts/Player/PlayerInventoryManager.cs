@@ -19,6 +19,7 @@ public class PlayerInventoryManager : EntityInventoryManager
         }
 
         SetInventoryUIManagerTeam(gameEventType, data);
+        DestroySpoiledItem(gameEventType, data);
     }
 
     protected override void InitializeInventory()
@@ -46,6 +47,17 @@ public class PlayerInventoryManager : EntityInventoryManager
 
         GameSceneReferences.Manager.PlayerInventoryUIManager.GetControllerTeam(_entityIndexManager.TeamIndex);
         _isInventoryUIManagerTeamSet = true;
+    }
+
+    private void DestroySpoiledItem(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.DestroySpoiledItem)
+        {
+            return;
+        }
+
+        int spoiledItemId = (int)data[0];
+        RemoveItem(null, spoiledItemId);
     }
 
     protected override bool HavePermission()

@@ -6,7 +6,7 @@ public class GameTurnManager : MonoBehaviour
     [SerializeField] private TeamIndex _previousTeamTurn;
     [SerializeField] private TeamIndex _currentTeamTurn;
 
-    private object[] _data = new object[3];
+    private object[] _data = new object[4];
 
     public TeamIndex PreviousTeamTurn
     {
@@ -18,6 +18,7 @@ public class GameTurnManager : MonoBehaviour
         get => _currentTeamTurn;
         private set => _currentTeamTurn = value;
     }
+    public int TurnCount { get; private set; }
     public bool IsFirstTeamTurn { get; private set; }
 
 
@@ -48,6 +49,7 @@ public class GameTurnManager : MonoBehaviour
         if(seconds >= roundDuration)
         {
             ToggleTurns();
+            CounTurns();
             PublishTurns();
         }
     }
@@ -59,11 +61,17 @@ public class GameTurnManager : MonoBehaviour
         CurrentTeamTurn = IsFirstTeamTurn ? TeamIndex.Team1 : TeamIndex.Team2;
     }
 
+    public void CounTurns()
+    {
+        TurnCount++;
+    }
+
     private void PublishTurns()
     {
         _data[0] = IsFirstTeamTurn;
         _data[1] = PreviousTeamTurn;
         _data[2] = CurrentTeamTurn;
+        _data[3] = TurnCount;
 
         GameEventHandler.RaiseEvent(GameEventType.UpdateGameTurn, _data);
     }

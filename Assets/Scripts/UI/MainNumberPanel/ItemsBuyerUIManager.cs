@@ -27,7 +27,6 @@ public class ItemsBuyerUIManager : MonoBehaviour
         _buyingItemIcon.sprite = icon;
         _percentageText.text = percentage < 100 ? $"-{percentage}%" : percentage > 100 ? $"+{percentage}%" : $"{percentage}";
         _moneyAmountText.text = $"${moneyAmount}";
-        print($"Money Amoun: {moneyAmount}");
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
@@ -42,7 +41,6 @@ public class ItemsBuyerUIManager : MonoBehaviour
             return;
         }
 
-        print($"Publish Team Combined Selling Item Quantity");
         PlayAnimation(_updateMainNumberAnim);
         PlaySoundEffect();
     }

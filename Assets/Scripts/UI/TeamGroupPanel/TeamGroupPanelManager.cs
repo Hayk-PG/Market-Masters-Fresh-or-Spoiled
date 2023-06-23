@@ -13,11 +13,12 @@ public class TeamGroupPanelManager : MonoBehaviour
     [Header("Player UI Groups")]
     [SerializeField] private PlayerUIGroupManager[] _playerUIGroups;
 
-    private object[] _teamCombinedNumberData = new object[2];
+    private object[] _teamCombinedSellingItemData = new object[3];
 
     public TeamIndex TeamIndex => _teamIndex;
     public PlayerUIGroupManager[] PlayerUIGroups => _playerUIGroups;
     public int TeamCombinedSellingItemQuantity { get; private set; }
+    public int TeamCombinedSellingItemSpoilPercentage { get; private set; }
 
 
 
@@ -39,9 +40,10 @@ public class TeamGroupPanelManager : MonoBehaviour
         _teamStockUI.SetControllerTeam(teamIndex);
     }
 
-    public void UpdateTeamCombinedNumber(int number)
+    public void GetTeamCombinedSellingItemData(int itemQuntity, int itemSpoilPercentage)
     {
-        TeamCombinedSellingItemQuantity = (TeamCombinedSellingItemQuantity + number) > 0 ? TeamCombinedSellingItemQuantity + number : 0;
+        TeamCombinedSellingItemQuantity = (TeamCombinedSellingItemQuantity + itemQuntity) > 0 ? TeamCombinedSellingItemQuantity + itemQuntity : 0;
+        TeamCombinedSellingItemSpoilPercentage = itemSpoilPercentage;
     }
 
     public void SetPlayerUIGroupOwnership(int playerUIGroupIndex, string ownerName, int actorNumber, bool isLocalPlayerOwner = false)
@@ -68,9 +70,12 @@ public class TeamGroupPanelManager : MonoBehaviour
 
         if(TeamCombinedSellingItemQuantity > 0)
         {
-            _teamCombinedNumberData[0] = TeamCombinedSellingItemQuantity;
-            _teamCombinedNumberData[1] = TeamIndex;
-            GameSceneReferences.Manager.RemoteRPCWrapper.PublishTeamCombinedSellingItemQuantity((byte)TeamCombinedSellingItemQuantity, (byte)TeamIndex);
+            _teamCombinedSellingItemData[0] = TeamCombinedSellingItemQuantity;
+            _teamCombinedSellingItemData[1] = TeamCombinedSellingItemSpoilPercentage;
+            _teamCombinedSellingItemData[2] = TeamIndex;
+
+            GameSceneReferences.Manager.RemoteRPCWrapper.PublishTeamCombinedSellingItemQuantity(_teamCombinedSellingItemData);
+
             TeamCombinedSellingItemQuantity = 0;
         }
     }

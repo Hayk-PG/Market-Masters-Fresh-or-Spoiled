@@ -13,50 +13,61 @@ public class BotInventoryItemSellManager : EntityInventoryItemSellManager
 
     protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        TryRetrieveData(gameEventType, data);
+        OnGameTurnUpdate(gameEventType, data);
     }
 
-    private void TryRetrieveData(GameEventType gameEventType, object[] data)
+    /// <summary>
+    /// Handles the game turn update event and checks if the confirmed sale item can be published.
+    /// </summary>
+    /// <param name="gameEventType">The type of the game event.</param>
+    /// <param name="data">Additional data associated with the game event.</param>
+    private void OnGameTurnUpdate(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.UpdateGameTurn)
         {
             return;
         }
 
-        ToggleHasAlreadyPublished(false);
-        TeamIndex currentTurnTeamIndex = (TeamIndex)data[2];
-        bool canPublishConfirmedItemForSale = currentTurnTeamIndex == _entityIndexManager.TeamIndex && !_hasAlreadyPublished;     
+        SetPublishedStatus(false);
+        StartCoroutine(WaitAndExecute(currentTurnTeamIndex: (TeamIndex)data[2]));
+    }
+
+    /// <summary>
+    /// Waits for a random duration and executes the item sale process if the conditions are met.
+    /// </summary>
+    /// <param name="currentTurnTeamIndex">The current team index.</param>
+    /// <returns>An IEnumerator used for coroutine execution.</returns>
+    private IEnumerator WaitAndExecute(TeamIndex currentTurnTeamIndex)
+    {
+        bool canPublishConfirmedItemForSale = currentTurnTeamIndex == _entityIndexManager.TeamIndex && !_hasAlreadyPublished;
 
         if (!canPublishConfirmedItemForSale)
-        {
-            return;
-        }
-
-        StartCoroutine(DoubleCheckAndExecuteAfterDelay(currentTurnTeamIndex));
-    }
-
-    private void ToggleHasAlreadyPublished(bool hasAlreadyPublished)
-    {
-        _hasAlreadyPublished = hasAlreadyPublished;
-    }
-
-    private IEnumerator DoubleCheckAndExecuteAfterDelay(TeamIndex currentTurnTeamIndex)
-    {
-        yield return new WaitForSeconds(Random.Range(0f, 7f));
-
-        if(currentTurnTeamIndex != _entityIndexManager.TeamIndex)
         {
             yield break;
         }
 
-        CountSelectedItemQuantity(out int selectedItemQuantity, out int targetItemId);
-        PublishConfirmedItemForSale((byte)selectedItemQuantity, (byte)targetItemId);
+        yield return new WaitForSeconds(Random.Range(0f, 7f));
+
+        if (currentTurnTeamIndex != _entityIndexManager.TeamIndex)
+        {
+            yield break;
+        }
+
+        CountSelectedItemQuantity(out int selectedItemQuantity, out int targetItemId, out int targetItemSpoilPercentage);
+        CheckItemQuantityAndProcess((byte)selectedItemQuantity, (byte)targetItemId, (byte)targetItemSpoilPercentage);
     }
 
-    private void CountSelectedItemQuantity(out int selectedItemQuantity, out int targetItemId)
+    /// <summary>
+    /// Counts the quantity of the selected item in the inventory.
+    /// </summary>
+    /// <param name="selectedItemQuantity">The quantity of the selected item.</param>
+    /// <param name="targetItemId">The ID of the target item.</param>
+    /// <param name="targetItemSpoilPercentage">The spoil percentage of the target item.</param>
+    private void CountSelectedItemQuantity(out int selectedItemQuantity, out int targetItemId, out int targetItemSpoilPercentage)
     {
         selectedItemQuantity = 0;
         targetItemId = GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem.ID;
+        targetItemSpoilPercentage = 0;
 
         foreach (var InventoryItem in _entityInventoryManager.InventoryItems)
         {
@@ -64,37 +75,45 @@ public class BotInventoryItemSellManager : EntityInventoryItemSellManager
 
             if (isInventoryItemBuyingItem)
             {
-                if(selectedItemQuantity == 0)
-                {
-                    selectedItemQuantity++;
-                    continue;
-                }
-
-                selectedItemQuantity = Random.Range(0, 2) < 1 ? selectedItemQuantity + 1 : selectedItemQuantity + 0;
+                selectedItemQuantity++;
             }
         }
     }
 
-    private void PublishConfirmedItemForSale(byte selectedItemQuantity, byte targetItemId)
+    /// <summary>
+    /// Checks the item quantity and processes the confirmed sale item for publishing.
+    /// </summary>
+    /// <param name="selectedItemQuantity">The quantity of the selected item.</param>
+    /// <param name="targetItemId">The ID of the target item.</param>
+    /// <param name="targetItemSpoilPercentage">The spoil percentage of the target item.</param>
+    private void CheckItemQuantityAndProcess(byte selectedItemQuantity, byte targetItemId, byte targetItemSpoilPercentage)
     {
         if(selectedItemQuantity < 1)
         {
             return;
         }
 
-        byte quantity = selectedItemQuantity;
-        byte id = targetItemId;
-        GameSceneReferences.Manager.RemoteRPCWrapper.PublishBotConfirmedItemForSale(BotName, BotActorNumber, quantity, id);
-        ToggleHasAlreadyPublished(true);
+        GameSceneReferences.Manager.RemoteRPCWrapper.PublishBotConfirmedItemForSale(BotName, BotActorNumber, selectedItemQuantity, targetItemId, targetItemSpoilPercentage);
+        SetPublishedStatus(true);
     }
 
-    public override void PublishConfirmedItemForSale(int sellingItemQuantity, int sellingItemId)
+    /// <summary>
+    /// Sets the published status of the confirmed sale item.
+    /// </summary>
+    /// <param name="hasAlreadyPublished">A flag indicating if the item has already been published.</param>
+    private void SetPublishedStatus(bool hasAlreadyPublished)
+    {
+        _hasAlreadyPublished = hasAlreadyPublished;
+    }
+
+    public override void PublishConfirmedItemForSale(byte sellingItemQuantity, byte sellingItemId, byte sellingItemSpoilPercentage)
     {
         _sellingItemData[0] = BotName;
         _sellingItemData[1] = BotActorNumber;
         _sellingItemData[2] = sellingItemQuantity;
         _sellingItemData[3] = sellingItemId;
-        
+        _sellingItemData[4] = sellingItemSpoilPercentage;
+
         GameEventHandler.RaiseEvent(GameEventType.PublishSellingItemQuantity, _sellingItemData);
     }
 }
