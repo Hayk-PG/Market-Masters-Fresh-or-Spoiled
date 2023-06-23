@@ -5,6 +5,7 @@ public class RemoteRPCWrapper : MonoBehaviourPun
 {
     private object[] _botNumericChoiceData = new object[3];
     private object[] _overrideGameTimeData = new object[1];
+    private object[] _combinedSellingItemData = new object[2];
 
     private bool IsControllerMasterClient => MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer);
 
@@ -54,6 +55,24 @@ public class RemoteRPCWrapper : MonoBehaviourPun
         BotInventoryItemSellManager botInventoryItemSellManager = GlobalFunctions.ObjectsOfType<BotInventoryItemSellManager>.Find(bot => bot.BotName == entityName && bot.BotActorNumber == entityActorNumber);
         botInventoryItemSellManager?.PublishConfirmedItemForSale(sellingItemQuantity, sellingItemId);
         botInventoryItemSellManager?.RemoveSoldItems(sellingItemQuantity, sellingItemId);
+    }
+
+    public void PublishTeamCombinedSellingItemQuantity(byte teamCombinedSellingItemQuantity, byte teamIndex)
+    {
+        if (!IsControllerMasterClient)
+        {
+            return;
+        }
+
+        photonView.RPC("PublishTeamCombinedSellingItemQuantityRPC", RpcTarget.AllViaServer, teamCombinedSellingItemQuantity, teamIndex);
+    }
+
+    [PunRPC]
+    private void PublishTeamCombinedSellingItemQuantityRPC(byte teamCombinedSellingItemQuantity, byte teamIndex)
+    {
+        _combinedSellingItemData[0] = teamCombinedSellingItemQuantity;
+        _combinedSellingItemData[1] = teamIndex;
+        GameEventHandler.RaiseEvent(GameEventType.PublishTeamCombinedSellingItemQuantity, _combinedSellingItemData);
     }
 
     public void PublishBotSelectedNumber(string entityName, int entityActorNumber, int confirmedNumber)

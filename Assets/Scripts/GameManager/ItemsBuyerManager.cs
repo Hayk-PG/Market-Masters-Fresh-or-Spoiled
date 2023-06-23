@@ -6,9 +6,10 @@ using System.Collections.Generic;
 public class ItemsBuyerManager : MonoBehaviourPun
 {
     private bool _isItemBought = true;
-    private object[] _buyingItemData = new object[1];
 
     public Item BuyingItem { get; private set; }
+    public int PreviousPayingAmount { get; private set; }
+    public int CurrentPayingAmount { get; private set; }
 
 
 
@@ -56,17 +57,20 @@ public class ItemsBuyerManager : MonoBehaviourPun
     private void AssignBuyingItemRPC(int randomItemIndexFromCollection)
     {
         BuyingItem = GameSceneReferences.Manager.Items.Collection[randomItemIndexFromCollection];
-        WrapBuyingItemData(BuyingItem);
-        UpdateBuyingItemIcon(BuyingItem.Icon);
+        UpdateBuyingItemData(BuyingItem);
     }
 
-    private void WrapBuyingItemData(Item item)
+    private void UpdateBuyingItemData(Item item)
     {
-        _buyingItemData[0] = item;
+        int percentage = Random.Range(25, 400);
+        float itemPrice = item.Price;
+        SetPayingAmount(Mathf.RoundToInt(itemPrice / 100 * percentage));
+        GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateBuyingItemData(item.Icon, percentage, CurrentPayingAmount);
     }
 
-    private void UpdateBuyingItemIcon(Sprite sprite)
+    private void SetPayingAmount(int currentPayingAmount)
     {
-        GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateBuyingItemIcon(sprite);
+        PreviousPayingAmount = CurrentPayingAmount <= 0 ? currentPayingAmount : CurrentPayingAmount;
+        CurrentPayingAmount = currentPayingAmount;
     }
 }

@@ -79,7 +79,7 @@ public class SelectedNumberUIManager : MonoBehaviour
 
     private void UpdateTeamCombinedNumber(int number)
     {
-        bool hasTeammateSelectedNumber = _teamGroupUIManager.TeamCombinedNumber > 0;
+        bool hasTeammateSelectedNumber = _teamGroupUIManager.TeamCombinedSellingItemQuantity > 0;
 
         _teamGroupUIManager.UpdateTeamCombinedNumber(number);
 

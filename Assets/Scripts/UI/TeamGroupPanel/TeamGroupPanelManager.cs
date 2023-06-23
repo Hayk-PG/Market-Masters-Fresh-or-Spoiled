@@ -8,15 +8,16 @@ public class TeamGroupPanelManager : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private CanvasGroup _frameCanvasGroup;
+    [SerializeField] private TeamStockUI _teamStockUI;
 
     [Header("Player UI Groups")]
     [SerializeField] private PlayerUIGroupManager[] _playerUIGroups;
 
-    private object[] _teamCombinedNumberData = new object[1];
+    private object[] _teamCombinedNumberData = new object[2];
 
     public TeamIndex TeamIndex => _teamIndex;
     public PlayerUIGroupManager[] PlayerUIGroups => _playerUIGroups;
-    public int TeamCombinedNumber { get; private set; }
+    public int TeamCombinedSellingItemQuantity { get; private set; }
 
 
 
@@ -35,11 +36,12 @@ public class TeamGroupPanelManager : MonoBehaviour
     public void ChangeTeamIndex(TeamIndex teamIndex)
     {
         _teamIndex = teamIndex;
+        _teamStockUI.SetControllerTeam(teamIndex);
     }
 
     public void UpdateTeamCombinedNumber(int number)
     {
-        TeamCombinedNumber = (TeamCombinedNumber + number) > 0 ? TeamCombinedNumber + number : 0;
+        TeamCombinedSellingItemQuantity = (TeamCombinedSellingItemQuantity + number) > 0 ? TeamCombinedSellingItemQuantity + number : 0;
     }
 
     public void SetPlayerUIGroupOwnership(int playerUIGroupIndex, string ownerName, int actorNumber, bool isLocalPlayerOwner = false)
@@ -64,11 +66,12 @@ public class TeamGroupPanelManager : MonoBehaviour
             return;
         }
 
-        if(TeamCombinedNumber > 0)
+        if(TeamCombinedSellingItemQuantity > 0)
         {
-            _teamCombinedNumberData[0] = TeamCombinedNumber;
-            GameEventHandler.RaiseEvent(GameEventType.PublishTeamCombinedNumber, _teamCombinedNumberData);
-            TeamCombinedNumber = 0;
+            _teamCombinedNumberData[0] = TeamCombinedSellingItemQuantity;
+            _teamCombinedNumberData[1] = TeamIndex;
+            GameSceneReferences.Manager.RemoteRPCWrapper.PublishTeamCombinedSellingItemQuantity((byte)TeamCombinedSellingItemQuantity, (byte)TeamIndex);
+            TeamCombinedSellingItemQuantity = 0;
         }
     }
 
