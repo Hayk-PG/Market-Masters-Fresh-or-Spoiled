@@ -36,7 +36,14 @@ public class ItemsBuyerUIManager : MonoBehaviour
 
     private void ChangePercentageIdicatorColor(float percentage)
     {
-        Conditions<float>.Compare(percentage, 100f, ()=> _uiHsModifier.hue = 0.05f, ()=> _uiHsModifier.hue = -0.369f, ()=> _uiHsModifier.hue = -0.02f);
+        Conditions<float>.Compare(percentage, 100f, () => SetUIHsModifierValues(0.05f), () => SetUIHsModifierValues(0.286f, 0f, -0.069f), () => SetUIHsModifierValues(0.03f));
+    }
+
+    private void SetUIHsModifierValues(float hue, float saturation = 0f, float value = 0f)
+    {
+        _uiHsModifier.hue = hue;
+        _uiHsModifier.saturation = saturation;
+        _uiHsModifier.value = value;
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
