@@ -47,6 +47,7 @@ public class ItemShopManager : MonoBehaviour
     {
         OnGameTurnUpdate(gameEventType);
         OnItemSelect(gameEventType, data);
+        OnTabActivity(gameEventType);
     }
 
     /// <summary>
@@ -61,10 +62,10 @@ public class ItemShopManager : MonoBehaviour
         }
 
         UpdateShopItems();
+        DeselectItems(_shopItemButtons);
         UpdateSelectedItemsList();
-        DeselectItems();
-        SetBuyButtonInteractability();
         UpdateSelectedItemsTotalCostText();
+        SetBuyButtonInteractability();        
     }
 
     /// <summary>
@@ -79,10 +80,23 @@ public class ItemShopManager : MonoBehaviour
             return;
         }
 
+        PlaySoundEffect(0, 8);
         DeselectCommandButtons();
         UpdateSelectedItemsList((ShopItemButton)data[0]);
         UpdateSelectedItemsTotalCostText();
         CheckPurchaseRequirements();
+    }
+
+    /// <summary>
+    /// Handles the cancel button selection event.
+    /// </summary>
+    private void OnCanselButtonSelect()
+    {
+        DeselectItems(_selectedItems.ToArray());
+        UpdateSelectedItemsList();
+        UpdateSelectedItemsTotalCostText();        
+        SetBuyButtonInteractability();
+        PlaySoundEffect(4, 2);
     }
 
     /// <summary>
@@ -99,6 +113,8 @@ public class ItemShopManager : MonoBehaviour
 
         SendSelectedItemsForConfirmation();
         UpdateSelectedItemsTotalCostText();
+        UpdateSelectedItemsList();
+        DeselectItems(_selectedItems.ToArray());
     }
 
     /// <summary>
@@ -110,15 +126,14 @@ public class ItemShopManager : MonoBehaviour
         GameEventHandler.RaiseEvent(GameEventType.TryBuySelectedShopItem, _selectedItemsData);
     }
 
-    /// <summary>
-    /// Handles the cancel button selection event.
-    /// </summary>
-    private void OnCanselButtonSelect()
+    private void OnTabActivity(GameEventType gameEventType)
     {
-        UpdateSelectedItemsList();
-        UpdateSelectedItemsTotalCostText();
-        DeselectItems();
-        SetBuyButtonInteractability();
+        if(gameEventType != GameEventType.SellingBuyingTabActivity)
+        {
+            return;
+        }
+
+        DeselectItems(_shopItemButtons);
     }
 
     /// <summary>
@@ -140,11 +155,11 @@ public class ItemShopManager : MonoBehaviour
     /// <summary>
     /// Deselects the command buttons.
     /// </summary>
-    private void DeselectItems()
+    private void DeselectItems(ShopItemButton[] shopItemButtons)
     {
-        for (int i = 0; i < _shopItemButtons.Length; i++)
+        for (int i = 0; i < shopItemButtons.Length; i++)
         {
-            _shopItemButtons[i].Deselect();
+            shopItemButtons[i].Deselect();
         }
     }
 
@@ -206,5 +221,10 @@ public class ItemShopManager : MonoBehaviour
     public void SetBuyButtonInteractability(bool isInteractable = true)
     {
         _buyButtonComponent.interactable = isInteractable;
+    }
+
+    private void PlaySoundEffect(int listIndex, int clipIndex)
+    {
+        UISoundController.PlaySound(listIndex, clipIndex);
     }
 }

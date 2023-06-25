@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SellingBuyingTabButtonController : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private SideButtonsPopUpEffectController _sideButtonsEffectController;
+
     [Header("UI Elements")]
     [SerializeField] private Btn _toggleSellingBuyingTabButton;
     [SerializeField] private BtnTxt _text;
+    [SerializeField] private Image _leftArrowIcon;
+    [SerializeField] private Image _rightArrowIcon;
 
     private const string _sellTab = "sell";
     private const string _buyTab = "buy";
@@ -31,6 +37,8 @@ public class SellingBuyingTabButtonController : MonoBehaviour
             return;
         }
 
+        PlaySoundEffect();
+        PlayClickAnimation();
         GameEventHandler.RaiseEvent(GameEventType.SellingBuyingTabActivity);
     }
 
@@ -42,6 +50,7 @@ public class SellingBuyingTabButtonController : MonoBehaviour
         }
 
         UpdateText();
+        SwitchArrowIcons();
     }
 
     private void UpdateText()
@@ -53,5 +62,32 @@ public class SellingBuyingTabButtonController : MonoBehaviour
             case true: _text.SetButtonTitle(_sellTab);break;
             case false: _text.SetButtonTitle(_buyTab); break;
         }
+    }
+
+    private void SwitchArrowIcons()
+    {
+        switch (_isTextSwitched)
+        {
+            case true:
+                _leftArrowIcon.gameObject.SetActive(false);
+                _rightArrowIcon.gameObject.SetActive(true);
+                break;
+
+            case false:
+                _leftArrowIcon.gameObject.SetActive(true);
+                _rightArrowIcon.gameObject.SetActive(false);
+                break;
+        }
+    }
+
+    private void PlaySoundEffect()
+    {
+        UISoundController.PlaySound(0, _isTextSwitched ? 4 : 5);
+        UISoundController.PlaySound(6, 0);
+    }
+
+    private void PlayClickAnimation()
+    {
+        _sideButtonsEffectController.PlayAnimation(0);
     }
 }

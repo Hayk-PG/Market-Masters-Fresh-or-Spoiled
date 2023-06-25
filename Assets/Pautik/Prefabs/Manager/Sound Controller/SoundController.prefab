@@ -173,7 +173,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1562e644cb6f732408dba31929db29d1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 1
@@ -537,6 +537,9 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f343b67ef5d5475409bd48055ab21aa9, type: 3}
     - {fileID: 8300000, guid: dfe52af3c310cc44cafd48472ca5317c, type: 3}
     - {fileID: 8300000, guid: 6cd4789ae2fd24b43a1345b8a85eb45f, type: 3}
+    - {fileID: 8300000, guid: 8466b904679ec68498f052624e4288ab, type: 3}
+    - {fileID: 8300000, guid: 80eea64302a531344ae1a5e51bb3683e, type: 3}
+    - {fileID: 8300000, guid: 4f5e3faa3c02bf740935b467f1a5d06b, type: 3}
   - _title: Pop up
     _clips:
     - {fileID: 8300000, guid: 5a67af141c57aae4193f603c7e96c917, type: 3}
@@ -552,9 +555,15 @@ MonoBehaviour:
   - _title: Error
     _clips:
     - {fileID: 8300000, guid: 87d09e7a0c27b8b43b5d8e556cd71abb, type: 3}
+    - {fileID: 8300000, guid: afceb3f385b8ca64fa56c94e9e7c8d40, type: 3}
+    - {fileID: 8300000, guid: 96020dc0717d693408fd2adf25638a67, type: 3}
   - _title: Cash
     _clips:
     - {fileID: 8300000, guid: 916a1244ddaba6c4f8e8ede1fe568849, type: 3}
+    - {fileID: 8300000, guid: 3a3147e936a47e94eb1c08c91a4b75f1, type: 3}
+  - _title: Whooshes
+    _clips:
+    - {fileID: 8300000, guid: 0c099a5e62dfee943b5ffcaff7a97c1f, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0

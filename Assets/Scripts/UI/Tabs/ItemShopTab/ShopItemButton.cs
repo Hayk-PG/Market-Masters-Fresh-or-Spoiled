@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Pautik;
+using Coffee.UIEffects;
 
 public class ShopItemButton : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private Btn_Icon _itemIcon;  
     [SerializeField] private BtnTxt _itemPriceText;
     [SerializeField] private Image _itemPriceLabel;
+    [SerializeField] private UIShiny _uiShiny;
 
     [Header("Colors")]
     [SerializeField] private Color _emptyItemIconColor;
@@ -28,12 +30,18 @@ public class ShopItemButton : MonoBehaviour
     private void OnEnable()
     {
         _itemButton.OnSelect += OnSelect;
+        GameEventHandler.OnEvent += OnGameEvent;
     }
 
     private void OnSelect()
     {
         _shopItemButtonData[0] = this;
         GameEventHandler.RaiseEvent(GameEventType.OnShopItemButtonSelect, _shopItemButtonData);
+    }
+
+    private void OnGameEvent(GameEventType gameEventType, object[] data)
+    {
+        PlayShineEffect(gameEventType);
     }
 
     public void UpdateItem(Item item)
@@ -87,5 +95,15 @@ public class ShopItemButton : MonoBehaviour
     {
         Price = newPrice;
         _itemPriceText.SetButtonTitle($"${Converter.ThousandsSeparatorString((int)newPrice, true)}");
+    }
+
+    private void PlayShineEffect(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.SellingBuyingTabActivity)
+        {
+            return;
+        }
+
+        _uiShiny.Play();
     }
 }

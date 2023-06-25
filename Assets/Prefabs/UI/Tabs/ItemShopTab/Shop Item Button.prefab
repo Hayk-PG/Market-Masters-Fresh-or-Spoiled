@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 12.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -450,12 +450,39 @@ MonoBehaviour:
   _itemIcon: {fileID: 3608100328271691989}
   _itemPriceText: {fileID: 536627125206003736}
   _itemPriceLabel: {fileID: 2818670600156858071}
+  _uiShiny: {fileID: 3820539970393646668}
   _emptyItemIconColor: {r: 1, g: 1, b: 1, a: 0.15686275}
   _itemPriceLabelColors:
   - {r: 0.11764706, g: 0.78431374, b: 0.09411765, a: 1}
   - {r: 1, g: 0.627451, b: 0, a: 1}
   - {r: 1, g: 0.3882353, b: 0.43529412, a: 1}
   _item: {fileID: 0}
+--- !u!114 &3820539970393646668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074664756055158778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0.465
+  m_Width: 0.3
+  m_Rotation: 135
+  m_Softness: 1
+  m_Brightness: 0.25
+  m_Gloss: 0
+  m_EffectArea: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 0.5
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
 --- !u!224 &3074664756055158779 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6027077821312898210, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}

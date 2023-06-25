@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using Pautik;
 
 public class PlayerShopInteractionManager : MonoBehaviourPun
 {
@@ -61,6 +62,7 @@ public class PlayerShopInteractionManager : MonoBehaviourPun
             totalCost += itemButton.Price;          
         }
 
+        Conditions<bool>.Compare(totalCost > 0, () => PlaySoundEffect(5, 1), () => PlaySoundEffect(4, 1));
         UpdateStock(totalCost);
     }
 
@@ -84,5 +86,10 @@ public class PlayerShopInteractionManager : MonoBehaviourPun
     {
         int teamStockAmount = _entityIndexManager.TeamIndex == TeamIndex.Team1 ? GameSceneReferences.Manager.TeamStockManager.Team1StockAmount : GameSceneReferences.Manager.TeamStockManager.Team2StockAmount;
         itemShopManager.SetBuyButtonInteractability(selectedItemsTotalCost <= teamStockAmount);
+    }
+
+    private void PlaySoundEffect(int listIndex, int clipIndex)
+    {
+        UISoundController.PlaySound(listIndex, clipIndex);
     }
 }

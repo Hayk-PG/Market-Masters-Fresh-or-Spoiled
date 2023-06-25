@@ -27,11 +27,16 @@ public class SideButtonsPopUpEffectController : MonoBehaviour
 
         while(index < _buttonsAnimators.Length)
         {
-            _buttonsAnimators[index].Play(_animationClip, 0, 0);
+            PlayAnimation(index);
             UISoundController.PlaySound(1, 0);
 
             index++;
             yield return new WaitForSeconds(0.15f);
         }
+    }
+
+    public void PlayAnimation(int animatorIndex)
+    {
+        _buttonsAnimators[animatorIndex].Play(_animationClip, 0, 0);
     }
 }
