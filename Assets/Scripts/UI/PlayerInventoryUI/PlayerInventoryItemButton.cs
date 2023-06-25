@@ -33,7 +33,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
             return;
         }
 
-        if (AssosiatedItem != null)
+        if (_item != null)
         {
             int currentTurnCount = (int)data[3];
             RunLifeTimeCycle(currentTurnCount);
@@ -44,7 +44,8 @@ public class PlayerInventoryItemButton : MonoBehaviour
     public void AssignItem(Item item)
     {
         _item = item;
-        _icon.IconSpriteChangedDelegate (item.Icon);
+        _icon.IconSpriteChangeDelegate (item.Icon);
+        _icon.ChangeReleasedSpriteDelegate();
         ResetLifetimeCycle();
     }
 
@@ -56,7 +57,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     private void ResetLifetimeCycle()
     {
-        _playerInventoryItemSpoilUIManager.ResetLifetimeCycle(AssosiatedItem);
+        _playerInventoryItemSpoilUIManager.ResetLifetimeCycle(_item);
     }
 
     private void RunLifeTimeCycle(int currentTurnCount)
@@ -68,7 +69,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     {
         if (ItemSpoilPercentage >= 100)
         {
-            _spoiledItemData[0] = AssosiatedItem.ID;
+            _spoiledItemData[0] = _item.ID;
             GameEventHandler.RaiseEvent(GameEventType.DestroySpoiledItem, _spoiledItemData);
             _item = null; 
         }

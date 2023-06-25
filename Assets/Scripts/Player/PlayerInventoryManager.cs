@@ -32,7 +32,7 @@ public class PlayerInventoryManager : EntityInventoryManager
         for (int i = 0; i < _inventorySize; i++)
         {
             AddRandomItemFromCollection(out Item item);
-            GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(i, item);          
+            GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);          
         }
     }
 

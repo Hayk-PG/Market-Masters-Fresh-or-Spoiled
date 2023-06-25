@@ -21,7 +21,8 @@ public class TeamStockManager : MonoBehaviour
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        RetrieveDataAndExecute(gameEventType, data);
+        ReceiveMoneyFromSell(gameEventType, data);
+        UpdateMoneyRegardlessOfSale(gameEventType, data);
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public class TeamStockManager : MonoBehaviour
     /// </summary>
     /// <param name="gameEventType">The type of the game event.</param>
     /// <param name="data">Additional data associated with the game event.</param>
-    private void RetrieveDataAndExecute(GameEventType gameEventType, object[] data)
+    private void ReceiveMoneyFromSell(GameEventType gameEventType, object[] data)
     {
         if (gameEventType != GameEventType.PublishTeamCombinedSellingItemQuantity)
         {
@@ -56,8 +57,25 @@ public class TeamStockManager : MonoBehaviour
         // Calculate the final payment by subtracting the spoilage amount from the initial payment
         float finalPayment  = initialPayment  - (initialPayment  / 100 * spoilageRatio );
 
-        print($"Initial payment: {initialPayment} / Final payment: {(int)finalPayment} / Spoilage Ratio: {spoilageRatio} / Spoilage percentage: {spoilagePercentage}");
         UpdateTeamStockAmount((TeamIndex)teamIndex, (int)finalPayment);
+        UpdateStockUI();
+    }
+
+    /// <summary>
+    /// Updates the player's money regardless of a sale transaction.
+    /// </summary>
+    /// <param name="gameEventType">The game event type.</param>
+    /// <param name="data">The data associated with the game event.</param>
+    private void UpdateMoneyRegardlessOfSale(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.UpdateMoneyRegardlessOfSale)
+        {
+            return;
+        }
+
+        short amount = (short)data[0];
+        TeamIndex targetTeam = (TeamIndex)data[1];
+        UpdateTeamStockAmount(targetTeam, amount);
         UpdateStockUI();
     }
 
@@ -80,6 +98,6 @@ public class TeamStockManager : MonoBehaviour
         _teamStockData[0] = AddressedTeam;
         _teamStockData[1] = Team1StockAmount;
         _teamStockData[2] = Team2StockAmount;
-        GameEventHandler.RaiseEvent(GameEventType.UpdateTeamStockAmount, _teamStockData);
+        GameEventHandler.RaiseEvent(GameEventType.UpdateStockUI, _teamStockData);
     }
 }

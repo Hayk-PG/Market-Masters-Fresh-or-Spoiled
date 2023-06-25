@@ -14,6 +14,11 @@ public enum GameEventType
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
    PublishTeamCombinedSellingItemQuantity,
-   UpdateTeamStockAmount,
+   UpdateStockUI,
+   UpdateMoneyRegardlessOfSale,
+   OnShopItemButtonSelect,
+   MeetsPurchaseRequirements,
+   TryBuySelectedShopItem,
+   SellingBuyingTabActivity,
    ConfirmSelectedNumber  
 }

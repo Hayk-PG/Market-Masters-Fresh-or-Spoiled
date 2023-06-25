@@ -30,7 +30,7 @@ public class TeamStockUI : MonoBehaviour
 
     private void UpdateMoneyText(GameEventType gameEventType, object[] data)
     {
-        bool canUpdateMoneyText = gameEventType == GameEventType.UpdateTeamStockAmount && _controllerTeam == (TeamIndex)data[0];
+        bool canUpdateMoneyText = gameEventType == GameEventType.UpdateStockUI && _controllerTeam == (TeamIndex)data[0];
 
         if (!canUpdateMoneyText)
         {

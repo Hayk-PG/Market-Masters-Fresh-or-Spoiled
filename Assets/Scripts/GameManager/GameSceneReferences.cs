@@ -10,6 +10,7 @@ public class GameSceneReferences : MonoBehaviour
     [SerializeField] private GameTurnManager _gameTurnManager;
     [SerializeField] private RemoteRPCWrapper _remoteRPCWrapper;
     [SerializeField] private ItemsBuyerManager _itemsBuyerManager;
+    [SerializeField] private TeamStockManager _teamStockManager;
 
     [Header("HUD")]
     [SerializeField] private PlayerUIGroupManager[] _playerUIGroups;
@@ -29,6 +30,7 @@ public class GameSceneReferences : MonoBehaviour
     public GameTurnManager GameTurnManager => Manager._gameTurnManager;
     public RemoteRPCWrapper RemoteRPCWrapper => Manager._remoteRPCWrapper;
     public ItemsBuyerManager ItemsBuyerManager => Manager._itemsBuyerManager;
+    public TeamStockManager TeamStockManager => Manager._teamStockManager;
 
     // HUD
     public PlayerUIGroupManager[] PlayerUIGroups => Manager._playerUIGroups;

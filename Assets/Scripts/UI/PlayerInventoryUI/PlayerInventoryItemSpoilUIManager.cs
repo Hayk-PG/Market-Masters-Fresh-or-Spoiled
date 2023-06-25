@@ -31,7 +31,6 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
         AssignCurrentLifetimeCycle(value: currentTurnCount - _lifetime);
         SetDisolveEffectFactor(value: Mathf.InverseLerp(0, 10, _currentLifetimeCycle));
         SetItemSpoilPercentage(value: Mathf.RoundToInt(Mathf.InverseLerp(0f, 1f, _iconDisolve.effectFactor) * 100f));
-        print($"{ItemSpoilPercentage}");
     }
 
     private void AssignLifetime(Item item)

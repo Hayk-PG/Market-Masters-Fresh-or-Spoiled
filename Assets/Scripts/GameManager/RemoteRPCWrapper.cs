@@ -6,6 +6,7 @@ public class RemoteRPCWrapper : MonoBehaviourPun
     private object[] _botNumericChoiceData = new object[3];
     private object[] _overrideGameTimeData = new object[1];
     private object[] _combinedSellingItemData = new object[3];
+    private object[] _stockData = new object[2];
 
     private bool IsControllerMasterClient => MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer);
 
@@ -114,5 +115,23 @@ public class RemoteRPCWrapper : MonoBehaviourPun
     {
         _overrideGameTimeData[0] = targetGameTime;
         GameEventHandler.RaiseEvent(GameEventType.OverrideGameTime, _overrideGameTimeData);
+    }
+
+    public void UpdateMoneyRegardlessOfSale(short moneyAmount, TeamIndex targetGameTime)
+    {
+        if (!IsControllerMasterClient)
+        {
+            return;
+        }
+
+        photonView.RPC("UpdateMoneyRegardlessOfSaleRPC", RpcTarget.AllViaServer, moneyAmount, (byte)targetGameTime);
+    }
+
+    [PunRPC]
+    private void UpdateMoneyRegardlessOfSaleRPC(short moneyAmount, byte targetGameTime)
+    {
+        _stockData[0] = moneyAmount;
+        _stockData[1] = (TeamIndex)targetGameTime;
+        GameEventHandler.RaiseEvent(GameEventType.UpdateMoneyRegardlessOfSale, _stockData);
     }
 }

@@ -31,9 +31,19 @@ public class PlayerInventoryUIManager : MonoBehaviour
         _confirmButton.OnSelect += OnConfirmButtonSelect;
     }
 
-    public void AssignInvetoryItem(int inventoryItemButtonIndex, Item item)
+    public void AssignInvetoryItem(Item item)
     {
-        _inventoryItemButtons[inventoryItemButtonIndex].AssignItem(item);
+        for (int i = 0; i < _inventoryItemButtons.Length; i++)
+        {
+            bool canAssignItem = _inventoryItemButtons[i].AssosiatedItem == null;
+
+            if (canAssignItem)
+            {
+                _inventoryItemButtons[i].AssignItem(item);
+                _inventoryItemButtons[i].Deselect();
+                return;
+            }
+        }
     }
 
     public void GetControllerTeam(TeamIndex teamIndex)
