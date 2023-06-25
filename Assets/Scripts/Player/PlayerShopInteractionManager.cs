@@ -1,25 +1,15 @@
-using Photon.Pun;
-using UnityEngine;
 using Pautik;
 
-public class PlayerShopInteractionManager : MonoBehaviourPun
+public class PlayerShopInteractionManager : EntityShopInteractionManager
 {
-    [Header("Entity Components")]
-    [SerializeField] private EntityManager _entityManager;
-    [SerializeField] private EntityIndexManager _entityIndexManager;
-    [SerializeField] private EntityInventoryManager _entityInventoryManager;
+    protected override bool HavePermission => photonView.IsMine;
 
 
 
 
-    private void OnEnable()
-    {      
-        GameEventHandler.OnEvent += OnGameEvent;
-    }
-
-    private void OnGameEvent(GameEventType gameEventType, object[] data)
+    protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if (!photonView.IsMine)
+        if (!HavePermission)
         {
             return;
         }
@@ -64,17 +54,6 @@ public class PlayerShopInteractionManager : MonoBehaviourPun
 
         Conditions<bool>.Compare(totalCost > 0, () => PlaySoundEffect(5, 1), () => PlaySoundEffect(4, 1));
         UpdateStock(totalCost);
-    }
-
-    private void AddItemToInventory(Item item)
-    {
-        _entityInventoryManager.AddItem(item);
-        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);
-    }
-
-    private void UpdateStock(float totalCost)
-    {
-        GameSceneReferences.Manager.RemoteRPCWrapper.UpdateMoneyRegardlessOfSale((short)-totalCost, _entityIndexManager.TeamIndex);
     }
 
     private void RetrievePurchaseRequirementsData(object[] data, out float selectedItemsTotalCost)
