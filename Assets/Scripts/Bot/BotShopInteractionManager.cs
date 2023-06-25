@@ -1,5 +1,6 @@
 using UnityEngine;
 using Pautik;
+using System.Collections;
 
 public class BotShopInteractionManager : EntityShopInteractionManager
 {
@@ -14,18 +15,25 @@ public class BotShopInteractionManager : EntityShopInteractionManager
             return;
         }
 
-        HandleGameTurnUpdateEvent(gameEventType, data);
+        StartCoroutine(GenerateRandomShopPurchaseAfterDelay(gameEventType, data));
     }
 
-    private void HandleGameTurnUpdateEvent(GameEventType gameEventType, object[] data)
+    private IEnumerator GenerateRandomShopPurchaseAfterDelay(GameEventType gameEventType, object[] data)
     {
         bool canHaveAccessToShop = gameEventType == GameEventType.UpdateGameTurn && _entityIndexManager.TeamIndex != (TeamIndex)data[2];
 
         if (!canHaveAccessToShop)
         {
-            return;
+            yield break;
         }
 
+        float randomDelay = Random.Range(1f, 3f);
+        yield return new WaitForSeconds(randomDelay);
+        GenerateRandomShopPurchase();
+    }
+
+    private void GenerateRandomShopPurchase()
+    {
         float teamStock = _entityIndexManager.TeamIndex == TeamIndex.Team1 ? GameSceneReferences.Manager.TeamStockManager.Team1StockAmount : GameSceneReferences.Manager.TeamStockManager.Team2StockAmount;
         float purchaseLimit = teamStock / 100f * 30f;
         float totalMoneySpend = 0f;
@@ -50,7 +58,6 @@ public class BotShopInteractionManager : EntityShopInteractionManager
 
         if(totalMoneySpend > 0)
         {
-            print($"Name: {_entityManager.EntityName}/Total money spend: {totalMoneySpend}/Inventory size: {_entityInventoryManager.InventoryItems.Count}");
             UpdateStock(totalMoneySpend);
         }
     }

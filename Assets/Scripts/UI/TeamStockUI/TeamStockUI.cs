@@ -57,14 +57,15 @@ public class TeamStockUI : MonoBehaviour
     {
         _previousAmount = _currentAmount;
         _currentAmount = moneyAmount;
+        int amountDifference = Mathf.Abs(_currentAmount - _previousAmount);
 
-        if(_previousAmount == _currentAmount)
+        if (_previousAmount == _currentAmount)
         {
             return;
         }
 
         _animator.Play(_previousAmount < _currentAmount ? _increment : _decrement, 0, 0);
-        Conditions<bool>.Compare(_previousAmount < _currentAmount, () => UpdateText(_effecText, moneyAmount, "+"), () => UpdateText(_effecText, moneyAmount, "-"));
+        Conditions<bool>.Compare(_previousAmount < _currentAmount, () => UpdateText(_effecText, amountDifference, "+"), () => UpdateText(_effecText, amountDifference, "-"));
     }
 
     private void UpdateText(TMP_Text text, int amount, string symbol = "")
