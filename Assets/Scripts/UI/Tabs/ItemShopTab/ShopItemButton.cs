@@ -11,6 +11,7 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private BtnTxt _itemPriceText;
     [SerializeField] private Image _itemPriceLabel;
     [SerializeField] private UIShiny _uiShiny;
+    [SerializeField] private CanvasGroup _emtpyIndicatorCanvasGroup;
 
     [Header("Colors")]
     [SerializeField] private Color _emptyItemIconColor;
@@ -46,6 +47,7 @@ public class ShopItemButton : MonoBehaviour
 
     public void UpdateItem(Item item)
     {
+        SetCellEmpty(false);
         AssignItem(item);
         ChangeIcon(item);
         DetermineItemCurrentPrice(item, out float newPrice);
@@ -57,6 +59,20 @@ public class ShopItemButton : MonoBehaviour
     {
         AssignItem(null);
         SetItemPriceLabelColor(new Color(255f, 255f, 255f, 0f));
+    }
+
+    public void SetCellEmpty(bool isEmpty)
+    {
+        GlobalFunctions.CanvasGroupActivity(_emtpyIndicatorCanvasGroup, isEmpty);
+        _itemIcon.gameObject.SetActive(!isEmpty);
+        _itemPriceLabel.gameObject.SetActive(!isEmpty);
+        _itemButton.IsInteractable = !isEmpty;
+        _uiShiny.enabled = !isEmpty;
+
+        if (isEmpty)
+        {
+            RemoveItem();
+        }
     }
 
     public void Deselect()

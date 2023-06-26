@@ -112,7 +112,7 @@ public class ItemShopManager : MonoBehaviour
         }
 
         SendSelectedItemsForConfirmation();
-        UpdateSelectedItemsTotalCostText();
+        UpdateSelectedItemsTotalCostText(true);
         UpdateSelectedItemsList();
         DeselectItems(_selectedItems.ToArray());
     }
@@ -141,14 +141,25 @@ public class ItemShopManager : MonoBehaviour
     /// </summary>
     private void UpdateShopItems()
     {
+        int randomSize = Random.Range(1, _shopItemButtons.Length);
+
         for (int i = 0; i < _items.Collection.Count; i++)
         {
-            if(i >= _shopItemButtons.Length)
+            bool isIndexInRange = i < randomSize;
+            bool isIndexOutOfBounds = i >= _shopItemButtons.Length;
+
+            if (isIndexInRange)
+            {
+                _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)]);
+                continue;
+            }
+
+            if (isIndexOutOfBounds)
             {
                 break;
             }
 
-            _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)]);
+            _shopItemButtons[i].SetCellEmpty(true);
         }
     }
 
@@ -191,15 +202,26 @@ public class ItemShopManager : MonoBehaviour
     /// <summary>
     /// Updates the text displaying the total cost of selected items.
     /// </summary>
-    private void UpdateSelectedItemsTotalCostText()
+    private void UpdateSelectedItemsTotalCostText(bool resetText = false)
     {
         float total = 0f;
+
+        if (resetText)
+        {
+            SetTotalCostValueAndText(total);
+            return;
+        }
 
         foreach (var item in _selectedItems)
         {
             total += item.Price;
         }
 
+        SetTotalCostValueAndText(total);
+    }
+
+    private void SetTotalCostValueAndText(float total)
+    {
         _selectedItemsTotalCost = total;
         _selectedItemsTotalText.SetButtonTitle($"${Converter.ThousandsSeparatorString((int)_selectedItemsTotalCost, true)}");
     }

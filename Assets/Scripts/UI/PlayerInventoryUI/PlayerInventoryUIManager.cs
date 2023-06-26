@@ -4,14 +4,21 @@ using Pautik;
 
 public class PlayerInventoryUIManager : MonoBehaviour
 {
-    [Header("Buttons")]
+    [Header("Cells")]
     [SerializeField] private PlayerInventoryItemButton[] _inventoryItemButtons;
+
+    [Header("UI Elements")]
     [SerializeField] private Btn _confirmButton;
+    [SerializeField] private Btn_Icon _confirmButtonIcon;
 
     [Header("Components")]
     [SerializeField] private Animator _animator;
 
+    [Header("Confirm Button Icon Sprites")]
+    [SerializeField] private Sprite[] _confirmButtonIconSprites;
+
     private string _errorAnimation = "ErrorAnim";
+    private string _confirmButtonSelectAnim = "ConfirmButtonSelectAnim";
     private object[] _sellingInventoryItemData = new object[3];
     private bool _isItemConfirmed;
     private TeamIndex _controllerTeamIndex;
@@ -67,6 +74,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
         AddSelectedItemToList(playerInventoryItemButton: (PlayerInventoryItemButton)data[0]);
         PlayClickSoundEffect(9);
         DeselectConfirmButton();
+        UpdateConfirmButtonIcon();
     }
 
     private void AllowItemConfirmation(GameEventType gameEventType)
@@ -92,6 +100,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
         DismissItemConfirmation(isNoBuyingItemSelected);
         RemoveAllSelectedItems();
         PlayClickSoundEffect(11);
+        UpdateConfirmButtonIcon(false);
     }
 
     private void TryConfirmSelectedItem(out bool isNoBuyingItemSelected)
@@ -128,6 +137,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
         }
 
         SendSellingItemData(sellingItemQuantity, sellingItemId, sellingItemSpoilPercentage);
+        PlayConfirmButtonSelectAnimation(sellingItemQuantity > 0f);
     }
 
     private void SendSellingItemData(int sellingItemQuantity, int sellingItemId, int sellingItemSpoilPercentage)
@@ -154,6 +164,12 @@ public class PlayerInventoryUIManager : MonoBehaviour
         _confirmButton.Deselect();
     }
 
+    private void UpdateConfirmButtonIcon(bool isItemSelected = true)
+    {
+        _confirmButtonIcon.IconSpriteChangeDelegate(isItemSelected ? _confirmButtonIconSprites[1] : _confirmButtonIconSprites[0]);
+        _confirmButtonIcon.ChangeReleasedSpriteDelegate();
+    }
+
     private void RemoveAllSelectedItems()
     {
         bool isListEmpty = _selectedItemButtonsList.Count == 0;
@@ -175,6 +191,16 @@ public class PlayerInventoryUIManager : MonoBehaviour
     {
         _animator.Play(_errorAnimation, 0, 0);
         UISoundController.PlaySound(4, 0);
+    }
+
+    private void PlayConfirmButtonSelectAnimation(bool canPlay)
+    {
+        if (!canPlay)
+        {
+            return;
+        }
+
+        _animator.Play(_confirmButtonSelectAnim, 0, 0);
     }
 
     private void PlayClickSoundEffect(int clipIndex)
