@@ -4,7 +4,13 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 {
     protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         RetrieveConfirmedSaleItemData(gameEventType, data);
+        GetMoneyFromSellingSpoiledItems(gameEventType, data);
     }
 
     /// <summary>
@@ -14,9 +20,7 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
     /// <param name="data">Additional data associated with the game event.</param>
     private void RetrieveConfirmedSaleItemData(GameEventType gameEventType, object[] data)
     {
-        bool canRetrieveData = gameEventType == GameEventType.ConfirmInventoryItemForSale && photonView.IsMine;
-
-        if (!canRetrieveData)
+        if (gameEventType != GameEventType.ConfirmInventoryItemForSale)
         {
             return;
         }
@@ -32,6 +36,18 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 
         PublishConfirmedItemForSale((byte)sellingItemQuantity, (byte)sellingItemId, (byte)sellingItemSpoilPercentage);
         RemoveSoldItems((byte)sellingItemQuantity, (byte)sellingItemId);
+    }
+
+    private void GetMoneyFromSellingSpoiledItems(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.SellSpoiledItems)
+        {
+            return;
+        }
+
+        int moneyAmount = (int)data[0];
+        GameSceneReferences.Manager.RemoteRPCWrapper.UpdateMoneyRegardlessOfSale((short)moneyAmount, _entityIndexManager.TeamIndex);
+        UISoundController.PlaySound(5, 1);
     }
 
     public override void PublishConfirmedItemForSale(byte sellingItemQuantity, byte sellingItemId, byte sellingItemSpoilPercentage)

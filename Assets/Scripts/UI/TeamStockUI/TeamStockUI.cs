@@ -48,7 +48,7 @@ public class TeamStockUI : MonoBehaviour
         }
 
         int moneyAmount = _controllerTeam == TeamIndex.Team1 ? ((int)data[1]) : ((int)data[2]);
-        UpdateText(_moneyText, moneyAmount);
+        UpdateText(_moneyText, moneyAmount < 0 ? 0 : moneyAmount);
         PlayAnimation(moneyAmount);
         UISoundController.PlaySound(6, 0);
     }

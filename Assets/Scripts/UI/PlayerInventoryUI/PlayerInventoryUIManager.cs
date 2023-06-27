@@ -62,6 +62,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
     {
         OnInventoryItemSelect(gameEventType, data);
         AllowItemConfirmation(gameEventType);
+        SellSpoiledItems(gameEventType);
     }
 
     private void OnInventoryItemSelect(GameEventType gameEventType, object[] data)
@@ -148,6 +149,33 @@ public class PlayerInventoryUIManager : MonoBehaviour
             _sellingInventoryItemData[1] = sellingItemId;
             _sellingInventoryItemData[2] = sellingItemSpoilPercentage;
             GameEventHandler.RaiseEvent(GameEventType.ConfirmInventoryItemForSale, _sellingInventoryItemData);
+        }
+    }
+
+    private void SellSpoiledItems(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.SellSpoiledItems)
+        {
+            return;
+        }
+
+        DeselectConfirmButton();
+        UpdateConfirmButtonIcon(false);
+        RemoveAllSelectedItems();
+
+        foreach (var inventoryItemButton in _inventoryItemButtons)
+        {
+            if(inventoryItemButton.AssosiatedItem == null)
+            {
+                continue;
+            }
+
+            if(inventoryItemButton.ItemSpoilPercentage > 10)
+            {
+                inventoryItemButton.DestroySpoiledItemOnSeparateSale();
+            }
+
+            inventoryItemButton.Deselect();
         }
     }
 

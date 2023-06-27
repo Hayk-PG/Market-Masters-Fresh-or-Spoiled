@@ -55,6 +55,12 @@ public class PlayerInventoryItemButton : MonoBehaviour
         ResetLifetimeCycle();
     }
 
+    public void DestroySpoiledItemOnSeparateSale()
+    {
+        _playerInventoryItemSpoilUIManager.ResetSpoilageOnSeparateSale();
+        DestroyItemIfSpoiled();
+    }
+
     private void ResetLifetimeCycle()
     {
         _playerInventoryItemSpoilUIManager.ResetLifetimeCycle(_item);

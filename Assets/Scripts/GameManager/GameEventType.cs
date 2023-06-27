@@ -20,5 +20,6 @@ public enum GameEventType
    MeetsPurchaseRequirements,
    TryBuySelectedShopItem,
    SellingBuyingTabActivity,
-   ConfirmSelectedNumber  
+   ConfirmSelectedNumber,
+   SellSpoiledItems
 }

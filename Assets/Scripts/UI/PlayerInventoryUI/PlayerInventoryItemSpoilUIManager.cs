@@ -33,6 +33,17 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
         SetItemSpoilPercentage(value: Mathf.RoundToInt(Mathf.InverseLerp(0f, 1f, _iconDisolve.effectFactor) * 100f));
     }
 
+    /// <summary>
+    /// Resets the spoilage of the item to its maximum level and other relevant values when the item is being sold separately.
+    /// </summary>
+    public void ResetSpoilageOnSeparateSale()
+    {
+        SetItemSpoilPercentage(100);
+        SetDisolveEffectFactor(1);
+        _lifetime = 0;
+        _currentLifetimeCycle = 0;
+    }
+
     private void AssignLifetime(Item item)
     {
         if(item == null)
