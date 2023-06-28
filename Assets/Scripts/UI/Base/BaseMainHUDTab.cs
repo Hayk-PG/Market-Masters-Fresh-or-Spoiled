@@ -6,6 +6,14 @@ public class BaseMainHUDTab : MonoBehaviour, IMainHUDTab
 {
     protected CanvasGroup _canvasGroup;
 
+    protected virtual bool IsActive
+    {
+        get
+        {
+            return _canvasGroup?.interactable ?? false;
+        }
+    }
+
 
 
 

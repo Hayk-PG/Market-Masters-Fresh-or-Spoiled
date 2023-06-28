@@ -9,10 +9,17 @@ public enum GameEventType
    OverrideGameTime,
    UpdateGameTime,
    UpdateGameTurn,
+   DestroySpoiledItem,
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
    PublishTeamCombinedSellingItemQuantity,
-   UpdateTeamStockAmount,
-   ConfirmSelectedNumber  
+   UpdateStockUI,
+   UpdateMoneyRegardlessOfSale,
+   OnShopItemButtonSelect,
+   MeetsPurchaseRequirements,
+   TryBuySelectedShopItem,
+   SellingBuyingTabActivity,
+   ConfirmSelectedNumber,
+   SellSpoiledItems
 }

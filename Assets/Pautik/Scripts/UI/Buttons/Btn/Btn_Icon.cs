@@ -24,7 +24,7 @@ public class Btn_Icon : MonoBehaviour
     /// <summary>
     /// Delegate that provides public access to the ChangeIconSprite method.
     /// </summary>
-    public Action<Sprite> IconSpriteChangedDelegate  => ChangeIconSprite;
+    public Action<Sprite> IconSpriteChangeDelegate  => ChangeIconSprite;
 
 
 

@@ -14,8 +14,9 @@ public class EntityInventoryManager : MonoBehaviourPun
     protected int _inventorySize = 8;
 
     public List<Item> InventoryItems => _inventoryItems;
+    public int InventorySize => _inventorySize;
 
-    
+
 
 
     protected virtual void Start()

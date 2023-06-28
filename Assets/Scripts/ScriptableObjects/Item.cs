@@ -24,6 +24,7 @@ public class Item : ScriptableObject
         private set => _itemPrice = value;
     }
     public Sprite Icon => _itemIcon;
+    public ItemDurabilityLevel ItemDurabilityLevel => _itemDurabilityLevel;
 
 
 
