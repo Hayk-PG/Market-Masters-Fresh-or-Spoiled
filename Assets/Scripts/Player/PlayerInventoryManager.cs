@@ -62,6 +62,6 @@ public class PlayerInventoryManager : EntityInventoryManager
 
     protected override bool HavePermission()
     {
-        return photonView.IsMine;
+        return _entityManager.PlayerPhotonview.IsMine;
     }
 }

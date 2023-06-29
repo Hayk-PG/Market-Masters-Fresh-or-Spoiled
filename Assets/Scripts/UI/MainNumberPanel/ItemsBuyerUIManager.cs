@@ -25,7 +25,7 @@ public class ItemsBuyerUIManager : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
-    public void UpdateBuyingItemData(Sprite icon, float percentage, int moneyAmount)
+    public void UpdateUI(Sprite icon, float percentage, int moneyAmount)
     {
         _buyingItemIcon.sprite = icon;
         _percentageText.text = percentage < 100 ? $"-{percentage}%" : percentage > 100 ? $"+{percentage}%" : $"{percentage}%";

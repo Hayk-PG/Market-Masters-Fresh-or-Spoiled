@@ -50,26 +50,27 @@ public class ItemsBuyerManager : MonoBehaviourPun
         }
 
         int randomItemIndexFromCollection = GameSceneReferences.Manager.Items.Collection.IndexOf(entitiesInventoryItems[Random.Range(0, entitiesInventoryItems.Count)]);
-        photonView.RPC("AssignBuyingItemRPC", RpcTarget.AllViaServer, randomItemIndexFromCollection);
+        int randomCostPercentage = Random.Range(25, 400);
+        photonView.RPC("AssignBuyingItemRPC", RpcTarget.AllViaServer, (byte)randomItemIndexFromCollection, (byte)randomCostPercentage);
     }
 
     [PunRPC]
-    private void AssignBuyingItemRPC(int randomItemIndexFromCollection)
+    private void AssignBuyingItemRPC(byte randomItemIndexFromCollection, byte randomCostPercentage)
     {
         BuyingItem = GameSceneReferences.Manager.Items.Collection[randomItemIndexFromCollection];
-        UpdateBuyingItemData(BuyingItem);
+        SetPayingAmount(BuyingItem, randomCostPercentage);
+        UpdateUI(BuyingItem, randomCostPercentage);
     }
 
-    private void UpdateBuyingItemData(Item item)
+    private void UpdateUI(Item item, int randomCostPercentage)
     {
-        int percentage = Random.Range(25, 400);
+        GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateUI(item.Icon, randomCostPercentage, CurrentPayingAmount);
+    }
+
+    private void SetPayingAmount(Item item, int randomCostPercentage)
+    {
         float itemPrice = item.Price;
-        SetPayingAmount(Mathf.RoundToInt(itemPrice / 100 * percentage));
-        GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateBuyingItemData(item.Icon, percentage, CurrentPayingAmount);
-    }
-
-    private void SetPayingAmount(int currentPayingAmount)
-    {
+        int currentPayingAmount = Mathf.RoundToInt(itemPrice / 100 * randomCostPercentage);
         PreviousPayingAmount = CurrentPayingAmount <= 0 ? currentPayingAmount : CurrentPayingAmount;
         CurrentPayingAmount = currentPayingAmount;
     }

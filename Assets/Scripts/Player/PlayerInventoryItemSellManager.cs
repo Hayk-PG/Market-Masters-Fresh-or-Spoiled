@@ -2,15 +2,20 @@ using Photon.Pun;
 
 public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 {
+    private object[] _stockData = new object[2];
+
+
+
+
     protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if (!photonView.IsMine)
+        if (!_entityManager.PlayerPhotonview.IsMine)
         {
             return;
         }
 
         RetrieveConfirmedSaleItemData(gameEventType, data);
-        GetMoneyFromSellingSpoiledItems(gameEventType, data);
+        SellSpoiledItems(gameEventType, data);
     }
 
     /// <summary>
@@ -38,18 +43,6 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
         RemoveSoldItems((byte)sellingItemQuantity, (byte)sellingItemId);
     }
 
-    private void GetMoneyFromSellingSpoiledItems(GameEventType gameEventType, object[] data)
-    {
-        if (gameEventType != GameEventType.SellSpoiledItems)
-        {
-            return;
-        }
-
-        int moneyAmount = (int)data[0];
-        GameSceneReferences.Manager.RemoteRPCWrapper.UpdateMoneyRegardlessOfSale((short)moneyAmount, _entityIndexManager.TeamIndex);
-        UISoundController.PlaySound(5, 1);
-    }
-
     public override void PublishConfirmedItemForSale(byte sellingItemQuantity, byte sellingItemId, byte sellingItemSpoilPercentage)
     {
         photonView.RPC("PublishConfirmedItemForSaleRPC", RpcTarget.AllViaServer, _entityManager.EntityName, _entityManager.EntityActorNumber, sellingItemQuantity, sellingItemId, sellingItemSpoilPercentage);
@@ -64,5 +57,24 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
         _sellingItemData[3] = sellingItemId;
         _sellingItemData[4] = sellingItemSpoilPercentage;
         GameEventHandler.RaiseEvent(GameEventType.PublishSellingItemQuantity, _sellingItemData);
+    }
+
+    private void SellSpoiledItems(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.SellSpoiledItems)
+        {
+            return;
+        }
+
+        UISoundController.PlaySound(5, 1);
+        photonView.RPC("SellSpoiledItemsRPC", RpcTarget.AllViaServer, (short)((int)data[0]), (byte)_entityIndexManager.TeamIndex);            
+    }
+
+    [PunRPC]
+    private void SellSpoiledItemsRPC(short moneyAmount, byte targetTeam)
+    {
+        _stockData[0] = moneyAmount;
+        _stockData[1] = (TeamIndex)targetTeam;
+        GameEventHandler.RaiseEvent(GameEventType.UpdateMoneyRegardlessOfSale, _stockData);
     }
 }

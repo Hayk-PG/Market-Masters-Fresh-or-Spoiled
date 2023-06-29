@@ -66,4 +66,9 @@ public class BotShopInteractionManager : EntityShopInteractionManager
     {
         _entityInventoryManager.AddItem(item);
     }
+
+    protected override void UpdateStock(float totalCost)
+    {
+        GameSceneReferences.Manager.RemoteRPCWrapper.UpdateBotMoneyRegardlessOfSale((short)-totalCost, _entityIndexManager.TeamIndex);
+    }
 }

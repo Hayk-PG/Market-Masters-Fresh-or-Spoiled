@@ -117,21 +117,21 @@ public class RemoteRPCWrapper : MonoBehaviourPun
         GameEventHandler.RaiseEvent(GameEventType.OverrideGameTime, _overrideGameTimeData);
     }
 
-    public void UpdateMoneyRegardlessOfSale(short moneyAmount, TeamIndex targetGameTime)
+    public void UpdateBotMoneyRegardlessOfSale(short moneyAmount, TeamIndex targetTeam)
     {
         if (!IsControllerMasterClient)
         {
             return;
         }
 
-        photonView.RPC("UpdateMoneyRegardlessOfSaleRPC", RpcTarget.AllViaServer, moneyAmount, (byte)targetGameTime);
+        photonView.RPC("UpdateBotMoneyRegardlessOfSaleRPC", RpcTarget.AllViaServer, moneyAmount, (byte)targetTeam);
     }
 
     [PunRPC]
-    private void UpdateMoneyRegardlessOfSaleRPC(short moneyAmount, byte targetGameTime)
+    private void UpdateBotMoneyRegardlessOfSaleRPC(short moneyAmount, byte targetTeam)
     {
         _stockData[0] = moneyAmount;
-        _stockData[1] = (TeamIndex)targetGameTime;
+        _stockData[1] = (TeamIndex)targetTeam;
         GameEventHandler.RaiseEvent(GameEventType.UpdateMoneyRegardlessOfSale, _stockData);
     }
 }

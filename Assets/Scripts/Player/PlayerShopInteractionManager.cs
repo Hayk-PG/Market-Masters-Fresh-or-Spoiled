@@ -1,8 +1,11 @@
 using Pautik;
+using Photon.Pun;
 
 public class PlayerShopInteractionManager : EntityShopInteractionManager
 {
-    protected override bool HavePermission => photonView.IsMine;
+    private object[] _stockData = new object[2];
+
+    protected override bool HavePermission => _entityManager.PlayerPhotonview.IsMine;
 
 
 
@@ -54,6 +57,25 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
 
         Conditions<bool>.Compare(totalCost > 0, () => PlaySoundEffect(5, 1), () => PlaySoundEffect(4, 1));
         UpdateStock(totalCost);
+    }
+
+    protected override void UpdateStock(float totalCost)
+    {
+        photonView.RPC("BuyItemRPC", RpcTarget.AllViaServer, (short)-totalCost, (byte)_entityIndexManager.TeamIndex);
+    }
+
+    protected override void AddItemToInventory(Item item)
+    {
+        _entityInventoryManager.AddItem(item);
+        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);
+    }
+
+    [PunRPC]
+    private void BuyItemRPC(short moneyAmount, byte targetTeam)
+    {
+        _stockData[0] = moneyAmount;
+        _stockData[1] = (TeamIndex)targetTeam;
+        GameEventHandler.RaiseEvent(GameEventType.UpdateMoneyRegardlessOfSale, _stockData);
     }
 
     private void RetrievePurchaseRequirementsData(object[] data, out float selectedItemsTotalCost)

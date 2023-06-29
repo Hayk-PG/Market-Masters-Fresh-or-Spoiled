@@ -13,7 +13,7 @@ public class PlayerManager : EntityManager
     /// <summary>
     /// The PhotonView component associated with this player.
     /// </summary>
-    public PhotonView PlayerPhotonview
+    public override PhotonView PlayerPhotonview
     {
         get => _photonView;
     }
