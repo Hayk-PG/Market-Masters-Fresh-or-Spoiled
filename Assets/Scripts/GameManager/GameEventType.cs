@@ -11,6 +11,7 @@ public enum GameEventType
    UpdateGameTurn,
    DestroySpoiledItem,
    SelectInventoryItemForSale,
+   InventoryItemHoverInfoDisplay,
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
    PublishTeamCombinedSellingItemQuantity,
