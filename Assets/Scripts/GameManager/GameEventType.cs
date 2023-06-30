@@ -4,26 +4,35 @@ public enum GameEventType
    OnConnectedToMaster,
    OnJoinedLobby,
    OnJoinedRoom,
+
    StartGame,
    SetPlayerIndex,  
+
    OverrideGameTime,
    UpdateGameTime,
    UpdateGameTurn,
-   DestroySpoiledItem,
+
+   MeetsPurchaseRequirements,
+
    SelectInventoryItemForSale,
-   InventoryItemHoverInfoDisplay,
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
    PublishTeamCombinedSellingItemQuantity,
+
+   OnShopItemButtonSelect,
+   SellingBuyingTabActivity,
+   TryBuySelectedShopItem,
+
+   SellSpoiledItems,
+   DestroySpoiledItem,
+
    UpdateStockUI,
    UpdateMoneyRegardlessOfSale,
-   OnShopItemButtonSelect,
-   MeetsPurchaseRequirements,
-   TryBuySelectedShopItem,
-   SellingBuyingTabActivity,
-   ConfirmSelectedNumber,
-   SellSpoiledItems,
-   UpdateReputationOnSpoiledSale,
+
+   InventoryItemHoverInfoDisplay,
+
+   UpdateReputationOnSale,
+
    DisplayPopupNotification,
    OnPopupNotificationClosed
 }

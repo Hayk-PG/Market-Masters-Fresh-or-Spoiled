@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityManager: {fileID: 1323113779927915979}
+  _entityIndexManager: {fileID: 7880206720025241204}
   _previousReputationState: 0
   _currentReputationState: 0
   _reputationPoints: 0
