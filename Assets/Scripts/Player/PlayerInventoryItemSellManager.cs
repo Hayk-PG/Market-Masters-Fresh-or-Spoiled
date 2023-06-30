@@ -3,6 +3,7 @@ using Photon.Pun;
 public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 {
     private object[] _stockData = new object[2];
+    private object[] _reputationOnSpoiledSaleData = new object[2];
 
 
 
@@ -41,6 +42,7 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
 
         PublishConfirmedItemForSale((byte)sellingItemQuantity, (byte)sellingItemId, (byte)sellingItemSpoilPercentage);
         RemoveSoldItems((byte)sellingItemQuantity, (byte)sellingItemId);
+        UpdateReputationOnSpoiledSale(sellingItemQuantity, sellingItemSpoilPercentage);
     }
 
     public override void PublishConfirmedItemForSale(byte sellingItemQuantity, byte sellingItemId, byte sellingItemSpoilPercentage)
@@ -57,6 +59,13 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
         _sellingItemData[3] = sellingItemId;
         _sellingItemData[4] = sellingItemSpoilPercentage;
         GameEventHandler.RaiseEvent(GameEventType.PublishSellingItemQuantity, _sellingItemData);
+    }
+
+    private void UpdateReputationOnSpoiledSale(int sellingItemQuantity, int sellingItemSpoilPercentage)
+    {
+        _reputationOnSpoiledSaleData[0] = sellingItemQuantity;
+        _reputationOnSpoiledSaleData[1] = sellingItemSpoilPercentage;
+        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnSpoiledSale, _reputationOnSpoiledSaleData);
     }
 
     private void SellSpoiledItems(GameEventType gameEventType, object[] data)

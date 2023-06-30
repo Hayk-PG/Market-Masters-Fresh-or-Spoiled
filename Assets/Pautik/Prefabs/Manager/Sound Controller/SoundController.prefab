@@ -543,6 +543,25 @@ MonoBehaviour:
   - _title: Pop up
     _clips:
     - {fileID: 8300000, guid: 5a67af141c57aae4193f603c7e96c917, type: 3}
+    - {fileID: 8300000, guid: 55937d68f05025740ba9aae9aba9a459, type: 3}
+    - {fileID: 8300000, guid: 46aac0e155cb0d64da0de19cc11b262a, type: 3}
+    - {fileID: 8300000, guid: a77b0f3cb07c5fa45b41f1f1ca44d2fe, type: 3}
+    - {fileID: 8300000, guid: d356723870019b241b9f95616ce428f1, type: 3}
+    - {fileID: 8300000, guid: 2ede5da223a58be4f897ad8e1e3fb4ce, type: 3}
+    - {fileID: 8300000, guid: 637cf0ee6c1dca647a060a8940155245, type: 3}
+    - {fileID: 8300000, guid: e4443c95109dd8b438a853b6ac982fea, type: 3}
+    - {fileID: 8300000, guid: aca303dfdb491b44bb0ce0be6579cbd6, type: 3}
+    - {fileID: 8300000, guid: 7578b6fa53029c541925eee8c56b1f7f, type: 3}
+    - {fileID: 8300000, guid: e2617a113106abf4280e5618eb8a1e5f, type: 3}
+    - {fileID: 8300000, guid: 3db78b71e7e9bd4409f8b78d7134009a, type: 3}
+    - {fileID: 8300000, guid: cbd3e37e1325390439054ec67bf462d2, type: 3}
+    - {fileID: 8300000, guid: b1bac470e965eaa44bbf1013b8e30b0b, type: 3}
+    - {fileID: 8300000, guid: a2e5fa933a784ec4ebe05a91a1fe09a0, type: 3}
+    - {fileID: 8300000, guid: 382e4c10a1316fb47ac1a0312c4cb5a6, type: 3}
+    - {fileID: 8300000, guid: 3c575f329958cbe4f8d861e7730da952, type: 3}
+    - {fileID: 8300000, guid: 7de6e5039e69ac64d9e78d30c4d8f3be, type: 3}
+    - {fileID: 8300000, guid: 41a37ab43437ddd41b746a67a49351f4, type: 3}
+    - {fileID: 8300000, guid: 2c44a05ec51008243876d98e8f0c82ce, type: 3}
   - _title: Timer
     _clips:
     - {fileID: 8300000, guid: e4af0c956d305fe4391a550dee2c37b7, type: 3}

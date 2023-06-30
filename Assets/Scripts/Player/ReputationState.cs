@@ -1,5 +1,5 @@
 
-public enum ReputationLevel 
+public enum ReputationState 
 {
     Terrible, 
     Poor,
