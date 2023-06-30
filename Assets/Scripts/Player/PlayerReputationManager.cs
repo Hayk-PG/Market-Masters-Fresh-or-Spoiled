@@ -85,10 +85,15 @@ public class PlayerReputationManager : MonoBehaviour
         float penaltyPointsOnItemQuantity = sellingItemQuantity * 4;
         float penaltyPointsOnItemSpoilPercentage = penaltyPointsOnItemQuantity / 100f * sellingItemSpoilPercentage;
         float finalReputationPenaltyPoints = penaltyPointsOnItemQuantity + penaltyPointsOnItemSpoilPercentage;
-        print(sellingItemSpoilPercentage);
-        UpdateReputationPoints(-Mathf.RoundToInt(finalReputationPenaltyPoints));
-        UpdateReputationState();
-        NotifyReputationChange();
+        float itemsFullHealthCombined = sellingItemQuantity * 100f;
+        bool isNoticablySpoiled = (itemsFullHealthCombined / sellingItemSpoilPercentage) < 10f;
+
+        if (isNoticablySpoiled) 
+        {
+            UpdateReputationPoints(-Mathf.RoundToInt(finalReputationPenaltyPoints));
+            UpdateReputationState();
+            NotifyReputationChange();
+        }
     }
 
     private void UpdateReputationPoints(int reputationPoints)

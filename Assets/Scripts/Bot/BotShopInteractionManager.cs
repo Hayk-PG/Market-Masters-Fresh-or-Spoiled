@@ -44,7 +44,7 @@ public class BotShopInteractionManager : EntityShopInteractionManager
             int randomPercentage = (Random.Range(40, 400));
             float itemOriginalPrice = GameSceneReferences.Manager.Items.Collection[randomItemIndex].Price;
             float newPrice = itemOriginalPrice / 100 * randomPercentage;
-            bool canBuyNewItem = (teamStock - newPrice + totalMoneySpend) > purchaseLimit;
+            bool canBuyNewItem = (teamStock - (newPrice + totalMoneySpend)) > purchaseLimit;
             bool haveEnoughInventorySpace = _entityInventoryManager.InventoryItems.Count < _entityInventoryManager.InventorySize;
 
             if (!canBuyNewItem || !haveEnoughInventorySpace)

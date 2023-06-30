@@ -25,18 +25,18 @@ public class ItemsBuyerUIManager : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
-    public void UpdateUI(Sprite icon, float percentage, int moneyAmount)
+    public void UpdateUI(Sprite icon, short percentage, int moneyAmount)
     {
         _buyingItemIcon.sprite = icon;
-        _percentageText.text = percentage < 100 ? $"-{percentage}%" : percentage > 100 ? $"+{percentage}%" : $"{percentage}%";
+        _percentageText.text = $"{percentage}%";
         _moneyAmountText.text = $"${moneyAmount}";
 
         ChangePercentageIdicatorColor(percentage);
     }
 
-    private void ChangePercentageIdicatorColor(float percentage)
+    private void ChangePercentageIdicatorColor(short percentage)
     {
-        Conditions<float>.Compare(percentage, 100f, () => SetUIHsModifierValues(0.05f), () => SetUIHsModifierValues(0.286f, 0f, -0.069f), () => SetUIHsModifierValues(0.03f));
+        Conditions<short>.Compare(percentage, 100f, () => SetUIHsModifierValues(0.05f), () => SetUIHsModifierValues(0.286f, 0f, -0.069f), () => SetUIHsModifierValues(0.03f));
     }
 
     private void SetUIHsModifierValues(float hue, float saturation = 0f, float value = 0f)
