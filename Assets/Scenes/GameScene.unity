@@ -885,10 +885,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 316220885}
     m_Modifications:
-    - target: {fileID: 8703345593141368949, guid: e01799be179142441acb71ea35317e66, type: 3}
-      propertyPath: _mainCamera
-      value: 
-      objectReference: {fileID: 519420031}
     - target: {fileID: 8852010085143045004, guid: e01799be179142441acb71ea35317e66, type: 3}
       propertyPath: m_Name
       value: Item Hover Info
@@ -923,11 +919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8852010085143045007, guid: e01799be179142441acb71ea35317e66, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 325
       objectReference: {fileID: 0}
     - target: {fileID: 8852010085143045007, guid: e01799be179142441acb71ea35317e66, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 200
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 8852010085143045007, guid: e01799be179142441acb71ea35317e66, type: 3}
       propertyPath: m_LocalPosition.x
