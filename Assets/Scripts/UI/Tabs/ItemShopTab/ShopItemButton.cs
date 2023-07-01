@@ -45,12 +45,12 @@ public class ShopItemButton : MonoBehaviour
         PlayShineEffect(gameEventType);
     }
 
-    public void UpdateItem(Item item)
+    public void UpdateItem(Item item, int priceMinRange, int priceMaxRange)
     {
         SetCellEmpty(false);
         AssignItem(item);
         ChangeIcon(item);
-        DetermineItemCurrentPrice(item, out float newPrice);
+        DetermineItemCurrentPrice(item, priceMinRange, priceMaxRange, out float newPrice);
         SetItemPriceLabelColor(color: newPrice < item.Price ? _itemPriceLabelColors[0] : newPrice > item.Price ? _itemPriceLabelColors[2] : _itemPriceLabelColors[1]);
         UpdatePriceText(newPrice);
     }
@@ -96,10 +96,10 @@ public class ShopItemButton : MonoBehaviour
         _itemIcon.ChangeReleasedSpriteDelegate();
     }
 
-    private void DetermineItemCurrentPrice(Item item, out float newPrice)
+    private void DetermineItemCurrentPrice(Item item, int priceMinRange, int priceMaxRange, out float newPrice)
     {
         float itemOriginalPrice = item.Price;
-        newPrice = itemOriginalPrice / 100 * (Random.Range(40, 400));
+        newPrice = itemOriginalPrice / 100 * (Random.Range(priceMinRange, priceMaxRange));
     }
 
     private void SetItemPriceLabelColor(Color color)

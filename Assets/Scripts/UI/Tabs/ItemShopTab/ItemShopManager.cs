@@ -45,23 +45,19 @@ public class ItemShopManager : MonoBehaviour
     /// <param name="data">The event data.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        OnGameTurnUpdate(gameEventType);
+        UpdateShopItems(gameEventType, data);
         OnItemSelect(gameEventType, data);
         OnTabActivity(gameEventType);
     }
 
-    /// <summary>
-    /// Handles game turn updates.
-    /// </summary>
-    /// <param name="gameEventType">The type of game event.</param>
-    private void OnGameTurnUpdate(GameEventType gameEventType)
+    private void UpdateShopItems(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.UpdateGameTurn)
+        if(gameEventType != GameEventType.UpdateShopItems)
         {
             return;
         }
 
-        UpdateShopItems();
+        UpdateShopItems(count: (int)data[0], priceRange: (System.Tuple<int, int>)data[1]);
         DeselectItems(_shopItemButtons);
         UpdateSelectedItemsList();
         UpdateSelectedItemsTotalCostText();
@@ -136,21 +132,20 @@ public class ItemShopManager : MonoBehaviour
         DeselectItems(_shopItemButtons);
     }
 
-    /// <summary>
-    /// Updates the shop items displayed in the item buttons.
-    /// </summary>
-    private void UpdateShopItems()
+    private void UpdateShopItems(int count, System.Tuple<int, int> priceRange)
     {
-        int randomSize = Random.Range(1, _shopItemButtons.Length);
+        int itemsCount = count;
+        int minRange = priceRange.Item1;
+        int maxRange = priceRange.Item2;
 
         for (int i = 0; i < _items.Collection.Count; i++)
         {
-            bool isIndexInRange = i < randomSize;
+            bool isIndexInRange = i < itemsCount;
             bool isIndexOutOfBounds = i >= _shopItemButtons.Length;
 
             if (isIndexInRange)
             {
-                _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)]);
+                _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)], minRange, maxRange);
                 continue;
             }
 
