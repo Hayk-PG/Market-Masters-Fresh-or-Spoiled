@@ -32,6 +32,7 @@ public enum GameEventType
    InventoryItemHoverInfoDisplay,
 
    UpdateReputationOnSale,
+   UpdateReputationOnBuy,
 
    DisplayPopupNotification,
    OnPopupNotificationClosed

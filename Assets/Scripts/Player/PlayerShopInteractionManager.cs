@@ -5,6 +5,8 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
 {
     private object[] _stockData = new object[2];
 
+    private int _itemBoughTurn = 0;
+
     protected override bool HavePermission => _entityManager.PlayerPhotonview.IsMine;
 
 
@@ -57,6 +59,7 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
 
         Conditions<bool>.Compare(totalCost > 0, () => PlaySoundEffect(5, 1), () => PlaySoundEffect(4, 1));
         UpdateStock(totalCost);
+        UpdateReputation(totalCost);
     }
 
     protected override void UpdateStock(float totalCost)
@@ -87,6 +90,24 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
     {
         int teamStockAmount = _entityIndexManager.TeamIndex == TeamIndex.Team1 ? GameSceneReferences.Manager.TeamStockManager.Team1StockAmount : GameSceneReferences.Manager.TeamStockManager.Team2StockAmount;
         itemShopManager.SetBuyButtonInteractability(selectedItemsTotalCost <= teamStockAmount);
+    }
+
+    private void UpdateReputation(float totalCost)
+    {
+        if(totalCost <= 0)
+        {
+            return;
+        }
+
+        bool hasItemBeenBoughtThisTurn = _itemBoughTurn == GameSceneReferences.Manager.GameTurnManager.TurnCount;
+
+        if (hasItemBeenBoughtThisTurn)
+        {
+            return;
+        }
+
+        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnBuy);
+        _itemBoughTurn = GameSceneReferences.Manager.GameTurnManager.TurnCount;
     }
 
     private void PlaySoundEffect(int listIndex, int clipIndex)

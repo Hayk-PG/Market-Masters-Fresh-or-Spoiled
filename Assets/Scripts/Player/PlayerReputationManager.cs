@@ -60,6 +60,7 @@ public class PlayerReputationManager : MonoBehaviour
 
         UpdateReputationOnSale(gameEventType, data);
         UpdateReputationOnNoSale(gameEventType, data);
+        UpdateReputationOnBuy(gameEventType);
     }
 
     /// <summary>
@@ -122,7 +123,25 @@ public class PlayerReputationManager : MonoBehaviour
 
         int noSellPenaltyPoint = (turnCount - 1) - _lastSuccessfulSellTurn;
         UpdateReputationPoints(-noSellPenaltyPoint);
+        UpdateReputationState();
+        NotifyReputationChange();
         UpdateLastSuccessfulSellTurn(turnCount);
+    }
+
+    /// <summary>
+    /// Updates the player's reputation when a purchase is made.
+    /// </summary>
+    /// <param name="gameEventType">The game event type triggering the reputation update.</param>
+    private void UpdateReputationOnBuy(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.UpdateReputationOnBuy)
+        {
+            return;
+        }
+
+        UpdateReputationPoints(1);
+        UpdateReputationState();
+        NotifyReputationChange();
     }
 
     /// <summary>
