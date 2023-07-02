@@ -35,6 +35,9 @@ public enum GameEventType
    UpdateReputationOnSale,
    UpdateReputationOnBuy,
 
+   RestrictSaleAbility,
+
+   DisplayNotification,
    DisplayPopupNotification,
    OnPopupNotificationClosed
 }

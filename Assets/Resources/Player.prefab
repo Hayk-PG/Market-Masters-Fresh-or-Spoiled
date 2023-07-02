@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1141335833004417476}
   - component: {fileID: 2678140633600420148}
   - component: {fileID: 4580923918198490596}
+  - component: {fileID: 7362792223365850437}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -167,3 +168,18 @@ MonoBehaviour:
   _previousReputationState: 0
   _currentReputationState: 0
   _reputationPoints: 0
+--- !u!114 &7362792223365850437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971789891742482625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dcd387a4bccf944f8568bcf0f067f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityManager: {fileID: 1323113779927915979}
+  _entityIndexManager: {fileID: 7880206720025241204}
+  _playerReputationManager: {fileID: 4580923918198490596}

@@ -982,18 +982,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 302570455}
     m_Modifications:
-    - target: {fileID: 1055343607268629604, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055343607268629604, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055343607268629604, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6200852226757129560, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
       propertyPath: m_Name
       value: Notification

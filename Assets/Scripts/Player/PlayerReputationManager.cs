@@ -15,8 +15,10 @@ public class PlayerReputationManager : MonoBehaviour
     [SerializeField] private int _reputationPoints;
 
     private int _lastSuccessfulSellTurn = 0;
-
     private object[] _data = new object[1];
+
+    public bool HasRecentlySoldSpoiledItem { get; private set; }
+    public bool HasReputationBeenChanged { get; private set; }
 
     /// <summary>
     /// Gets the current reputation state.
@@ -60,7 +62,7 @@ public class PlayerReputationManager : MonoBehaviour
 
         UpdateReputationOnSale(gameEventType, data);
         UpdateReputationOnNoSale(gameEventType, data);
-        UpdateReputationOnBuy(gameEventType);
+        UpdateReputationOnBuy(gameEventType);       
     }
 
     /// <summary>
@@ -91,6 +93,7 @@ public class PlayerReputationManager : MonoBehaviour
             UpdateReputationPoints(-Mathf.RoundToInt(finalReputationPenaltyPoints));
             UpdateReputationState();
             NotifyReputationChange();
+            SetSpoiledItemSoldStatus(true);
         }
         else
         {
@@ -168,11 +171,13 @@ public class PlayerReputationManager : MonoBehaviour
     {
         if(_previousReputationState == ReputationState)
         {
+            ToggleReputationChangeFlag(false);
             return;
         }
 
         WrapData();
         SetPreviousReputationState();
+        ToggleReputationChangeFlag(true);
         GameEventHandler.RaiseEvent(GameEventType.DisplayPopupNotification, _data);
     }
 
@@ -186,11 +191,29 @@ public class PlayerReputationManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets the status indicating whether the player has recently sold a spoiled item.
+    /// </summary>
+    /// <param name="hasRecentlySoldSpoiledItem">Boolean value indicating if the player has recently sold a spoiled item.</param>
+    public void SetSpoiledItemSoldStatus(bool hasRecentlySoldSpoiledItem)
+    {
+        HasRecentlySoldSpoiledItem = hasRecentlySoldSpoiledItem;
+    }
+
+    /// <summary>
     /// Sets the previous reputation state to the current reputation state.
     /// </summary>
     private void SetPreviousReputationState()
     {
         _previousReputationState = ReputationState;
+    }
+
+    /// <summary>
+    /// Toggles the flag indicating whether the player's reputation has been changed.
+    /// </summary>
+    /// <param name="hasReputationBeenChanged">Boolean value indicating if the player's reputation has been changed.</param>
+    private void ToggleReputationChangeFlag(bool hasReputationBeenChanged)
+    {
+        HasReputationBeenChanged = hasReputationBeenChanged;
     }
 
     /// <summary>

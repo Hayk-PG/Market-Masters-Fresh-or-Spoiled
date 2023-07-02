@@ -7,14 +7,28 @@ public class PlayerShopItemUpdater : MonoBehaviour
     [SerializeField] private EntityIndexManager _entityIndexManager;   
     [SerializeField] private PlayerReputationManager _playerReputationManager;
 
+    private int _shopCellsCount;
     private object[] _shopItemsData = new object[2];
 
 
 
 
+    private void Start()
+    {
+        GetShopCellsCount();
+    }
+
     private void OnEnable()
     {
         GameEventHandler.OnEvent += OnGameEvent;
+    }
+
+    /// <summary>
+    /// Calculates the number of ShopItemButton instances in the scene and assigns the count to _shopCellsCount.
+    /// </summary>
+    private void GetShopCellsCount()
+    {
+        _shopCellsCount = FindObjectsOfType<ShopItemButton>().Length;
     }
 
     /// <summary>
@@ -57,7 +71,7 @@ public class PlayerShopItemUpdater : MonoBehaviour
     /// <returns>The number of shop items.</returns>
     private int GetShopItemsCount()
     {
-        int itemsCount = GameSceneReferences.Manager.Items.Collection.Count;
+        int itemsCount = _shopCellsCount;
         int itemsNewCount = 0;
 
         switch (_playerReputationManager.ReputationState)
@@ -70,7 +84,7 @@ public class PlayerShopItemUpdater : MonoBehaviour
             default: itemsNewCount = itemsCount; break;
         }
 
-        return itemsNewCount;
+        return itemsNewCount > itemsCount ? itemsCount : itemsNewCount;
     }
 
     /// <summary>
