@@ -16,6 +16,7 @@ public class PlayerReputationManager : MonoBehaviour
 
     private int _lastSuccessfulSellTurn = 0;
     private object[] _data = new object[1];
+    private object[] _reputationPointsData = new object[1];
 
     public bool HasRecentlySoldSpoiledItem { get; private set; }
     public bool HasReputationBeenChanged { get; private set; }
@@ -154,7 +155,10 @@ public class PlayerReputationManager : MonoBehaviour
     private void UpdateReputationPoints(int reputationPoints)
     {
         ReputationPoints = (ReputationPoints + reputationPoints) > 100 ? 100 : (ReputationPoints + reputationPoints) < 0 ? 0 : ReputationPoints + reputationPoints;
+        _reputationPointsData[0] = ReputationPoints;
+        GameEventHandler.RaiseEvent(GameEventType.SendReputationPoints, _reputationPointsData);
     }
+
 
     /// <summary>
     /// Updates the current reputation state based on the reputation points.

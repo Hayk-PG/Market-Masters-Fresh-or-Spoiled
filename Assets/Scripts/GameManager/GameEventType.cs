@@ -32,6 +32,7 @@ public enum GameEventType
 
    InventoryItemHoverInfoDisplay,
 
+   SendReputationPoints,
    UpdateReputationOnSale,
    UpdateReputationOnBuy,
 
