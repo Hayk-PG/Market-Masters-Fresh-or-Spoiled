@@ -30,7 +30,7 @@ public class NotificationManager : MonoBehaviour
     {
         GameEventHandler.OnEvent += OnGameEvent;
         _denyButton.OnSelect += OnDeny;
-        _closeButton.OnSelect += OnDeny;
+        _closeButton.OnSelect += Close;
         _acceptButton.OnSelect += OnAccept;
     }
 
@@ -48,7 +48,7 @@ public class NotificationManager : MonoBehaviour
         }
 
         RetrieveData(data);
-        Open(notificationSoundIndex: (int)data[4]);
+        Open();
         SetTitle();
         UpdateMessage();
         OnReadonlyNotification();
@@ -98,18 +98,18 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     private void OnDeny()
     {
-        Close();
-        PlaySoundEffect(4, 2);
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        PlaySoundEffect(4, 10);
     }
 
     /// <summary>
     /// Opens the notification and plays a sound effect.
     /// </summary>
     /// <param name="notificationSoundIndex">The index of the sound effect to play.</param>
-    private void Open(int notificationSoundIndex)
+    private void Open()
     {
-        PlaySoundEffect(7, notificationSoundIndex);
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, true);
+        PlaySoundEffect(1, 12);
         _denyButton.Deselect();
         _acceptButton.Deselect();
         _closeButton.Deselect();
@@ -121,6 +121,7 @@ public class NotificationManager : MonoBehaviour
     private void Close()
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        PlaySoundEffect(0, 3);
     }
 
     /// <summary>
