@@ -35,6 +35,7 @@ public enum GameEventType
    SendReputationPoints,
    UpdateReputationOnSale,
    UpdateReputationOnBuy,
+   UpdateReputationOnEmptyInventory,
 
    RestrictSaleAbility,
 

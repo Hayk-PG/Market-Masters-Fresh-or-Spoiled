@@ -63,7 +63,8 @@ public class PlayerReputationManager : MonoBehaviour
 
         UpdateReputationOnSale(gameEventType, data);
         UpdateReputationOnNoSale(gameEventType, data);
-        UpdateReputationOnBuy(gameEventType);       
+        UpdateReputationOnBuy(gameEventType);
+        UpdateReputationOnEmptyInventory(gameEventType);
     }
 
     /// <summary>
@@ -144,6 +145,22 @@ public class PlayerReputationManager : MonoBehaviour
         }
 
         UpdateReputationPoints(1);
+        UpdateReputationState();
+        NotifyReputationChange();
+    }
+
+    /// <summary>
+    /// Updates the reputation when the inventory is empty.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    private void UpdateReputationOnEmptyInventory(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.UpdateReputationOnEmptyInventory)
+        {
+            return;
+        }
+
+        UpdateReputationPoints(-5);
         UpdateReputationState();
         NotifyReputationChange();
     }
