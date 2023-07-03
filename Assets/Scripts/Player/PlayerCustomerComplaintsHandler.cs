@@ -110,7 +110,7 @@ public class PlayerCustomerComplaintsHandler : MonoBehaviour
         _notificationData[1] = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item1;
         _notificationData[2] = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item2 + "\n\n" + additionalMessage;
         _notificationData[3] = null;
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
+        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 
     /// <summary>

@@ -1009,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 21d674a49979e254b9524d46d0fbf93f, type: 3}
     - target: {fileID: 2889967328142067740, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: _buttonClickType
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4439742209225539748, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: m_text
@@ -1182,7 +1182,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 21d674a49979e254b9524d46d0fbf93f, type: 3}
     - target: {fileID: 2889967328142067740, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: _buttonClickType
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4439742209225539748, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: m_text
@@ -1355,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: ceea098d849e8614d8b06fb72f033df9, type: 3}
     - target: {fileID: 2889967328142067740, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: _buttonClickType
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4439742209225539748, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: m_text

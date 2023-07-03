@@ -60,10 +60,10 @@ public class NotificationManager : MonoBehaviour
     /// <param name="data">The data associated with the event.</param>
     private void RetrieveData(object[] data)
     {
-        _notificationType = (NotificationType)data[0];
-        _notificationTitle = (string)data[1];
-        _notificationMessage = (string)data[2];
-        AcceptAction = (Action)data[3];
+        _notificationType = ((Notification)data[0]).NotificationType;
+        _notificationTitle = ((Notification)data[0]).NotificationTitle;
+        _notificationMessage = ((Notification)data[0]).NotificationMessage;
+        AcceptAction = ((Notification)data[0]).AcceptAction;
     }
 
     /// <summary>
@@ -81,28 +81,6 @@ public class NotificationManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles the action when the accept button is clicked.
-    /// Raises the SellSpoiledItems event and plays a sound effect.
-    /// </summary>
-    private void OnAccept()
-    {
-        _data[0] = 40;
-        GameEventHandler.RaiseEvent(GameEventType.SellSpoiledItems, _data);
-        PlaySoundEffect(0, 11);
-        Close();
-    }
-
-    /// <summary>
-    /// Handles the action when the deny button is clicked.
-    /// Closes the notification and plays a sound effect.
-    /// </summary>
-    private void OnDeny()
-    {
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
-        PlaySoundEffect(4, 10);
-    }
-
-    /// <summary>
     /// Opens the notification and plays a sound effect.
     /// </summary>
     /// <param name="notificationSoundIndex">The index of the sound effect to play.</param>
@@ -116,12 +94,37 @@ public class NotificationManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Handles the action when the accept button is clicked.
+    /// Raises the SellSpoiledItems event and plays a sound effect.
+    /// </summary>
+    private void OnAccept()
+    {
+        _data[0] = 40;
+        GameEventHandler.RaiseEvent(GameEventType.SellSpoiledItems, _data);
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        PlaySoundEffect(0, 11);
+        RaiseHideNotificationEvent();
+    }
+
+    /// <summary>
+    /// Handles the action when the deny button is clicked.
+    /// Closes the notification and plays a sound effect.
+    /// </summary>
+    private void OnDeny()
+    {
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        PlaySoundEffect(4, 10);
+        RaiseHideNotificationEvent();
+    }
+
+    /// <summary>
     /// Closes the notification.
     /// </summary>
     private void Close()
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
         PlaySoundEffect(0, 3);
+        RaiseHideNotificationEvent();
     }
 
     /// <summary>
@@ -148,6 +151,11 @@ public class NotificationManager : MonoBehaviour
     {
         GlobalFunctions.CanvasGroupActivity(_denyAcceptButtonsCanvasGroup, !setCloseButtonSubTabActive);
         GlobalFunctions.CanvasGroupActivity(_closeButtonCanvasGroup, setCloseButtonSubTabActive);
+    }
+
+    private void RaiseHideNotificationEvent()
+    {
+        GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification);
     }
 
     /// <summary>

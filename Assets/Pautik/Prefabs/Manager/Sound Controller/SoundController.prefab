@@ -603,6 +603,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c377818fcf94d7e489fa4b4e0cb8ab79, type: 3}
     - {fileID: 8300000, guid: 937df876adce63f4588abef79c1e7252, type: 3}
     - {fileID: 8300000, guid: f32a24d39d574734abe19f61f2228bb5, type: 3}
+    - {fileID: 8300000, guid: 3907823b0d39d244ab19699c29e9232e, type: 3}
+    - {fileID: 8300000, guid: 111dcbd0f9383fc4da588af7184d3834, type: 3}
   - _title: Boing
     _clips:
     - {fileID: 8300000, guid: f088db5e2661ca74a8f486cadafda615, type: 3}

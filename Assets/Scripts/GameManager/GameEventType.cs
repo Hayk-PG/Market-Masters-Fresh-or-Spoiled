@@ -39,7 +39,9 @@ public enum GameEventType
 
    RestrictSaleAbility,
 
+   QueueNotification,
    DisplayNotification,
+   DisplayNextNotification,
    DisplayPopupNotification,
    OnPopupNotificationClosed
 }

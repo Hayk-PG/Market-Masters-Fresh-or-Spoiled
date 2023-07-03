@@ -93,6 +93,6 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
         _notificationData[1] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1;
         _notificationData[2] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2;
         _notificationData[3] = null;
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
+        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }
