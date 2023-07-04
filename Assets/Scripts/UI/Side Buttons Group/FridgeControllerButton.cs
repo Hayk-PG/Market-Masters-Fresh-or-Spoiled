@@ -24,6 +24,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private bool _isPointerEntered;
     private bool _isTriggered;
+    private object[] _storedItemsData = new object[1];
 
     private bool IsPointerExited => !_isPointerEntered;
     private bool IsButtonsGroupHidden => !_coopButtonsGroup.IsActive;
@@ -34,11 +35,23 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
     private void OnEnable()
     {
         GameEventHandler.OnEvent += OnGameEvent;
+        _button.OnSelect += OnSelect;
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         HandleInventoryItemDragNDropEvent(gameEventType, data);
+    }
+
+    private void OnSelect()
+    {
+        if (!_coopButtonsGroup.IsActive)
+        {
+            return;
+        }
+
+        _storedItemsData[0] = _storedItemsList;
+        GameEventHandler.RaiseEvent(GameEventType.OpenStorageUI, _storedItemsData);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

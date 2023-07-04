@@ -1,12 +1,14 @@
 using UnityEngine;
 using Pautik;
+using System.Collections.Generic;
 
 public class CoOpButtonsGroup : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    private bool LastActiveState { get; set; } = true;
+    private Queue<bool> _openStatusQueue = new Queue<bool>();
+
     public bool IsActive
     {
         get => _canvasGroup.interactable;
@@ -25,6 +27,7 @@ public class CoOpButtonsGroup : MonoBehaviour
     {
         HideCoopButtonsWhenPopupActive(gameEventType);
         ShowCoopButtonsWhenPopupInactive(gameEventType);
+        HideCoopButtonsWhenStorageActive(gameEventType, data);
     }
 
     private void HideCoopButtonsWhenPopupActive(GameEventType gameEventType)
@@ -34,7 +37,8 @@ public class CoOpButtonsGroup : MonoBehaviour
             return;
         }
 
-        IsActive = false;
+        EnqueueOpenStatus(_canvasGroup.interactable);
+        IsActive = false;        
     }
 
     private void ShowCoopButtonsWhenPopupInactive(GameEventType gameEventType)
@@ -42,13 +46,40 @@ public class CoOpButtonsGroup : MonoBehaviour
         if (gameEventType != GameEventType.OnPopupNotificationClosed)
         {
             return;
-        }
-
-        IsActive = LastActiveState;
+        }  
     }
 
-    private void SetLastActiveState(bool isActive)
+    private void HideCoopButtonsWhenStorageActive(GameEventType gameEventType, object[] data)
     {
-        LastActiveState = isActive;
+        if (gameEventType != GameEventType.OpenStorageUI)
+        {
+            return;
+        }
+
+        bool isStorageActive = (bool)data[0];
+
+        if (!isStorageActive)
+        {
+            IsActive = false;
+        }
+        else
+        {
+            IsActive = true;
+        }
+    }
+
+    private void CloseStorageUI()
+    {
+
+    }
+
+    private void EnqueueOpenStatus(bool isActive)
+    {
+        _openStatusQueue.Enqueue(isActive);
+    }
+
+    private void DequeueOpenStatus()
+    {
+        _openStatusQueue.Dequeue();
     }
 }
