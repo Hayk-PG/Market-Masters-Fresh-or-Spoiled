@@ -943,14 +943,30 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 33.3
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 0ca0769b9e581544cb23d02e2cedf5ab, type: 3}
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ccae9470d74db94db726cd0a0841cbd, type: 3}
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1039,6 +1055,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061455196044 stripped
@@ -1070,14 +1090,30 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 33.3
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 0ca0769b9e581544cb23d02e2cedf5ab, type: 3}
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ccae9470d74db94db726cd0a0841cbd, type: 3}
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1166,6 +1202,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061503007089 stripped
@@ -1311,14 +1351,30 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 33.3
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 0ca0769b9e581544cb23d02e2cedf5ab, type: 3}
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ccae9470d74db94db726cd0a0841cbd, type: 3}
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1407,6 +1463,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061625897250 stripped
@@ -1450,14 +1510,30 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 33.3
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 0ca0769b9e581544cb23d02e2cedf5ab, type: 3}
+      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ccae9470d74db94db726cd0a0841cbd, type: 3}
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1546,6 +1622,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061068934325 stripped

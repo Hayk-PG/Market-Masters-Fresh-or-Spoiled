@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 3283913710853518518}
   - component: {fileID: 3572487150287009590}
   - component: {fileID: 3283913710853518517}
+  - component: {fileID: 4679679359260553417}
   m_Layer: 5
   m_Name: Player Inventory UI Manager
   m_TagString: Untagged
@@ -366,6 +367,29 @@ MonoBehaviour:
   _confirmButtonIconSprites:
   - {fileID: 21300000, guid: 7ac8fa1aa5499cf4fb3a516faa51985c, type: 3}
   - {fileID: 21300000, guid: c7602787804aa3348a47eab4454db0fe, type: 3}
+--- !u!114 &4679679359260553417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283913710853518519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1b165c19ce7814bac3eb6c5fe43a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryItemButtons:
+  - {fileID: 268916017908924176}
+  - {fileID: 417630931243732135}
+  - {fileID: 4112071226914236441}
+  - {fileID: 5859167968829416154}
+  - {fileID: 9172570436512731453}
+  - {fileID: 4886394189068733447}
+  - {fileID: 6697709725744589856}
+  - {fileID: 4346748868847261179}
+  _dragItemIcon: {fileID: 0}
+  _dragItemIconCanvasGroup: {fileID: 0}
 --- !u!1 &3283913711030888570
 GameObject:
   m_ObjectHideFlags: 0

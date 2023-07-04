@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pautik;
 
@@ -9,6 +7,11 @@ public class CoOpButtonsGroup : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
 
     private bool LastActiveState { get; set; } = true;
+    public bool IsActive
+    {
+        get => _canvasGroup.interactable;
+        private set => GlobalFunctions.CanvasGroupActivity(_canvasGroup, value);
+    }
 
 
 
@@ -30,8 +33,8 @@ public class CoOpButtonsGroup : MonoBehaviour
         {
             return;
         }
-       
-        SetCanvasGroupActive(false);
+
+        IsActive = false;
     }
 
     private void ShowCoopButtonsWhenPopupInactive(GameEventType gameEventType)
@@ -41,12 +44,7 @@ public class CoOpButtonsGroup : MonoBehaviour
             return;
         }
 
-        SetCanvasGroupActive(LastActiveState);
-    }
-
-    private void SetCanvasGroupActive(bool isActive)
-    {
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, isActive);       
+        IsActive = LastActiveState;
     }
 
     private void SetLastActiveState(bool isActive)

@@ -14,6 +14,8 @@ public enum GameEventType
 
    MeetsPurchaseRequirements,
 
+   InventoryItemDragNDrop,
+
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
