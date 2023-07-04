@@ -27,7 +27,8 @@ public class CoOpButtonsGroup : MonoBehaviour
     {
         HideCoopButtonsWhenPopupActive(gameEventType);
         ShowCoopButtonsWhenPopupInactive(gameEventType);
-        HideCoopButtonsWhenStorageActive(gameEventType, data);
+        HideCoopButtonsWhenStorageActive(gameEventType);
+        ShowCoopButtonsWhenStoragetInactive(gameEventType);
     }
 
     private void HideCoopButtonsWhenPopupActive(GameEventType gameEventType)
@@ -37,8 +38,7 @@ public class CoOpButtonsGroup : MonoBehaviour
             return;
         }
 
-        EnqueueOpenStatus(_canvasGroup.interactable);
-        IsActive = false;        
+        CloseCoopButtonsGroup();
     }
 
     private void ShowCoopButtonsWhenPopupInactive(GameEventType gameEventType)
@@ -46,40 +46,39 @@ public class CoOpButtonsGroup : MonoBehaviour
         if (gameEventType != GameEventType.OnPopupNotificationClosed)
         {
             return;
-        }  
+        }
+
+        TryOpenCoopButonsGroup();
     }
 
-    private void HideCoopButtonsWhenStorageActive(GameEventType gameEventType, object[] data)
+    private void HideCoopButtonsWhenStorageActive(GameEventType gameEventType)
     {
         if (gameEventType != GameEventType.OpenStorageUI)
         {
             return;
         }
 
-        bool isStorageActive = (bool)data[0];
+        CloseCoopButtonsGroup();
+    }
 
-        if (!isStorageActive)
+    private void ShowCoopButtonsWhenStoragetInactive(GameEventType gameEventType)
+    {
+        if (gameEventType != GameEventType.CloseStorageUI)
         {
-            IsActive = false;
+            return;
         }
-        else
-        {
-            IsActive = true;
-        }
+
+        TryOpenCoopButonsGroup();
     }
 
-    private void CloseStorageUI()
+    private void CloseCoopButtonsGroup()
     {
-
+        _openStatusQueue.Enqueue(_canvasGroup.interactable);
+        IsActive = false;
     }
 
-    private void EnqueueOpenStatus(bool isActive)
+    private void TryOpenCoopButonsGroup()
     {
-        _openStatusQueue.Enqueue(isActive);
-    }
-
-    private void DequeueOpenStatus()
-    {
-        _openStatusQueue.Dequeue();
+        IsActive = _openStatusQueue.Count < 1 ? true : _openStatusQueue.Dequeue();
     }
 }

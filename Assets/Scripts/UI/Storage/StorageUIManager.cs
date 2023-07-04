@@ -24,30 +24,34 @@ public class StorageUIManager : MonoBehaviour
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.OpenStorageUI)
+        HandleOpenStorageUIEvent(gameEventType, data);
+        HandleCloseStorageUIEvents(gameEventType);
+    }
+
+    private void HandleOpenStorageUIEvent(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.OpenStorageUI)
         {
             return;
         }
 
-        bool isActive = (bool)data[0];
-
-        if (isActive)
-        {
-            Open();
-        }
-        else
-        {
-            Close();
-        }
+        SetCanvasGroupActivity(true);
     }
 
-    private void Open()
+    private void HandleCloseStorageUIEvents(GameEventType gameEventType)
     {
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, true);
+        bool isClosing = gameEventType == GameEventType.CloseStorageUI || gameEventType == GameEventType.DisplayPopupNotification;
+
+        if (!isClosing)
+        {
+            return;
+        }
+
+        SetCanvasGroupActivity(false);
     }
 
-    private void Close()
+    private void SetCanvasGroupActivity(bool isActive)
     {
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup, isActive);
     }
 }
