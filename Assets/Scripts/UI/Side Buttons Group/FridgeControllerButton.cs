@@ -21,10 +21,11 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private PlayerInventoryItemButton _inventoryItemButton;
     private List<Item> _storedItemsList = new List<Item>();
-
+    private int _storageCapacity = 8;
     private bool _isPointerEntered;
     private bool _isTriggered;
     private object[] _storedItemsData = new object[1];
+    private object[] _submittedStorageItemsData = new object[3];
 
     private bool IsPointerExited => !_isPointerEntered;
     private bool IsButtonsGroupHidden => !_coopButtonsGroup.IsActive;
@@ -41,6 +42,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         HandleInventoryItemDragNDropEvent(gameEventType, data);
+        SubmitStorageItem(gameEventType, data);
     }
 
     private void OnSelect()
@@ -51,7 +53,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
         }
 
         _storedItemsData[0] = _storedItemsList;
-        GameEventHandler.RaiseEvent(GameEventType.OpenStorageUI, _storedItemsData);
+        GameEventHandler.RaiseEvent(GameEventType.RequestStorageUIOpen, _storedItemsData);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -92,6 +94,19 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
         SetIconAlpha(alpha);
     }
 
+    private void SubmitStorageItem(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.SendStorageItemForVerification)
+        {
+            return;
+        }
+
+        _submittedStorageItemsData[0] = (List<StorageItemButton>)data[0];
+        _submittedStorageItemsData[1] = _storedItemsList;
+        _submittedStorageItemsData[2] = (Sprite)data[1];      
+        GameEventHandler.RaiseEvent(GameEventType.SubmitStorageItem, _submittedStorageItemsData);
+    }
+
     private bool IsDragRelease(bool isDragRelease)
     {
         return isDragRelease;
@@ -116,18 +131,13 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private void StoreItem()
     {
-        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null)
+        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null || _storedItemsList.Count >= _storageCapacity)
         {
             return;
         }
 
         _storedItemsList.Add(_inventoryItemButton.AssosiatedItem);
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
-    }
-
-    private void RemoveItem(Item item)
-    {
-        _storedItemsList.Remove(item);
     }
 
     private void SetButtonSprites(Sprite sprite)

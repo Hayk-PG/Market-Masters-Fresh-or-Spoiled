@@ -16,8 +16,12 @@ public enum GameEventType
 
    InventoryItemDragNDrop,
 
+   RequestStorageUIOpen,
    OpenStorageUI,
    CloseStorageUI,
+   SelectStorageItem,
+   SendStorageItemForVerification,
+   SubmitStorageItem,
 
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,

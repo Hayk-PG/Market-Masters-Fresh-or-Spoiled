@@ -45,9 +45,7 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
 
         foreach (var itemButton in (ShopItemButton[])data)
         {
-            bool haveEnoughInventorySpace = _entityInventoryManager.InventoryItems.Count < _entityInventoryManager.InventorySize;
-
-            if (!haveEnoughInventorySpace)
+            if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
                 itemButton.Deselect();
                 continue;

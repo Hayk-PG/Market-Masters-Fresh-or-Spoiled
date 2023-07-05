@@ -1106,6 +1106,10 @@ PrefabInstance:
       propertyPath: _clrPressed.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
