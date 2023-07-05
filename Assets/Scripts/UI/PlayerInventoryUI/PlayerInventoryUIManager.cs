@@ -58,20 +58,29 @@ public class PlayerInventoryUIManager : MonoBehaviour
         });
     }
 
-    public void AssignInventoryItemWithSavedLifetime(Item item, int savedLifetime)
+    /// <summary>
+    /// Assigns an item to the inventory with a new lifetime.
+    /// </summary>
+    /// <param name="item">The item to be assigned.</param>
+    /// <param name="newLifetime">The new lifetime value for the item.</param>
+    public void AssignInvetoryItem(Item item, int newLifetime)
     {
         IterateInventoryItemButtons(inventoryItemButton =>
         {
-            inventoryItemButton?.AssignItemWithLifetime(item, savedLifetime);
+            inventoryItemButton?.AssignItem(item, newLifetime);
             inventoryItemButton?.Deselect();
         });
     }
 
+    /// <summary>
+    /// Iterates through the inventory item buttons and performs the update action on the first available button.
+    /// </summary>
+    /// <param name="updateInventoryButton">The action to update the inventory button.</param>
     private void IterateInventoryItemButtons(System.Action<PlayerInventoryItemButton> UpdateInventoryButton)
     {
         for (int i = 0; i < _inventoryItemButtons.Length; i++)
         {
-            bool canAssignItem = _inventoryItemButtons[i].AssosiatedItem == null;
+            bool canAssignItem = _inventoryItemButtons[i].AssociatedItem == null;
 
             if (canAssignItem)
             {
@@ -153,7 +162,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
 
         foreach (var inventoryItemButton in _inventoryItemButtons)
         {
-            if (inventoryItemButton.AssosiatedItem == null)
+            if (inventoryItemButton.AssociatedItem == null)
             {
                 continue;
             }
@@ -291,15 +300,15 @@ public class PlayerInventoryUIManager : MonoBehaviour
 
         for (int i = 0; i < _selectedItemButtonsList.Count; i++)
         {
-            bool isSelectedItemBuyingItem = _selectedItemButtonsList[i].AssosiatedItem == GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem;
+            bool isSelectedItemBuyingItem = _selectedItemButtonsList[i].AssociatedItem == GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem;
 
             if (isSelectedItemBuyingItem)
             {               
                 sellingItemQuantity++;
-                sellingItemId = _selectedItemButtonsList[i].AssosiatedItem.ID;
+                sellingItemId = _selectedItemButtonsList[i].AssociatedItem.ID;
                 sellingItemSpoilPercentage += _selectedItemButtonsList[i].ItemSpoilPercentage;
                 isNoBuyingItemSelected = false;
-                _selectedItemButtonsList[i].RemoveAssosiatedItem();
+                _selectedItemButtonsList[i].RemoveAssociatedItem();
                 _selectedItemButtonsList[i] = null;
                 _isItemConfirmed = true;
                 continue;

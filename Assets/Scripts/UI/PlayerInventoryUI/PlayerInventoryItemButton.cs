@@ -14,8 +14,19 @@ public class PlayerInventoryItemButton : MonoBehaviour
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
 
-    public Item AssosiatedItem => _item;
+    /// <summary>
+    /// The associated item of the button.
+    /// </summary>
+    public Item AssociatedItem => _item;
+
+    /// <summary>
+    /// The spoil percentage of the associated item.
+    /// </summary>
     public int ItemSpoilPercentage => _playerInventoryItemSpoilUIManager.ItemSpoilPercentage;
+
+    /// <summary>
+    /// The lifetime of the associated item.
+    /// </summary>
     public int ItemLifetime
     {
         get => _playerInventoryItemSpoilUIManager.Lifetime;
@@ -31,6 +42,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
+    /// <summary>
+    /// Handles the game event related to the player's game turn.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">The data associated with the game event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.UpdateGameTurn)
@@ -46,30 +62,49 @@ public class PlayerInventoryItemButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Assigns an item to the button.
+    /// </summary>
+    /// <param name="item">The item to be assigned.</param>
     public void AssignItem(Item item)
     {
         UpdateItemAndIcon(item);
         ResetLifetimeCycle();
     }
 
-    public void AssignItemWithLifetime(Item item, int saveLifetime)
+    /// <summary>
+    /// Assigns an item to the button with a specified lifetime.
+    /// </summary>
+    /// <param name="item">The item to be assigned.</param>
+    /// <param name="newLifetime">The new lifetime value for the item.</param>
+    public void AssignItem(Item item, int newLifetime)
     {
         UpdateItemAndIcon(item);
-        _playerInventoryItemSpoilUIManager.ContinueLifetimeCycle(saveLifetime);
+        _playerInventoryItemSpoilUIManager.ContinueLifetimeCycle(newLifetime);
     }
 
-    public void RemoveAssosiatedItem()
+    /// <summary>
+    /// Removes the associated item from the button.
+    /// </summary>
+    public void RemoveAssociatedItem()
     {
         _item = null;
         ResetLifetimeCycle();
     }
 
+    /// <summary>
+    /// Destroys the spoiled item on separate sale.
+    /// </summary>
     public void DestroySpoiledItemOnSeparateSale()
     {
         _playerInventoryItemSpoilUIManager.ResetSpoilageOnSeparateSale();
         DestroyItemIfSpoiled();
     }
 
+    /// <summary>
+    /// Updates the associated item and the icon.
+    /// </summary>
+    /// <param name="item">The item to be updated.</param>
     private void UpdateItemAndIcon(Item item)
     {
         _item = item;
@@ -77,16 +112,26 @@ public class PlayerInventoryItemButton : MonoBehaviour
         _icon.ChangeReleasedSpriteDelegate();
     }
 
+    /// <summary>
+    /// Resets the lifetime cycle for the associated item
+    /// </summary>
     private void ResetLifetimeCycle()
     {
         _playerInventoryItemSpoilUIManager.ResetLifetimeCycle(_item);
     }
 
+    /// <summary>
+    /// Runs the lifetime cycle for the associated item.
+    /// </summary>
+    /// <param name="currentTurnCount">The current turn count.</param>
     private void RunLifeTimeCycle(int currentTurnCount)
     {
         _playerInventoryItemSpoilUIManager.RunLifeTimeCycle(currentTurnCount);     
     }
 
+    /// <summary>
+    /// Destroys the associated item if it is spoiled.
+    /// </summary>
     private void DestroyItemIfSpoiled()
     {
         if (ItemSpoilPercentage >= 100)
@@ -97,6 +142,9 @@ public class PlayerInventoryItemButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the button select event.
+    /// </summary>
     private void OnSelect()
     {
         UpdateBtnDefaultIcon();
@@ -104,21 +152,33 @@ public class PlayerInventoryItemButton : MonoBehaviour
         SendData();
     }
 
+    /// <summary>
+    /// Deselects the button.
+    /// </summary>
     public void Deselect()
     {
         _button.Deselect();
     }
 
+    /// <summary>
+    /// Updates the button's default icon.
+    /// </summary>
     private void UpdateBtnDefaultIcon()
     {
         _icon.ChangeReleasedSpriteDelegate();
     }
 
+    /// <summary>
+    /// Wraps the data to be sent with the button event.
+    /// </summary>
     private void WrapData()
     {
         _buttonData[0] = this;    
     }
 
+    /// <summary>
+    /// Sends the data with the button event.
+    /// </summary>
     private void SendData()
     {
         GameEventHandler.RaiseEvent(GameEventType.SelectInventoryItemForSale, _buttonData);

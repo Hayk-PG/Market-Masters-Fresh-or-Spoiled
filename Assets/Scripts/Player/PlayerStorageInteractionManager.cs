@@ -24,12 +24,22 @@ public class PlayerStorageInteractionManager : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
+    /// <summary>
+    /// Handles game events and performs appropriate actions based on the event type.
+    /// </summary>
+    /// <param name="gameEventType">The game event type.</param>
+    /// <param name="data">The data associated with the event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         TryOpenStorageUI(gameEventType, data);
         AddItemToInventoryFromStorage(gameEventType, data);
     }
 
+    /// <summary>
+    /// Tries to open the storage UI when the appropriate game event is triggered.
+    /// </summary>
+    /// <param name="gameEventType">The game event type.</param>
+    /// <param name="data">The data associated with the event.</param>
     private void TryOpenStorageUI(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.RequestStorageUIOpen)
@@ -40,6 +50,11 @@ public class PlayerStorageInteractionManager : MonoBehaviour
         GameEventHandler.RaiseEvent(GameEventType.OpenStorageUI, data);
     }
 
+    /// <summary>
+    /// Adds items from storage to the player's inventory when the appropriate game event is triggered.
+    /// </summary>
+    /// <param name="gameEventType">The game event type.</param>
+    /// <param name="data">The data associated with the event.</param>
     private void AddItemToInventoryFromStorage(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.SubmitStorageItem)
@@ -65,30 +80,59 @@ public class PlayerStorageInteractionManager : MonoBehaviour
                 return;
             }
 
-            AddItemToInventory(selectedStorageItemButton.AssosiatedStorageItem);
+            AddItemToInventory(selectedStorageItemButton.AssociatedStorageItem);
             RemoveItemFromSelectedCell(selectedStorageItemButton, (Sprite)data[2]);
-            RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssosiatedStorageItem);
+            RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssociatedStorageItem);
         }
 
         PlaySoundEffect(0, 11);
     }
 
+    /// <summary>
+    /// Adds an item from storage to the player's inventory.
+    /// </summary>
+    /// <param name="storageItem">The storage item to add.</param>
     private void AddItemToInventory(StorageItem storageItem)
     {
-        _entityInventoryManager.AddItem(storageItem.AssosiatedItem);
-        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInventoryItemWithSavedLifetime(storageItem.AssosiatedItem, storageItem.ItemSavedLifeTime);
+        _entityInventoryManager.AddItem(storageItem.AssociatedItem);
+        AddItemToInventoryUI(storageItem);
     }
 
+    /// <summary>
+    /// Adds an item from storage to the player's inventory UI.
+    /// </summary>
+    /// <param name="storageItem">The storage item to add.</param>
+    private void AddItemToInventoryUI(StorageItem storageItem)
+    {
+        int itemNewLifetime = (GameSceneReferences.Manager.GameTurnManager.TurnCount - storageItem.InitialTurnCount) + storageItem.ItemSavedLifeTime;
+        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(storageItem.AssociatedItem, itemNewLifetime);
+    }
+
+    /// <summary>
+    /// Removes the item from the selected storage cell and updates its UI with an empty cell sprite.
+    /// </summary>
+    /// <param name="storageItemButton">The storage item button.</param>
+    /// <param name="emptyCellSprite">The empty cell sprite.</param>
     private void RemoveItemFromSelectedCell(StorageItemButton storageItemButton, Sprite emptyCellSprite)
     {
         storageItemButton.RemoveItem(emptyCellSprite);
     }
 
+    /// <summary>
+    /// Removes the selected storage item from the storage item list.
+    /// </summary>
+    /// <param name="storageItemsList">The storage item list.</param>
+    /// <param name="selectedStorageItem">The selected storage item.</param>
     private void RemoveItemFromStorageList(List<StorageItem> storageItemsList, StorageItem selectedStorageItem)
     {
         storageItemsList.Remove(selectedStorageItem);
     }
 
+    /// <summary>
+    /// Plays a sound effect with the specified list index and clip index.
+    /// </summary>
+    /// <param name="listIndex">The index of the sound list.</param>
+    /// <param name="clipIndex">The index of the sound clip.</param>
     private void PlaySoundEffect(int listIndex, int clipIndex)
     {
         UISoundController.PlaySound(listIndex, clipIndex);

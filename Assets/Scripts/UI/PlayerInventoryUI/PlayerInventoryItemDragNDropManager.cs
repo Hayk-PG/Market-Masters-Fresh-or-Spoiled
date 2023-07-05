@@ -14,7 +14,7 @@ public class PlayerInventoryItemDragNDropManager : MonoBehaviour, IPointerEnterH
     private bool _isDragStarted;
     private bool _isDragging;
 
-    private bool HasItem => _playerInventoryItemButton.AssosiatedItem != null;
+    private bool HasItem => _playerInventoryItemButton.AssociatedItem != null;
     private bool IsMouseButtonHeld => Input.GetMouseButton(0);
     private bool IsDragRelease => _isDragging && !IsMouseButtonHeld;
     private bool IsIdle => !_isPointerEntered && !_isDragging;

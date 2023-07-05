@@ -33,7 +33,7 @@ public class PlayerInventoryDragNDropManager : MonoBehaviour
         }
 
         SetDragItemIconActive(true);
-        SetDragItemIcon(icon: ((PlayerInventoryItemButton)data[1]).AssosiatedItem.Icon);
+        SetDragItemIcon(icon: ((PlayerInventoryItemButton)data[1]).AssociatedItem.Icon);
         SetDragItemIconPosition(position: (Vector2)data[2]);
     }
 
