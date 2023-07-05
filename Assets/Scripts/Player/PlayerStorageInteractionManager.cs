@@ -8,7 +8,8 @@ public class PlayerStorageInteractionManager : MonoBehaviour
     [SerializeField] private EntityIndexManager _entityIndexManager;
     [SerializeField] private EntityInventoryManager _entityInventoryManager;
 
-    private List<StorageItemButton> _storageItemsList;
+    private List<StorageItemButton> _storageItemButtonsList;
+    private List<StorageItem> _storageItemsList;
 
 
 
@@ -46,7 +47,9 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        _storageItemsList = (List<StorageItemButton>)data[0];
+        _storageItemButtonsList = (List<StorageItemButton>)data[0];
+        _storageItemsList = (List<StorageItem>)data[1];
+
         bool dontHaveInventorySpace = !_entityInventoryManager.HaveEnoughInventorySpace;
 
         if (dontHaveInventorySpace)
@@ -55,37 +58,35 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        if (_entityInventoryManager.HaveEnoughInventorySpace)
-
-        foreach (var selectedStorageItem in _storageItemsList)
+        foreach (var selectedStorageItemButton in _storageItemButtonsList)
         {
             if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
                 return;
             }
 
-            AddItemToInventory(selectedStorageItem.AssosiatedItem);
-            RemoveStoredItem(allStorageItemsList: (List<Item>)data[1], selectedStorageItem.AssosiatedItem);
-            RemoveSelectedStorageItem(selectedStorageItem, emptyCellSprite: (Sprite)data[2]);
+            AddItemToInventory(selectedStorageItemButton.AssosiatedStorageItem);
+            RemoveItemFromSelectedCell(selectedStorageItemButton, (Sprite)data[2]);
+            RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssosiatedStorageItem);
         }
 
         PlaySoundEffect(0, 11);
     }
 
-    private void AddItemToInventory(Item item)
+    private void AddItemToInventory(StorageItem storageItem)
     {
-        _entityInventoryManager.AddItem(item);
-        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);
+        _entityInventoryManager.AddItem(storageItem.AssosiatedItem);
+        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInventoryItemWithSavedLifetime(storageItem.AssosiatedItem, storageItem.ItemSavedLifeTime);
     }
 
-    private void RemoveSelectedStorageItem(StorageItemButton selectedStorageItemButton, Sprite emptyCellSprite)
+    private void RemoveItemFromSelectedCell(StorageItemButton storageItemButton, Sprite emptyCellSprite)
     {
-        selectedStorageItemButton.RemoveItem(emptyCellSprite);
+        storageItemButton.RemoveItem(emptyCellSprite);
     }
 
-    private void RemoveStoredItem(List<Item> allStorageItemsList, Item item)
+    private void RemoveItemFromStorageList(List<StorageItem> storageItemsList, StorageItem selectedStorageItem)
     {
-        allStorageItemsList.Remove(item);
+        storageItemsList.Remove(selectedStorageItem);
     }
 
     private void PlaySoundEffect(int listIndex, int clipIndex)

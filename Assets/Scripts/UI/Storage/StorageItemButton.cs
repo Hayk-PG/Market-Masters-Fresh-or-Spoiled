@@ -12,8 +12,8 @@ public class StorageItemButton : MonoBehaviour
     private bool _isSelected;
     private object[] _data = new object[1];
 
-    public Item AssosiatedItem { get; private set; }
-    public bool HasItem => AssosiatedItem != null;
+    public StorageItem AssosiatedStorageItem { get; private set; }
+    public bool HasStorageItem => !AssosiatedStorageItem.Equals(null);
 
 
 
@@ -33,7 +33,7 @@ public class StorageItemButton : MonoBehaviour
             StartCoroutine(DoubleClickToDeselect());
         }
 
-        if (!HasItem)
+        if (!HasStorageItem)
         {
             return;
         }
@@ -41,15 +41,15 @@ public class StorageItemButton : MonoBehaviour
         SendItem();
     }
 
-    public void AssignItem(Item item)
+    public void AssignStorageItem(StorageItem storageItem)
     {
-        AssosiatedItem = item;
-        ChangeIcon(AssosiatedItem.Icon);
+        AssosiatedStorageItem = storageItem;
+        ChangeIcon(storageItem.AssosiatedItem.Icon);
     }
 
     public void RemoveItem(Sprite sprite)
     {
-        AssosiatedItem = null;
+        AssosiatedStorageItem.Equals(null);
         ChangeIcon(sprite);
     }
 

@@ -20,7 +20,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
     [SerializeField] private Sprite _highlightedSprite;
 
     private PlayerInventoryItemButton _inventoryItemButton;
-    private List<Item> _storedItemsList = new List<Item>();
+    private List<StorageItem> _storageItemsList = new List<StorageItem>();
     private int _storageCapacity = 8;
     private bool _isPointerEntered;
     private bool _isTriggered;
@@ -52,7 +52,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
             return;
         }
 
-        _storedItemsData[0] = _storedItemsList;
+        _storedItemsData[0] = _storageItemsList;
         GameEventHandler.RaiseEvent(GameEventType.RequestStorageUIOpen, _storedItemsData);
     }
 
@@ -102,7 +102,7 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
         }
 
         _submittedStorageItemsData[0] = (List<StorageItemButton>)data[0];
-        _submittedStorageItemsData[1] = _storedItemsList;
+        _submittedStorageItemsData[1] = _storageItemsList;
         _submittedStorageItemsData[2] = (Sprite)data[1];      
         GameEventHandler.RaiseEvent(GameEventType.SubmitStorageItem, _submittedStorageItemsData);
     }
@@ -131,13 +131,13 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private void StoreItem()
     {
-        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || _storedItemsList.Count >= _storageCapacity)
+        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || _storageItemsList.Count >= _storageCapacity)
         {
             PlaySoundEffect(4, 1);
             return;
         }
 
-        _storedItemsList.Add(_inventoryItemButton.AssosiatedItem);
+        _storageItemsList.Add(new StorageItem(_inventoryItemButton.AssosiatedItem, _inventoryItemButton.ItemLifetime));
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
         PlaySoundEffect(7, 3);
     }

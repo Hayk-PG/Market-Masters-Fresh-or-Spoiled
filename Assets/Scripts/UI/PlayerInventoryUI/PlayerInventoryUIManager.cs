@@ -51,14 +51,31 @@ public class PlayerInventoryUIManager : MonoBehaviour
     /// <param name="item">The item to be assigned.</param>
     public void AssignInvetoryItem(Item item)
     {
+        IterateInventoryItemButtons(inventoryItemButton => 
+        {
+            inventoryItemButton?.AssignItem(item);
+            inventoryItemButton?.Deselect();
+        });
+    }
+
+    public void AssignInventoryItemWithSavedLifetime(Item item, int savedLifetime)
+    {
+        IterateInventoryItemButtons(inventoryItemButton =>
+        {
+            inventoryItemButton?.AssignItemWithLifetime(item, savedLifetime);
+            inventoryItemButton?.Deselect();
+        });
+    }
+
+    private void IterateInventoryItemButtons(System.Action<PlayerInventoryItemButton> UpdateInventoryButton)
+    {
         for (int i = 0; i < _inventoryItemButtons.Length; i++)
         {
             bool canAssignItem = _inventoryItemButtons[i].AssosiatedItem == null;
 
             if (canAssignItem)
             {
-                _inventoryItemButtons[i].AssignItem(item);
-                _inventoryItemButtons[i].Deselect();
+                UpdateInventoryButton?.Invoke(_inventoryItemButtons[i]);
                 return;
             }
         }

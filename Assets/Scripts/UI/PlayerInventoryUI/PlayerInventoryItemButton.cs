@@ -16,6 +16,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     public Item AssosiatedItem => _item;
     public int ItemSpoilPercentage => _playerInventoryItemSpoilUIManager.ItemSpoilPercentage;
+    public int ItemLifetime
+    {
+        get => _playerInventoryItemSpoilUIManager.Lifetime;
+        set => _playerInventoryItemSpoilUIManager.Lifetime = value;
+    }
 
 
 
@@ -43,10 +48,14 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     public void AssignItem(Item item)
     {
-        _item = item;
-        _icon.IconSpriteChangeDelegate (item.Icon);
-        _icon.ChangeReleasedSpriteDelegate();
+        UpdateItemAndIcon(item);
         ResetLifetimeCycle();
+    }
+
+    public void AssignItemWithLifetime(Item item, int saveLifetime)
+    {
+        UpdateItemAndIcon(item);
+        _playerInventoryItemSpoilUIManager.ContinueLifetimeCycle(saveLifetime);
     }
 
     public void RemoveAssosiatedItem()
@@ -59,6 +68,13 @@ public class PlayerInventoryItemButton : MonoBehaviour
     {
         _playerInventoryItemSpoilUIManager.ResetSpoilageOnSeparateSale();
         DestroyItemIfSpoiled();
+    }
+
+    private void UpdateItemAndIcon(Item item)
+    {
+        _item = item;
+        _icon.IconSpriteChangeDelegate(item.Icon);
+        _icon.ChangeReleasedSpriteDelegate();
     }
 
     private void ResetLifetimeCycle()

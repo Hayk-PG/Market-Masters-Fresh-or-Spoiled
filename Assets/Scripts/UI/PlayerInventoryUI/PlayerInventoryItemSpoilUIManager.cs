@@ -6,10 +6,9 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
     [Header("Disolve Effect")]
     [SerializeField] private UIDissolve _iconDisolve;
 
-    private int _lifetime;
-    private int _currentLifetimeCycle;
-
+    private int CurrentLifetimeCycle { get; set; }
     public int ItemSpoilPercentage { get; private set; }
+    public int Lifetime { get; set; }
 
 
 
@@ -21,15 +20,23 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
         SetItemSpoilPercentage(0);
     }
 
+    public void ContinueLifetimeCycle(int savedLifetime)
+    {
+        Lifetime += savedLifetime;
+        AssignCurrentLifetimeCycle(value: GameSceneReferences.Manager.GameTurnManager.TurnCount - Lifetime);
+        SetDisolveEffectFactor(value: Mathf.InverseLerp(0, 10, CurrentLifetimeCycle));
+        SetItemSpoilPercentage(value: Mathf.RoundToInt(Mathf.InverseLerp(0f, 1f, _iconDisolve.effectFactor) * 100f));
+    }
+
     public void RunLifeTimeCycle(int currentTurnCount)
     {
-        if (currentTurnCount < _lifetime)
+        if (currentTurnCount < Lifetime)
         {
             return;
         }
 
-        AssignCurrentLifetimeCycle(value: currentTurnCount - _lifetime);
-        SetDisolveEffectFactor(value: Mathf.InverseLerp(0, 10, _currentLifetimeCycle));
+        AssignCurrentLifetimeCycle(value: currentTurnCount - Lifetime);
+        SetDisolveEffectFactor(value: Mathf.InverseLerp(0, 10, CurrentLifetimeCycle));
         SetItemSpoilPercentage(value: Mathf.RoundToInt(Mathf.InverseLerp(0f, 1f, _iconDisolve.effectFactor) * 100f));
     }
 
@@ -40,8 +47,8 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
     {
         SetItemSpoilPercentage(100);
         SetDisolveEffectFactor(1);
-        _lifetime = 0;
-        _currentLifetimeCycle = 0;
+        Lifetime = 0;
+        CurrentLifetimeCycle = 0;
     }
 
     private void AssignLifetime(Item item)
@@ -51,12 +58,12 @@ public class PlayerInventoryItemSpoilUIManager : MonoBehaviour
             return;
         }
 
-        _lifetime = GameSceneReferences.Manager.GameTurnManager.TurnCount + ItemSpoilageFormula.SpoilageLevel(item.ItemDurabilityLevel);
+        Lifetime = GameSceneReferences.Manager.GameTurnManager.TurnCount + ItemSpoilageFormula.SpoilageLevel(item.ItemDurabilityLevel);
     }
 
     private void AssignCurrentLifetimeCycle(int value)
     {
-        _currentLifetimeCycle = value;
+        CurrentLifetimeCycle = value;
     }
 
     private void SetDisolveEffectFactor(float value)
