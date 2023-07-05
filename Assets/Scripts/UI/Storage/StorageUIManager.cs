@@ -1,8 +1,9 @@
 using UnityEngine;
 using Pautik;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
-public class StorageUIManager : MonoBehaviour
+public class StorageUIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Components")]
     [SerializeField] private CanvasGroup _canvasGroup;
@@ -15,6 +16,7 @@ public class StorageUIManager : MonoBehaviour
     [SerializeField] private Sprite _emptyCellSprite;
     [SerializeField] private Sprite _blockedCellSprite;
 
+    private bool _isPointerEntered;
     private object[] selectedStorageItemButtonData = new object[2];
     private List<Item> _tempItemsList;
     private List<StorageItemButton> _selectedStorageItemsList = new List<StorageItemButton>(); 
@@ -29,11 +31,22 @@ public class StorageUIManager : MonoBehaviour
         _commandButtons[1].OnSelect += SelectSendButton;
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _isPointerEntered = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _isPointerEntered = false;
+    }
+
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         UpdateStorageAndOpen(gameEventType, data);
         CloseStorage(gameEventType);
         OnStorageItemButtonSelected(gameEventType, data);
+        CloseStorageIfDragNDropItemIsOverUI(gameEventType);
     }
 
     private void SelectCloseButton()
@@ -92,6 +105,21 @@ public class StorageUIManager : MonoBehaviour
         }
 
         UpdateSelectedStorageItemButtonsList(storageItemButton: (StorageItemButton)data[0]);
+    }
+
+    private void CloseStorageIfDragNDropItemIsOverUI(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.InventoryItemDragNDrop)
+        {
+            return;
+        }
+
+        if (!_isPointerEntered)
+        {
+            return;
+        }
+
+        GameEventHandler.RaiseEvent(GameEventType.CloseStorageUI);
     }
 
     private void UpdateSelectedStorageItemButtonsList(StorageItemButton storageItemButton, bool removeAll = false)
