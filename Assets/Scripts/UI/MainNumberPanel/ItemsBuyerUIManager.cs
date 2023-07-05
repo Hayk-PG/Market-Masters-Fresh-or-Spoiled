@@ -59,7 +59,7 @@ public class ItemsBuyerUIManager : MonoBehaviour
         }
 
         PlayAnimation(_updateMainNumberAnim);
-        PlaySoundEffect();
+        PlaySoundEffect((byte)data[0]);
     }
 
     private void PlayAnimation(string animationState)
@@ -67,8 +67,8 @@ public class ItemsBuyerUIManager : MonoBehaviour
         _animator.Play(animationState, 0, 0);
     }
 
-    private void PlaySoundEffect()
+    private void PlaySoundEffect(int clipIndex)
     {
-        UISoundController.PlaySound(3, 1);
+        UISoundController.PlaySound(3, clipIndex > 3 ? 2 : 1);
     }
 }

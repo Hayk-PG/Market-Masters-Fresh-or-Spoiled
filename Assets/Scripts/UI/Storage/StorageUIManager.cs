@@ -17,7 +17,7 @@ public class StorageUIManager : MonoBehaviour
 
     private object[] selectedStorageItemButtonData = new object[2];
     private List<Item> _tempItemsList;
-    private List<StorageItemButton> _selectedStorageItemButton = new List<StorageItemButton>(); 
+    private List<StorageItemButton> _selectedStorageItemsList = new List<StorageItemButton>(); 
 
 
 
@@ -42,8 +42,18 @@ public class StorageUIManager : MonoBehaviour
     }
 
     private void SelectSendButton()
-    {       
-        selectedStorageItemButtonData[0] = _selectedStorageItemButton;
+    {
+        bool hasSelectedItem = _selectedStorageItemsList.Count > 0;
+
+        if (!hasSelectedItem)
+        {
+            DeselectItems();
+            UpdateSelectedStorageItemButtonsList(null, true);
+            PlaySoundEffect(4, 1);
+            return;
+        }
+
+        selectedStorageItemButtonData[0] = _selectedStorageItemsList;
         selectedStorageItemButtonData[1] = _emptyCellSprite;
         GameEventHandler.RaiseEvent(GameEventType.SendStorageItemForVerification, selectedStorageItemButtonData);
         DeselectItems();
@@ -56,7 +66,7 @@ public class StorageUIManager : MonoBehaviour
         {
             return;
         }
-
+       
         UpdateStorageItems(data);
         DeselectItems();
         SetCanvasGroupActivity(true);
@@ -88,17 +98,17 @@ public class StorageUIManager : MonoBehaviour
     {
         if (removeAll)
         {
-            _selectedStorageItemButton = new List<StorageItemButton>();
+            _selectedStorageItemsList = new List<StorageItemButton>();
             return;
         }
 
-        if(_selectedStorageItemButton.Exists(button => button == storageItemButton))
+        if(_selectedStorageItemsList.Exists(button => button == storageItemButton))
         {
-            _selectedStorageItemButton.Remove(storageItemButton);
+            _selectedStorageItemsList.Remove(storageItemButton);
         }
         else
         {
-            _selectedStorageItemButton.Add(storageItemButton);
+            _selectedStorageItemsList.Add(storageItemButton);
         }
     }
 
@@ -129,6 +139,17 @@ public class StorageUIManager : MonoBehaviour
 
     private void SetCanvasGroupActivity(bool isActive)
     {
+        if(_canvasGroup.interactable == isActive)
+        {
+            return;
+        }
+
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, isActive);
+        PlaySoundEffect(9, isActive ? 0 : 1);
+    }
+
+    private void PlaySoundEffect(int listIndex, int clipIndex)
+    {
+        UISoundController.PlaySound(listIndex, clipIndex);
     }
 }

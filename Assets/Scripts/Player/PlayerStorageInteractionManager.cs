@@ -8,7 +8,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
     [SerializeField] private EntityIndexManager _entityIndexManager;
     [SerializeField] private EntityInventoryManager _entityInventoryManager;
 
-    private bool IsPlayerTeamTurn => GameSceneReferences.Manager.GameTurnManager.CurrentTeamTurn == _entityIndexManager.TeamIndex;
+    private List<StorageItemButton> _storageItemsList;
 
 
 
@@ -26,7 +26,6 @@ public class PlayerStorageInteractionManager : MonoBehaviour
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         TryOpenStorageUI(gameEventType, data);
-        CloseStorageUIOnTurnUpdate(gameEventType);
         AddItemToInventoryFromStorage(gameEventType, data);
     }
 
@@ -37,22 +36,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        if (IsPlayerTeamTurn)
-        {
-            return;
-        }
-
         GameEventHandler.RaiseEvent(GameEventType.OpenStorageUI, data);
-    }
-
-    private void CloseStorageUIOnTurnUpdate(GameEventType gameEventType)
-    {
-        if(gameEventType != GameEventType.UpdateGameTurn)
-        {
-            return;
-        }
-
-        GameEventHandler.RaiseEvent(GameEventType.CloseStorageUI);
     }
 
     private void AddItemToInventoryFromStorage(GameEventType gameEventType, object[] data)
@@ -62,12 +46,18 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        if (IsPlayerTeamTurn)
+        _storageItemsList = (List<StorageItemButton>)data[0];
+        bool dontHaveInventorySpace = !_entityInventoryManager.HaveEnoughInventorySpace;
+
+        if (dontHaveInventorySpace)
         {
+            PlaySoundEffect(4, 1);
             return;
         }
 
-        foreach (var selectedStorageItem in (List<StorageItemButton>)data[0])
+        if (_entityInventoryManager.HaveEnoughInventorySpace)
+
+        foreach (var selectedStorageItem in _storageItemsList)
         {
             if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
@@ -78,6 +68,8 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             RemoveStoredItem(allStorageItemsList: (List<Item>)data[1], selectedStorageItem.AssosiatedItem);
             RemoveSelectedStorageItem(selectedStorageItem, emptyCellSprite: (Sprite)data[2]);
         }
+
+        PlaySoundEffect(0, 11);
     }
 
     private void AddItemToInventory(Item item)
@@ -94,5 +86,10 @@ public class PlayerStorageInteractionManager : MonoBehaviour
     private void RemoveStoredItem(List<Item> allStorageItemsList, Item item)
     {
         allStorageItemsList.Remove(item);
+    }
+
+    private void PlaySoundEffect(int listIndex, int clipIndex)
+    {
+        UISoundController.PlaySound(listIndex, clipIndex);
     }
 }

@@ -131,13 +131,15 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private void StoreItem()
     {
-        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null || _storedItemsList.Count >= _storageCapacity)
+        if(_inventoryItemButton == null || _inventoryItemButton.AssosiatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || _storedItemsList.Count >= _storageCapacity)
         {
+            PlaySoundEffect(4, 1);
             return;
         }
 
         _storedItemsList.Add(_inventoryItemButton.AssosiatedItem);
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
+        PlaySoundEffect(7, 3);
     }
 
     private void SetButtonSprites(Sprite sprite)
@@ -185,4 +187,10 @@ public class FridgeControllerButton : MonoBehaviour, IPointerEnterHandler, IPoin
         }
 
         _isTriggered = isTriggered;
-    }}
+    }
+
+    private void PlaySoundEffect(int listIndex, int clipIndex)
+    {
+        UISoundController.PlaySound(listIndex, clipIndex);
+    }
+}

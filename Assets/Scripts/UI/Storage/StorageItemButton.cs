@@ -26,6 +26,7 @@ public class StorageItemButton : MonoBehaviour
     private void OnSelect()
     {
         SetSelectionState(!_isSelected);
+        PlaySoundEffect();
 
         if (!_isSelected)
         {
@@ -84,5 +85,10 @@ public class StorageItemButton : MonoBehaviour
     private void SetSelectionState(bool isSelected)
     {
         _isSelected = isSelected;
+    }
+
+    private void PlaySoundEffect()
+    {
+        UISoundController.PlaySound(0, _isSelected ? 1 : 2);
     }
 }

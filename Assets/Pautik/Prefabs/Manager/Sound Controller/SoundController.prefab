@@ -571,6 +571,7 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: 0c4cfb44b5f87a948b15e25089570dce, type: 3}
     - {fileID: 8300000, guid: a9de8b6cb1e869342a9bb8feff559455, type: 3}
+    - {fileID: 8300000, guid: 9c77dbfb3a5506e48bf0106e47ce2b08, type: 3}
   - _title: Error
     _clips:
     - {fileID: 8300000, guid: 87d09e7a0c27b8b43b5d8e556cd71abb, type: 3}
@@ -597,8 +598,6 @@ MonoBehaviour:
   - _title: Notification
     _clips:
     - {fileID: 8300000, guid: 1bd19f99b37d59048b93468985b0f76b, type: 3}
-    - {fileID: 8300000, guid: 90848bb4e3d3e0043a64d5b65adba1a5, type: 3}
-    - {fileID: 8300000, guid: 0df42711a26149a48a77b2701e3a313f, type: 3}
     - {fileID: 8300000, guid: b712e322a1675cd4288c0c23355fbc32, type: 3}
     - {fileID: 8300000, guid: c377818fcf94d7e489fa4b4e0cb8ab79, type: 3}
     - {fileID: 8300000, guid: 937df876adce63f4588abef79c1e7252, type: 3}
@@ -609,6 +608,10 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: f088db5e2661ca74a8f486cadafda615, type: 3}
     - {fileID: 8300000, guid: 4ce250411c40fe64495a52b034bcf3ed, type: 3}
+  - _title: Appear-Disappear
+    _clips:
+    - {fileID: 8300000, guid: 90848bb4e3d3e0043a64d5b65adba1a5, type: 3}
+    - {fileID: 8300000, guid: 0df42711a26149a48a77b2701e3a313f, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0
