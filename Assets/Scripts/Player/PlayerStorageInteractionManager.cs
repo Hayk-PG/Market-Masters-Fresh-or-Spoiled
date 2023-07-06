@@ -10,6 +10,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
 
     private List<StorageItemButton> _storageItemButtonsList;
     private List<StorageItem> _storageItemsList;
+    private System.Action UpdateSorageItemsCountTextCallback;
 
 
 
@@ -64,6 +65,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
 
         _storageItemButtonsList = (List<StorageItemButton>)data[0];
         _storageItemsList = (List<StorageItem>)data[1];
+        UpdateSorageItemsCountTextCallback = (System.Action)data[3];
 
         bool dontHaveInventorySpace = !_entityInventoryManager.HaveEnoughInventorySpace;
 
@@ -85,6 +87,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             RemoveItemFromSelectedCell(selectedStorageItemButton, (Sprite)data[2]);
         }
 
+        UpdateSorageItemsCountTextCallback();
         PlaySoundEffect(0, 11);
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Pautik;
 
 public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -12,7 +13,9 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     [Header("UI Elements")]
     [SerializeField] private Btn_Icon _btnIcon;
+    [SerializeField] private BtnTxt _itemsCountText;
     [SerializeField] private CanvasGroup _iconCanvasGroup;
+    [SerializeField] private CanvasGroup _itemsCountTextCanvasGroup;
     [SerializeField] private RectTransform _iconRectTransform;
 
     [Header("Sprites")]
@@ -24,7 +27,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
     private bool _isPointerEntered;
     private bool _isTriggered;
     private object[] _storedItemsData = new object[1];
-    private object[] _submittedStorageItemsData = new object[3];
+    private object[] _submittedStorageItemsData = new object[4];
 
     private bool IsPointerExited => !_isPointerEntered;
     private bool IsButtonsGroupHidden => !_coopButtonsGroup.IsActive;
@@ -32,6 +35,11 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
 
 
+
+    private void Awake()
+    {
+        UpdateItemsCountText();
+    }
 
     private void OnEnable()
     {
@@ -96,14 +104,14 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (IsPointerExited || IsButtonsGroupHidden)
         {
-            SetIconAlpha(1f);
+            SetIconAndTextAlpha(1f);
             HandleButtonInteraction(_defaultSprite, false);
             return;
         }
 
         if(IsDragRelease(isDragRelease: !(bool)data[0]))
         {
-            SetIconAlpha(1f);
+            SetIconAndTextAlpha(1f);
             HandleButtonInteraction(_defaultSprite, false);
             StoreItem();
             return;
@@ -112,7 +120,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
         GetInventoryItemButton((PlayerInventoryItemButton)data[1]);
         HandleButtonInteraction(_highlightedSprite, true, false);
         CalculateIconAlpha(mousePosition: (Vector2)data[2], out float alpha);
-        SetIconAlpha(alpha);
+        SetIconAndTextAlpha(alpha);
     }
 
     /// <summary>
@@ -129,7 +137,8 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
         _submittedStorageItemsData[0] = (List<StorageItemButton>)data[0];
         _submittedStorageItemsData[1] = StorageItemsList;
-        _submittedStorageItemsData[2] = (Sprite)data[1];      
+        _submittedStorageItemsData[2] = (Sprite)data[1];
+        _submittedStorageItemsData[3] = (System.Action)delegate { UpdateItemsCountText(); };
         GameEventHandler.RaiseEvent(GameEventType.SubmitStorageItem, _submittedStorageItemsData);
     }
 
@@ -185,7 +194,13 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
         int itemSavedLifetime = _inventoryItemButton.ItemLifetime;
         StorageItemsList.Add(new StorageItem(_inventoryItemButton.AssociatedItem, currentTurnCount, itemSavedLifetime));
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
+        UpdateItemsCountText();
         PlaySoundEffect(7, 3);
+    }
+
+    private void UpdateItemsCountText()
+    {
+        _itemsCountText.SetButtonTitle($"{GlobalFunctions.PartiallyTransparentText(StorageItemsList.Count.ToString())}/{GlobalFunctions.WhiteColorText(_storageCapacity.ToString())}");
     }
 
     /// <summary>
@@ -231,7 +246,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
     /// Sets the alpha value for the icon.
     /// </summary>
     /// <param name="value">The alpha value to set.</param>
-    private void SetIconAlpha(float value)
+    private void SetIconAndTextAlpha(float value)
     {
         if (!_isTriggered)
         {
@@ -239,6 +254,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
         }
 
         _iconCanvasGroup.alpha = value;
+        _itemsCountTextCanvasGroup.alpha = value;
     }
 
     /// <summary>
