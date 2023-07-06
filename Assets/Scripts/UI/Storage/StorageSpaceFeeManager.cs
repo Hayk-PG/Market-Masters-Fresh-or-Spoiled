@@ -3,9 +3,7 @@ using UnityEngine;
 public class StorageSpaceFeeManager : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private StorageItemButton _storageItemButton;
-
-    private int _feeProcessTurn;
+    [SerializeField] private StorageManagerButton _storageManagerButton;
 
 
 
@@ -22,39 +20,40 @@ public class StorageSpaceFeeManager : MonoBehaviour
 
     private void CalculateStorageSpaceFee(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.CalculateStorageSpaceFee)
+        if (gameEventType != GameEventType.CalculateStorageSpaceFee)
         {
             return;
         }
 
-        bool canCalculateStorageSpaceFee = GameSceneReferences.Manager.GameManager.IsGameStarted && _storageItemButton.HasStorageItem;
-
-        print($"Is game started: {GameSceneReferences.Manager.GameManager.IsGameStarted}/Has storage item: {_storageItemButton.HasStorageItem}");
+        bool canCalculateStorageSpaceFee = GameSceneReferences.Manager.GameManager.IsGameStarted && _storageManagerButton.StorageItemsList.Count > 0;
 
         if (!canCalculateStorageSpaceFee)
         {
             return;
         }
 
-        bool hasTurnChangedSinceFeeProcessStart = _storageItemButton.AssociatedStorageItem.Value.InitialTurnCount > _feeProcessTurn;
+        int storageSpaceFeeAmount = 0;
 
-        if (hasTurnChangedSinceFeeProcessStart)
+        foreach (var storageItem in _storageManagerButton.StorageItemsList)
         {
-            _feeProcessTurn = _storageItemButton.AssociatedStorageItem.Value.InitialTurnCount;
+            bool hasTurnChangedSinceFeeProcessStart = GameSceneReferences.Manager.GameTurnManager.TurnCount > storageItem.StorageFeeProcessTurnCount;
+
+            if (!hasTurnChangedSinceFeeProcessStart)
+            {
+                continue;
+            }
+
+            int turnCountSinceFeeProcessStart = GameSceneReferences.Manager.GameTurnManager.TurnCount - storageItem.StorageFeeProcessTurnCount;
+            storageSpaceFeeAmount += (turnCountSinceFeeProcessStart * 15);          
+            storageItem.UpdateStorageFeeProcessTurnCount(GameSceneReferences.Manager.GameTurnManager.TurnCount);
         }
 
-        int turnCountSinceFeeProcessStart = GameSceneReferences.Manager.GameTurnManager.TurnCount - _feeProcessTurn;
-        int storageSpaceFeeAmount = turnCountSinceFeeProcessStart * 15;
-
-        print($"Initial turn count: {_storageItemButton.AssociatedStorageItem.Value.InitialTurnCount}/Fee process turn: {_feeProcessTurn}/Turn count since fee process start: {turnCountSinceFeeProcessStart}/Storage space fee amount: {storageSpaceFeeAmount}/Has item: {_storageItemButton.AssociatedStorageItem.Value}");
-
         CalculatePlayerStorageTotalFee((System.Action<int>)data[0], storageSpaceFeeAmount);
-        _feeProcessTurn = GameSceneReferences.Manager.GameTurnManager.TurnCount;
     }
 
     private void CalculatePlayerStorageTotalFee(System.Action<int> CalculateTotalFee, int storageSpaceFeeAmount)
     {
-        if(storageSpaceFeeAmount < 1)
+        if (storageSpaceFeeAmount < 1)
         {
             return;
         }

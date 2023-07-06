@@ -20,7 +20,6 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] private Sprite _highlightedSprite;
 
     private PlayerInventoryItemButton _inventoryItemButton;
-    private List<StorageItem> _storageItemsList = new List<StorageItem>();
     private int _storageCapacity = 8;
     private bool _isPointerEntered;
     private bool _isTriggered;
@@ -29,6 +28,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private bool IsPointerExited => !_isPointerEntered;
     private bool IsButtonsGroupHidden => !_coopButtonsGroup.IsActive;
+    internal List<StorageItem> StorageItemsList { get; private set; } = new List<StorageItem>();
 
 
 
@@ -60,7 +60,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
             return;
         }
 
-        _storedItemsData[0] = _storageItemsList;
+        _storedItemsData[0] = StorageItemsList;
         GameEventHandler.RaiseEvent(GameEventType.RequestStorageUIOpen, _storedItemsData);
     }
 
@@ -128,7 +128,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
         }
 
         _submittedStorageItemsData[0] = (List<StorageItemButton>)data[0];
-        _submittedStorageItemsData[1] = _storageItemsList;
+        _submittedStorageItemsData[1] = StorageItemsList;
         _submittedStorageItemsData[2] = (Sprite)data[1];      
         GameEventHandler.RaiseEvent(GameEventType.SubmitStorageItem, _submittedStorageItemsData);
     }
@@ -175,7 +175,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
     /// </summary>
     private void StoreItem()
     {
-        if(_inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || _storageItemsList.Count >= _storageCapacity)
+        if(_inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || StorageItemsList.Count >= _storageCapacity)
         {
             PlaySoundEffect(4, 1);
             return;
@@ -183,7 +183,7 @@ public class StorageManagerButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
         int currentTurnCount = GameSceneReferences.Manager.GameTurnManager.TurnCount;
         int itemSavedLifetime = _inventoryItemButton.ItemLifetime;
-        _storageItemsList.Add(new StorageItem(_inventoryItemButton.AssociatedItem, currentTurnCount, itemSavedLifetime));
+        StorageItemsList.Add(new StorageItem(_inventoryItemButton.AssociatedItem, currentTurnCount, itemSavedLifetime));
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
         PlaySoundEffect(7, 3);
     }

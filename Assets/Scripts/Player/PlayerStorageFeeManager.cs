@@ -41,15 +41,7 @@ public class PlayerStorageFeeManager : MonoBehaviour
         bool isMyTeamTurn = IsCurrentTurnTargetTurn((TeamIndex)data[2], _entityIndexManager.TeamIndex);
 
         RaiseFeeCalculationEvent();
-
-        if (isMyTeamTurn)
-        {
-            
-        }
-        else
-        {
-            _totalFee = 0;
-        }
+        ResetTotalFee();
     }
 
     private void RaiseFeeCalculationEvent()
@@ -65,7 +57,12 @@ public class PlayerStorageFeeManager : MonoBehaviour
 
     private void CalculateTotalFee(int storageSpaceFeeAmount)
     {
-        _totalFee += storageSpaceFeeAmount;
+        _totalFee = storageSpaceFeeAmount;
         print(_totalFee);
+    }
+
+    private void ResetTotalFee()
+    {
+        _totalFee = 0;
     }
 }

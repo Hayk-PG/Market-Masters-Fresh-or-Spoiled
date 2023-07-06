@@ -12,8 +12,8 @@ public class StorageItemButton : MonoBehaviour
     private bool _isSelected;
     private object[] _data = new object[1];
 
-    public StorageItem? AssociatedStorageItem { get; private set; }
-    public bool HasStorageItem => AssociatedStorageItem.HasValue;
+    public StorageItem AssociatedStorageItem { get; private set; }
+    public bool HasStorageItem => AssociatedStorageItem != null;
 
 
 
