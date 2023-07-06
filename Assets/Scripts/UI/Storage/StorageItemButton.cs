@@ -12,8 +12,8 @@ public class StorageItemButton : MonoBehaviour
     private bool _isSelected;
     private object[] _data = new object[1];
 
-    public StorageItem AssociatedStorageItem { get; private set; }
-    public bool HasStorageItem => !AssociatedStorageItem.Equals(null);
+    public StorageItem? AssociatedStorageItem { get; private set; }
+    public bool HasStorageItem => AssociatedStorageItem.HasValue;
 
 
 
@@ -60,7 +60,7 @@ public class StorageItemButton : MonoBehaviour
     /// <param name="sprite">The sprite to use as the new icon.</param>
     public void RemoveItem(Sprite sprite)
     {
-        AssociatedStorageItem.Equals(null);
+        AssociatedStorageItem = null;
         ChangeIcon(sprite);
     }
 

@@ -80,9 +80,9 @@ public class PlayerStorageInteractionManager : MonoBehaviour
                 return;
             }
 
-            AddItemToInventory(selectedStorageItemButton.AssociatedStorageItem);
+            AddItemToInventory(selectedStorageItemButton.AssociatedStorageItem.Value);
+            RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssociatedStorageItem.Value);
             RemoveItemFromSelectedCell(selectedStorageItemButton, (Sprite)data[2]);
-            RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssociatedStorageItem);
         }
 
         PlaySoundEffect(0, 11);
