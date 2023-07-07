@@ -50,6 +50,9 @@ public enum GameEventType
 
    RestrictSaleAbility,
 
+   DisplayErrorMessage,
+   CloseErrorMessage,
+
    QueueNotification,
    DisplayNotification,
    DisplayNextNotification,

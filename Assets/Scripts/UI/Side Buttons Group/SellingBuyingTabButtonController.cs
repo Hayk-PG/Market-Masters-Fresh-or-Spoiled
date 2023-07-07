@@ -12,6 +12,9 @@ public class SellingBuyingTabButtonController : MonoBehaviour
     [SerializeField] private Image _leftArrowIcon;
     [SerializeField] private Image _rightArrowIcon;
 
+    [Header("Error Message")]
+    [SerializeField] private ErrorMessageGroup _errorMessage;
+
     private const string _sellTab = "sell";
     private const string _buyTab = "buy";
 
@@ -34,6 +37,7 @@ public class SellingBuyingTabButtonController : MonoBehaviour
 
         if (!canInteractWithButton)
         {
+            DisplayError();
             return;
         }
 
@@ -45,12 +49,17 @@ public class SellingBuyingTabButtonController : MonoBehaviour
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.SellingBuyingTabActivity)
-        {
+        {           
             return;
         }
 
         UpdateText();
         SwitchArrowIcons();
+    }
+
+    private void DisplayError()
+    {
+        _errorMessage.DisplayErrorMessage(0, 0, 4, 11);
     }
 
     private void UpdateText()
