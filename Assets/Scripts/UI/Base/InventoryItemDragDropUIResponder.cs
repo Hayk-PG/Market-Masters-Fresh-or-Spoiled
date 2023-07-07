@@ -7,13 +7,14 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
     [Header("UI Elements")]
     [SerializeField] protected Btn _button;
     [SerializeField] protected Btn_Icon _buttonIcon;
-    [SerializeField] protected RectTransform _buttonIconRectTransform;
+    [SerializeField] protected RectTransform _buttonRectTransform;
     [SerializeField] protected CanvasGroup[] _canvasGroups;
 
     [Header("Sprites")]
     [SerializeField] protected Sprite _defaultSprite;
     [SerializeField] protected Sprite _highlightedSprite;
 
+    protected PlayerInventoryItemButton _inventoryItemButton;
     protected bool _isPointerEntered;
     protected bool _isTriggered;
 
@@ -22,6 +23,17 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
 
 
 
+
+
+    protected virtual void OnEnable()
+    {
+        GameEventHandler.OnEvent += OnGameEvent;
+    }
+
+    protected virtual void OnGameEvent(GameEventType gameEventType, object[] data)
+    {
+        HandleInventoryItemDragNDropEvent(gameEventType, data);
+    }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -69,6 +81,7 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
 
     protected virtual void ExecuteOnHover(object[] data)
     {
+        GetInventoryItemButton((PlayerInventoryItemButton)data[1]);
         HandleButtonInteraction(_highlightedSprite, true, false);
         CalculateIconAlpha(mousePosition: (Vector2)data[2], out float alpha);
         SetUIElementAlpha(alpha);
@@ -89,10 +102,15 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
         _isTriggered = isTriggered;
     }
 
+    protected virtual void GetInventoryItemButton(PlayerInventoryItemButton playerInventoryItemButton)
+    {
+        _inventoryItemButton = playerInventoryItemButton;
+    }
+
     protected virtual void CalculateIconAlpha(Vector2 mousePosition, out float alpha)
     {
-        float mouseDistance = Vector2.Distance(mousePosition, _buttonIconRectTransform.position);
-        alpha = Mathf.InverseLerp(0f, _buttonIconRectTransform.sizeDelta.x, mouseDistance);
+        float mouseDistance = Vector2.Distance(mousePosition, _buttonRectTransform.position);
+        alpha = Mathf.InverseLerp(0f, _buttonRectTransform.sizeDelta.x, mouseDistance);
     }
 
     protected virtual void SetUIElementAlpha(float alpha)

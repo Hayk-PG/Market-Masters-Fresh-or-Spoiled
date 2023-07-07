@@ -7,7 +7,6 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
     [Header("UI Elements")]
     [SerializeField] private BtnTxt _itemsCountText;
 
-    private PlayerInventoryItemButton _inventoryItemButton;
     private int _storageCapacity = 8;
     private object[] _storedItemsData = new object[1];
     private object[] _submittedStorageItemsData = new object[4];
@@ -22,26 +21,18 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         UpdateItemsCountText();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        GameEventHandler.OnEvent += OnGameEvent;
+        base.OnEnable();
         _button.OnSelect += OnSelect;
     }
 
-    /// <summary>
-    /// Handles game events and performs appropriate actions based on the event type.
-    /// </summary>
-    /// <param name="gameEventType">The game event type.</param>
-    /// <param name="data">The data associated with the event.</param>
-    private void OnGameEvent(GameEventType gameEventType, object[] data)
+    protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        HandleInventoryItemDragNDropEvent(gameEventType, data);
+        base.HandleInventoryItemDragNDropEvent(gameEventType, data);
         SubmitStorageItem(gameEventType, data);
     }
 
-    /// <summary>
-    /// Handles the button selection event.
-    /// </summary>
     private void OnSelect()
     {
         if (IsButtonsGroupHidden)
@@ -64,20 +55,11 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         base.ExecuteOnDragRelease(data);
     }
 
-    protected override void ExecuteOnHover(object[] data)
-    {
-        GetInventoryItemButton((PlayerInventoryItemButton)data[1]);
-        base.ExecuteOnHover(data);
-    }
-
     protected override void CalculateIconAlpha(Vector2 mousePosition, out float alpha)
     {
         alpha = 0.5f;
     }
 
-    /// <summary>
-    /// Stores the inventory item in the storage based on the current conditions.
-    /// </summary>
     private void StoreItem()
     {
         if (_inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || StorageItemsList.Count >= _storageCapacity)
@@ -94,20 +76,6 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         PlaySoundEffect(7, 3);
     }
 
-    /// <summary>
-    /// Retrieves the inventory item button associated with the storage manager button.
-    /// </summary>
-    /// <param name="playerInventoryItemButton">The inventory item button to retrieve.</param>
-    private void GetInventoryItemButton(PlayerInventoryItemButton playerInventoryItemButton)
-    {
-        _inventoryItemButton = playerInventoryItemButton;
-    }
-
-    /// <summary>
-    /// Submits the storage item for verification when the appropriate game event is triggered.
-    /// </summary>
-    /// <param name="gameEventType">The game event type.</param>
-    /// <param name="data">The data associated with the event.</param>
     private void SubmitStorageItem(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.SendStorageItemForVerification)
@@ -127,11 +95,6 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         _itemsCountText.SetButtonTitle($"{GlobalFunctions.PartiallyTransparentText(StorageItemsList.Count.ToString())}/{GlobalFunctions.WhiteColorText(_storageCapacity.ToString())}");
     }
 
-    /// <summary>
-    /// Plays a sound effect based on the provided list index and clip index.
-    /// </summary>
-    /// <param name="listIndex">The index of the sound effect list.</param>
-    /// <param name="clipIndex">The index of the sound effect clip.</param>
     private void PlaySoundEffect(int listIndex, int clipIndex)
     {
         UISoundController.PlaySound(listIndex, clipIndex);
