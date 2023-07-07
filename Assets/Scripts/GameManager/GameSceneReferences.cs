@@ -17,6 +17,7 @@ public class GameSceneReferences : MonoBehaviour
     [SerializeField] private TeamGroupPanelManager[] _teamGroupPanels;
     [SerializeField] private PlayerInventoryUIManager _playerInventoryUIManager;
     [SerializeField] private ItemsBuyerUIManager _itemsBuyerUIManager;
+    [SerializeField] private CoOpButtonsGroup _coopButtonsGroup;
 
     [Header("Transforms")]
     [SerializeField] private Transform _playersContainer;
@@ -37,6 +38,7 @@ public class GameSceneReferences : MonoBehaviour
     public TeamGroupPanelManager[] TeamGroupPanels => Manager._teamGroupPanels;
     public PlayerInventoryUIManager PlayerInventoryUIManager => Manager._playerInventoryUIManager;
     public ItemsBuyerUIManager ItemsBuyerUIManager => Manager._itemsBuyerUIManager;
+    public CoOpButtonsGroup CoOpButtonsGroup => Manager._coopButtonsGroup;
 
     // Transforms
     public Transform PlayersContainer => Manager._playersContainer;

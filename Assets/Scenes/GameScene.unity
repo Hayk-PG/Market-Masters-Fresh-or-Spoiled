@@ -480,6 +480,7 @@ MonoBehaviour:
   - {fileID: 3283913712959171044}
   _playerInventoryUIManager: {fileID: 1725895386}
   _itemsBuyerUIManager: {fileID: 65460487}
+  _coopButtonsGroup: {fileID: 6721545564158684869}
   _playersContainer: {fileID: 1639146100}
   _items: {fileID: 11400000, guid: 34b935355a4867a4dba9c621455a4b7c, type: 2}
 --- !u!114 &319595011
@@ -6797,17 +6798,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2845258061273106112, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
   m_PrefabInstance: {fileID: 6721545564158684862}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6721545564158684867 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4595228864241362527, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
-  m_PrefabInstance: {fileID: 6721545564158684862}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0954bf3d455dd4fab6eac7e54facb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6721545564158684868 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2845258061503007088, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
@@ -6836,15 +6826,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a72c1a8ea0fa41b5a4946779ceda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coopButtonsGroup: {fileID: 6721545564158684869}
   _button: {fileID: 1958274049}
-  _btnIcon: {fileID: 6721545564158684867}
-  _itemsCountText: {fileID: 990405373}
-  _iconCanvasGroup: {fileID: 199825873}
-  _itemsCountTextCanvasGroup: {fileID: 990405376}
-  _iconRectTransform: {fileID: 199825869}
+  _buttonIcon: {fileID: 6721545564158684872}
+  _buttonIconRectTransform: {fileID: 6721545564158684865}
+  _canvasGroups:
+  - {fileID: 199825873}
+  - {fileID: 990405376}
   _defaultSprite: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
   _highlightedSprite: {fileID: 21300000, guid: bb300199eeb5a4f469b6d3b08a19a6c6, type: 3}
+  _itemsCountText: {fileID: 990405373}
 --- !u!114 &6721545564158684871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6858,3 +6848,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _storageManagerButton: {fileID: 6721545564158684870}
+--- !u!114 &6721545564158684872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4595228864241362527, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
+  m_PrefabInstance: {fileID: 6721545564158684862}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0954bf3d455dd4fab6eac7e54facb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
