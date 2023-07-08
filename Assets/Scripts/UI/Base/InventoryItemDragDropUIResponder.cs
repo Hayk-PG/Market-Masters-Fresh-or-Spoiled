@@ -6,13 +6,12 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
 {
     [Header("UI Elements")]
     [SerializeField] protected Btn _button;
-    [SerializeField] protected Btn_Icon _buttonIcon;
-    [SerializeField] protected RectTransform _buttonRectTransform;
-    [SerializeField] protected CanvasGroup[] _canvasGroups;
+    [SerializeField] protected Btn_Icon _icon;
+    [SerializeField] protected CanvasGroup _canvasGroup1;
+    [SerializeField] protected CanvasGroup _canvasGroup2;
 
     [Header("Sprites")]
-    [SerializeField] protected Sprite _defaultSprite;
-    [SerializeField] protected Sprite _highlightedSprite;
+    [SerializeField] protected Sprite[] _iconSprites;
 
     protected PlayerInventoryItemButton _inventoryItemButton;
     protected bool _isPointerEntered;
@@ -69,22 +68,33 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
 
     protected virtual void ExecuteOnPointerExited(object[] data)
     {
-        SetUIElementAlpha(1f);
-        HandleButtonInteraction(_defaultSprite, false);
+        HandleButtonInteraction(false);
+        ToggleUIElementsVisibility(true);
     }
 
     protected virtual void ExecuteOnDragRelease(object[] data)
     {
-        SetUIElementAlpha(1f);
-        HandleButtonInteraction(_defaultSprite, false);
+        HandleButtonInteraction(false);
+        ToggleUIElementsVisibility(true);
     }
 
     protected virtual void ExecuteOnHover(object[] data)
     {
         GetInventoryItemButton((PlayerInventoryItemButton)data[1]);
-        HandleButtonInteraction(_highlightedSprite, true, false);
-        CalculateIconAlpha(mousePosition: (Vector2)data[2], out float alpha);
-        SetUIElementAlpha(alpha);
+        HandleButtonInteraction(true, false);
+        ToggleUIElementsVisibility(false);
+    }
+
+    protected virtual void ToggleUIElementsVisibility(bool isCanvasGroup1Active)
+    {
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup1, isCanvasGroup1Active);
+        GlobalFunctions.CanvasGroupActivity(_canvasGroup2, !isCanvasGroup1Active);
+    }
+
+    protected virtual void ToggleItemStoringDisplay(Sprite sprite)
+    {
+        _icon.IconSpriteChangeDelegate(sprite);
+        _icon.ChangeReleasedSpriteDelegate();
     }
 
     protected virtual bool IsDragReleased(bool isDragReleased)
@@ -107,43 +117,14 @@ public class InventoryItemDragDropUIResponder : MonoBehaviour, IPointerEnterHand
         _inventoryItemButton = playerInventoryItemButton;
     }
 
-    protected virtual void CalculateIconAlpha(Vector2 mousePosition, out float alpha)
+    protected virtual void HandleButtonInteraction(bool _isTriggered, bool deselect = true)
     {
-        float mouseDistance = Vector2.Distance(mousePosition, _buttonRectTransform.position);
-        alpha = Mathf.InverseLerp(0f, _buttonRectTransform.sizeDelta.x, mouseDistance);
-    }
-
-    protected virtual void SetUIElementAlpha(float alpha)
-    {
-        if (!_isTriggered)
-        {
-            return;
-        }
-
-        GlobalFunctions.Loop<CanvasGroup>.Foreach(_canvasGroups, canvasGroup => canvasGroup.alpha = alpha);
-    }
-
-    protected virtual void HandleButtonInteraction(Sprite sprite, bool _isTriggered, bool deselect = true)
-    {
-        SetButtonSprites(sprite);
-
         if (deselect)
         {
             DeselectButton();
         }
 
         SetTriggeredState(_isTriggered);
-    }
-
-    protected virtual void SetButtonSprites(Sprite sprite)
-    {
-        if (!_isTriggered)
-        {
-            return;
-        }
-
-        _buttonIcon.IconSpriteChangeDelegate(sprite);
-        _buttonIcon.ChangeReleasedSpriteDelegate();
     }
 
     protected virtual void DeselectButton()

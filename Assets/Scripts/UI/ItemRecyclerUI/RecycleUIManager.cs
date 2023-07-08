@@ -4,17 +4,9 @@ using Pautik;
 
 public class RecycleUIManager : InventoryItemDragDropUIResponder
 {
-    [Header("Sprites For Icon")]
-    [SerializeField] private Sprite _iconClosedRecycleBinSprite;
-    [SerializeField] private Sprite _iconOpenedRecycleBinSprite;
-
-    [Header("UI Elements")]
-    [SerializeField] private Btn_Icon _icon;
-
     [Header("Error Message")]
     [SerializeField] private ErrorMessageGroup _errorMessageGroup;
 
-    private Image _iconImage;
     private int _recyclingStartTurnCount = 0;
     private int _availableRecyclingTurnCount = 0;
     
@@ -24,33 +16,16 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
 
 
 
-    private void Awake()
-    {
-        _iconImage = Get<Image>.From(_icon.gameObject);
-    }
-
     protected override void ExecuteOnDragRelease(object[] data)
     {
         RecycleItem();
         base.ExecuteOnDragRelease(data);
     }
 
-    protected override void SetButtonSprites(Sprite sprite)
+    protected override void ExecuteOnHover(object[] data)
     {
-        base.SetButtonSprites(sprite);
-
-        if (!CanRecycle && _iconImage.sprite == _iconClosedRecycleBinSprite)
-        {
-            return;
-        }
-
-        SetIconSprites(sprite);
-    }
-
-    private void SetIconSprites(Sprite buttonSprite)
-    {
-        _icon.IconSpriteChangeDelegate(buttonSprite == _defaultSprite ? _iconClosedRecycleBinSprite : _iconOpenedRecycleBinSprite);
-        _icon.ChangeReleasedSpriteDelegate();
+        base.ExecuteOnHover(data);
+        ToggleItemStoringDisplay(sprite: HasItem && CanRecycle ? _iconSprites[0] : _iconSprites[1]);
     }
 
     private void RecycleItem()

@@ -15,6 +15,8 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
     private object[] _submittedStorageItemsData = new object[4];
 
     internal List<StorageItem> StorageItemsList { get; private set; } = new List<StorageItem>();
+    private bool isItemStoringRestricted => _inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null ||
+                                            _inventoryItemButton.ItemSpoilPercentage > 20 || StorageItemsList.Count >= _storageCapacity;
 
 
 
@@ -58,14 +60,15 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         base.ExecuteOnDragRelease(data);
     }
 
-    protected override void CalculateIconAlpha(Vector2 mousePosition, out float alpha)
+    protected override void ExecuteOnHover(object[] data)
     {
-        alpha = 0.5f;
+        base.ExecuteOnHover(data);
+        ToggleItemStoringDisplay(sprite: isItemStoringRestricted ? _iconSprites[1] : _iconSprites[0]);
     }
 
     private void StoreItem()
     {
-        if (_inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || StorageItemsList.Count >= _storageCapacity)
+        if (isItemStoringRestricted)
         {
             DisplayError(errorIndex: _inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null ? 0 : _inventoryItemButton.ItemSpoilPercentage > 20 ? 1 : 2);
             return;
@@ -73,10 +76,20 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
 
         int currentTurnCount = GameSceneReferences.Manager.GameTurnManager.TurnCount;
         int itemSavedLifetime = _inventoryItemButton.ItemLifetime;
-        StorageItemsList.Add(new StorageItem(_inventoryItemButton.AssociatedItem, currentTurnCount, itemSavedLifetime));
-        _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
+        AddItemToList(currentTurnCount, itemSavedLifetime);
+        RemoveItemFromInventory();
         UpdateItemsCountText();
         PlaySoundEffect(7, 3);
+    }
+
+    private void AddItemToList(int currentTurnCount, int itemSavedLifetime)
+    {
+        StorageItemsList.Add(new StorageItem(_inventoryItemButton.AssociatedItem, currentTurnCount, itemSavedLifetime));
+    }
+
+    private void RemoveItemFromInventory()
+    {
+        _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
     }
 
     private void DisplayError(int errorIndex)
