@@ -87,7 +87,6 @@ public class NotificationManager : MonoBehaviour
     private void Open()
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, true);
-        PlaySoundEffect(1, 12);
         _denyButton.Deselect();
         _acceptButton.Deselect();
         _closeButton.Deselect();
@@ -123,7 +122,7 @@ public class NotificationManager : MonoBehaviour
     private void Close()
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
-        PlaySoundEffect(0, 3);
+        PlaySoundEffect(0, 5);
         RaiseHideNotificationEvent();
     }
 

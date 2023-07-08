@@ -38,14 +38,8 @@ public class NotificationButton : MonoBehaviour
 
     private void OnSelect()
     {
-        PlaySoundEffect(0, 9);
-
-        if (!HasQueuedNotification())
-        {
-            StartCoroutine(DeselectAfterDelay());
-            return;
-        }
-
+        PlaySoundEffect(0, 6);
+        StartCoroutine(DeselectAfterDelay());
         DisplayNotification();      
     }
 
@@ -77,11 +71,10 @@ public class NotificationButton : MonoBehaviour
 
         if (!HasQueuedNotification())
         {
-            DeselectButton();
-            PlaySoundEffect(7, 8);
             return;
         }
 
+        DeselectButton();
         DisplayNotification();
     }
 
@@ -112,6 +105,11 @@ public class NotificationButton : MonoBehaviour
 
     private void AssignCurrentDisplayedNotification()
     {
+        if(!HasQueuedNotification())
+        {
+            return;
+        }
+
         _currentDisplayedNotification = _queuedNotifications[_queuedNotifications.Count - 1];
     }
 

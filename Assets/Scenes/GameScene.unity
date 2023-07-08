@@ -1039,6 +1039,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 302570455}
     m_Modifications:
+    - target: {fileID: 6200852226383582743, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200852226383582743, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 6200852226757129560, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
       propertyPath: m_Name
       value: Notification
@@ -1126,6 +1134,14 @@ PrefabInstance:
     - target: {fileID: 6200852226757129563, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200852227891538481, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200852227891538481, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
+      propertyPath: m_fontSize
+      value: 36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70d92f92352dbe4a91862ea8ddbd859, type: 3}
