@@ -9,17 +9,16 @@ public class ErrorMessageGroup
 
     private object[] _data = new object[2];
 
-    public string[] ErrorMessages => _errorMessages;
-    public Sprite[] ErrorIcons => _errorIcons;
+    public string[] ErrorMessages { get => _errorMessages; set => _errorMessages = value; }
+    public Sprite[] ErrorIcons { get => _errorIcons; set => _errorIcons = value; }
 
 
 
 
-    public void DisplayErrorMessage(int errorMessageIndex, int errorIconIndex, int soundListIndex, int soundClipIndex)
+    public void DisplayErrorMessage(int errorMessageIndex, int errorIconIndex)
     {
         _data[0] = _errorMessages[errorMessageIndex];
         _data[1] = _errorIcons[errorIconIndex];
         GameEventHandler.RaiseEvent(GameEventType.DisplayErrorMessage, _data);
-        UISoundController.PlaySound(soundListIndex, soundClipIndex);
     }
 }

@@ -11,6 +11,9 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
     [Header("UI Elements")]
     [SerializeField] private Btn_Icon _icon;
 
+    [Header("Error Message")]
+    [SerializeField] private ErrorMessageGroup _errorMessageGroup;
+
     private Image _iconImage;
     private int _recyclingStartTurnCount = 0;
     private int _availableRecyclingTurnCount = 0;
@@ -61,8 +64,17 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
         }
         else
         {
-            PlaySoundEffect(4, 1);
+            DisplayError();
         }
+    }
+
+    private void DisplayError()
+    {
+        int availableData = _availableRecyclingTurnCount - GameSceneReferences.Manager.GameTurnManager.TurnCount;
+        _errorMessageGroup.ErrorMessages[0] = GlobalFunctions.PartiallyTransparentText("Apologies for the inconvenience, but recycling services for items are currently unavailable due to a machine jam. Our team is actively working to resolve the issue. Please try again in ") +
+                                              GlobalFunctions.WhiteColorText(availableData.ToString()) + GlobalFunctions.WhiteColorText(availableData <= 1 ? " day." : " days.") +
+                                              GlobalFunctions.PartiallyTransparentText(" Thank you for your understanding.");
+        _errorMessageGroup.DisplayErrorMessage(0, 0);
     }
 
     private void DefineRecyclingStartTurnCount()

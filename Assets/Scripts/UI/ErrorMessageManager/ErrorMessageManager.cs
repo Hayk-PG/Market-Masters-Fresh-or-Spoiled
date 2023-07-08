@@ -47,6 +47,7 @@ public class ErrorMessageManager : MonoBehaviour
         RetrieveData(data);
         PrintMessage();
         PlayAnimation(_popUpAnimation);
+        PlaySoundEffect(7, 1);
     }
 
     private void RetrieveData(object[] data)

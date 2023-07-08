@@ -270,6 +270,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
 
         if (isListEmpty)
         {
+            DismissItemConfirmation(true);
             return;
         }
 

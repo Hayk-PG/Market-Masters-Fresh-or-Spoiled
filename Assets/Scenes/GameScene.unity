@@ -729,6 +729,11 @@ MonoBehaviour:
   _iconClosedRecycleBinSprite: {fileID: 21300000, guid: c640790626a8f9f408d0d37e8dcf5658, type: 3}
   _iconOpenedRecycleBinSprite: {fileID: 21300000, guid: 24ccf1b490de4b540901b9a6d373b043, type: 3}
   _icon: {fileID: 1965677914}
+  _errorMessageGroup:
+    _errorMessages:
+    - 
+    _errorIcons:
+    - {fileID: 21300000, guid: 28b1af4f0fc510f4787d66f6060c4de5, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7202,6 +7207,21 @@ MonoBehaviour:
   _defaultSprite: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
   _highlightedSprite: {fileID: 21300000, guid: bb300199eeb5a4f469b6d3b08a19a6c6, type: 3}
   _itemsCountText: {fileID: 990405373}
+  _errorMessageGroup:
+    _errorMessages:
+    - No item has been selected for storage at this time. Please make sure to choose
+      an item before proceeding.
+    - Apologies, but the provided item is too severely spoiled to be stored. We apologize
+      for any inconvenience caused.  For further assistance or alternative options,
+      please contact our customer support team.
+    - Apologies, our storage capacity is full and we cannot accept any additional
+      items at the moment. We apologize for the inconvenience caused.  For urgent
+      storage needs or assistance with alternative solutions, please contact our
+      customer support team.
+    _errorIcons:
+    - {fileID: 21300000, guid: 3399d1287d95c484fb84c376a2e6e25b, type: 3}
+    - {fileID: 21300000, guid: e93fe53e646cd6e45a4f4e4cda56d5ab, type: 3}
+    - {fileID: 21300000, guid: e910dab0b5fa4b04fa408f4a9cfc9b16, type: 3}
 --- !u!114 &6721545564158684871
 MonoBehaviour:
   m_ObjectHideFlags: 0

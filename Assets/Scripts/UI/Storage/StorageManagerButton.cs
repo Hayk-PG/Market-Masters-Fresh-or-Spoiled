@@ -7,6 +7,9 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
     [Header("UI Elements")]
     [SerializeField] private BtnTxt _itemsCountText;
 
+    [Header("Error Message")]
+    [SerializeField] private ErrorMessageGroup _errorMessageGroup;
+
     private int _storageCapacity = 8;
     private object[] _storedItemsData = new object[1];
     private object[] _submittedStorageItemsData = new object[4];
@@ -64,7 +67,7 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
     {
         if (_inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null || _inventoryItemButton.ItemSpoilPercentage > 20 || StorageItemsList.Count >= _storageCapacity)
         {
-            PlaySoundEffect(4, 1);
+            DisplayError(errorIndex: _inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null ? 0 : _inventoryItemButton.ItemSpoilPercentage > 20 ? 1 : 2);
             return;
         }
 
@@ -74,6 +77,12 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
         UpdateItemsCountText();
         PlaySoundEffect(7, 3);
+    }
+
+    private void DisplayError(int errorIndex)
+    {
+        _errorMessageGroup.ErrorMessages[errorIndex] = GlobalFunctions.PartiallyTransparentText(_errorMessageGroup.ErrorMessages[errorIndex]);
+        _errorMessageGroup.DisplayErrorMessage(errorIndex, errorIndex);
     }
 
     private void SubmitStorageItem(GameEventType gameEventType, object[] data)

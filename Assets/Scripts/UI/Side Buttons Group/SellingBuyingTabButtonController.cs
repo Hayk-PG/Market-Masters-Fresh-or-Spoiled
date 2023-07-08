@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Pautik;
 
 public class SellingBuyingTabButtonController : MonoBehaviour
 {
@@ -59,7 +60,8 @@ public class SellingBuyingTabButtonController : MonoBehaviour
 
     private void DisplayError()
     {
-        _errorMessage.DisplayErrorMessage(0, 0, 4, 11);
+        _errorMessage.ErrorMessages[0] = GlobalFunctions.PartiallyTransparentText(_errorMessage.ErrorMessages[0]);
+        _errorMessage.DisplayErrorMessage(0, 0);
     }
 
     private void UpdateText()
