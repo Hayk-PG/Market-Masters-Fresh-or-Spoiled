@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StorageItemButton : MonoBehaviour
 {
@@ -8,10 +9,21 @@ public class StorageItemButton : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private Btn_Icon _icon;
+    [SerializeField] private Image _iconImageComponent;
+
+    [Header("Colors")]
+    [SerializeField] private Color _iconColorIfSelected;
+    [SerializeField] private Color _iconColorIfDeselected;
+    [SerializeField] private Color _iconColorIfEmpty;
 
     private bool _isSelected;
     private object[] _data = new object[1];
 
+    private Color IconColor
+    {
+        get => _iconImageComponent.color;
+        set => _iconImageComponent.color = value;
+    }
     public StorageItem AssociatedStorageItem { get; private set; }
     public bool HasStorageItem => AssociatedStorageItem != null;
 
@@ -30,6 +42,7 @@ public class StorageItemButton : MonoBehaviour
     {
         SetSelectionState(!_isSelected);
         PlaySoundEffect();
+        UpdateIconColor();
 
         if (!_isSelected)
         {
@@ -52,6 +65,7 @@ public class StorageItemButton : MonoBehaviour
     {
         AssociatedStorageItem = storageItem;
         ChangeIcon(storageItem.AssociatedItem.Icon);
+        UpdateIconColor();
     }
 
     /// <summary>
@@ -62,6 +76,7 @@ public class StorageItemButton : MonoBehaviour
     {
         AssociatedStorageItem = null;
         ChangeIcon(sprite);
+        UpdateIconColor();
     }
 
     /// <summary>
@@ -76,10 +91,14 @@ public class StorageItemButton : MonoBehaviour
     /// <summary>
     /// Deselects the storage item button.
     /// </summary>
-    public void Deselect()
+    public void Deselect(bool updateSelectionState = false)
     {
         _button.Deselect();
-        SetSelectionState(false);
+
+        if (updateSelectionState)
+        {
+            SetSelectionState(false);
+        }       
     }
 
     /// <summary>
@@ -97,7 +116,7 @@ public class StorageItemButton : MonoBehaviour
     private IEnumerator DoubleClickToDeselect()
     {
         yield return new WaitForSeconds(0.1f);
-        _button.Deselect();
+        Deselect();
     }
 
     /// <summary>
@@ -108,6 +127,17 @@ public class StorageItemButton : MonoBehaviour
     {
         _icon.IconSpriteChangeDelegate(sprite);
         _icon.ChangeReleasedSpriteDelegate();
+    }
+
+    private void UpdateIconColor()
+    {
+        if (HasStorageItem)
+        {
+            IconColor = _isSelected ? _iconColorIfSelected : _iconColorIfDeselected;
+            return;
+        }
+
+        IconColor = _iconColorIfEmpty;
     }
 
     /// <summary>

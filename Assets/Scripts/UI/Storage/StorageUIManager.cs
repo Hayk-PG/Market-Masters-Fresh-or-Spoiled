@@ -216,7 +216,7 @@ public class StorageUIManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         foreach (var button in _itemButtons)
         {
-            button.Deselect();
+            button.Deselect(true);
         }
     }
 
