@@ -5,6 +5,8 @@ public class StorageSpaceFeeManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private StorageManagerButton _storageManagerButton;
 
+    private int _storageRentalFee;
+
 
 
 
@@ -15,7 +17,18 @@ public class StorageSpaceFeeManager : MonoBehaviour
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        CalculateStorageSpaceFee(gameEventType, data);
+        UpdateStorageRentalFeeAmount(gameEventType, data);
+        CalculateStorageSpaceFee(gameEventType, data);      
+    }
+
+    private void UpdateStorageRentalFeeAmount(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.UpdateStorageRentalFee)
+        {
+            return;
+        }
+
+        _storageRentalFee = (int)data[0];
     }
 
     private void CalculateStorageSpaceFee(GameEventType gameEventType, object[] data)
@@ -44,7 +57,7 @@ public class StorageSpaceFeeManager : MonoBehaviour
             }
 
             int turnCountSinceFeeProcessStart = GameSceneReferences.Manager.GameTurnManager.TurnCount - storageItem.StorageFeeProcessTurnCount;
-            storageSpaceFeeAmount += (turnCountSinceFeeProcessStart * 15);          
+            storageSpaceFeeAmount += (turnCountSinceFeeProcessStart * _storageRentalFee);          
             storageItem.UpdateStorageFeeProcessTurnCount(GameSceneReferences.Manager.GameTurnManager.TurnCount);
         }
 
