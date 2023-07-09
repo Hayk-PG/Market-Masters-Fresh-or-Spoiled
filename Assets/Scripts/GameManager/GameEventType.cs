@@ -32,6 +32,7 @@ public enum GameEventType
 
    UpdateShopItems,
    OnShopItemButtonSelect,
+   OnShopItemButtonDeselect,
    SellingBuyingTabActivity,
    TryBuySelectedShopItem,
 

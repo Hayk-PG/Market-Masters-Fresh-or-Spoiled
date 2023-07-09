@@ -47,7 +47,7 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
         {
             if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
-                itemButton.Deselect();
+                itemButton.Deselect(true);
                 continue;
             }
 

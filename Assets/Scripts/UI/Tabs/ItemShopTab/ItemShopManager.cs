@@ -35,7 +35,7 @@ public class ItemShopManager : MonoBehaviour
     {
         GameEventHandler.OnEvent += OnGameEvent;
         _buyButton.OnSelect += OnBuyButtonSelect;
-        _canselButton.OnSelect += OnCanselButtonSelect;
+        _canselButton.OnSelect += OnCloseButtonSelect;
     }
 
     /// <summary>
@@ -47,6 +47,7 @@ public class ItemShopManager : MonoBehaviour
     {
         UpdateShopItems(gameEventType, data);
         OnItemSelect(gameEventType, data);
+        OnItemDeselect(gameEventType, data);
         OnTabActivity(gameEventType);
     }
 
@@ -83,16 +84,19 @@ public class ItemShopManager : MonoBehaviour
         CheckPurchaseRequirements();
     }
 
-    /// <summary>
-    /// Handles the cancel button selection event.
-    /// </summary>
-    private void OnCanselButtonSelect()
+    private void OnItemDeselect(GameEventType gameEventType, object[] data)
     {
-        DeselectItems(_selectedItems.ToArray());
-        UpdateSelectedItemsList();
-        UpdateSelectedItemsTotalCostText();        
-        SetBuyButtonInteractability();
-        PlaySoundEffect(4, 2);
+        if(gameEventType != GameEventType.OnShopItemButtonDeselect)
+        {
+            return;
+        }
+
+        RemoveItemFromSelectedItemsList(shopItemButton: (ShopItemButton)data[0]);
+    }
+
+    private void OnCloseButtonSelect()
+    {
+        GameEventHandler.RaiseEvent(GameEventType.SellingBuyingTabActivity);
     }
 
     /// <summary>
@@ -165,7 +169,7 @@ public class ItemShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItemButtons.Length; i++)
         {
-            shopItemButtons[i].Deselect();
+            shopItemButtons[i].Deselect(true);
         }
     }
 
@@ -177,6 +181,15 @@ public class ItemShopManager : MonoBehaviour
     {
         _buyButton.Deselect();
         _canselButton.Deselect();
+    }
+
+    private void RemoveItemFromSelectedItemsList(ShopItemButton shopItemButton)
+    {
+        if(_selectedItems.Exists(itemButton => itemButton == shopItemButton))
+        {
+            _selectedItems.Remove(shopItemButton);
+            UpdateSelectedItemsTotalCostText();
+        }
     }
 
     /// <summary>

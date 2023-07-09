@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Pautik;
 using Coffee.UIEffects;
+using System.Collections;
 
 public class ShopItemButton : MonoBehaviour
 {
@@ -16,11 +17,13 @@ public class ShopItemButton : MonoBehaviour
     [Header("Colors")]
     [SerializeField] private Color _emptyItemIconColor;
     [SerializeField] private Color[] _itemPriceLabelColors;
+    private Color _priceLabelDefaultColor;
 
     [Header("Assosiated Item")]
     [SerializeField] private Item _item;
 
     private object[] _shopItemButtonData = new object[1];
+    private bool _isSelected;
 
     public Item AssosiatedItem => _item;
     public float Price { get; private set; }
@@ -29,20 +32,29 @@ public class ShopItemButton : MonoBehaviour
 
 
     private void OnEnable()
-    {
-        _itemButton.OnSelect += OnSelect;
+    {      
         GameEventHandler.OnEvent += OnGameEvent;
-    }
-
-    private void OnSelect()
-    {
-        _shopItemButtonData[0] = this;
-        GameEventHandler.RaiseEvent(GameEventType.OnShopItemButtonSelect, _shopItemButtonData);
+        _itemButton.OnPointerUpHandler += OnSelect;
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         PlayShineEffect(gameEventType);
+    }
+
+    private void OnSelect()
+    {
+        ToggleSelectionState(!_isSelected);
+        TogglePriceLabelColorBasedOnSelectionState();
+
+        if (!_isSelected)
+        {
+            RaiseShopItemButtonEvent(GameEventType.OnShopItemButtonDeselect);
+            StartCoroutine(DoubleClickToDeselect());
+            return;
+        }
+
+        RaiseShopItemButtonEvent(GameEventType.OnShopItemButtonSelect);
     }
 
     public void UpdateItem(Item item, int priceMinRange, int priceMaxRange)
@@ -75,14 +87,37 @@ public class ShopItemButton : MonoBehaviour
         }
     }
 
-    public void Deselect()
+    private void RaiseShopItemButtonEvent(GameEventType gameEventType)
     {
-        if(AssosiatedItem == null)
+        _shopItemButtonData[0] = this;
+        GameEventHandler.RaiseEvent(gameEventType, _shopItemButtonData);
+    }
+
+    private IEnumerator DoubleClickToDeselect()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Deselect();
+    }
+
+    private void ToggleSelectionState(bool isSelected)
+    {
+        _isSelected = isSelected;
+    }
+
+    public void Deselect(bool updateSelectionState = false)
+    {
+        if (AssosiatedItem == null)
         {
             return;
         }
 
         _itemButton.Deselect();
+        TogglePriceLabelColorBasedOnSelectionState();
+
+        if (updateSelectionState)
+        {
+            ToggleSelectionState(false);
+        }
     }
 
     private void AssignItem(Item item)
@@ -104,7 +139,13 @@ public class ShopItemButton : MonoBehaviour
 
     private void SetItemPriceLabelColor(Color color)
     {
+        _priceLabelDefaultColor = color;
         _itemPriceLabel.color = color;
+    }
+
+    private void TogglePriceLabelColorBasedOnSelectionState()
+    {
+        _itemPriceLabel.color = _isSelected ? new Color(255f, 255f, 255f, 0f) : _priceLabelDefaultColor;
     }
 
     private void UpdatePriceText(float newPrice)

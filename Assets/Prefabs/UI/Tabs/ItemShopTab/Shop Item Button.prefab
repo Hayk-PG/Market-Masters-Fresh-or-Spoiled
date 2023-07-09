@@ -527,7 +527,6 @@ GameObject:
   - component: {fileID: 161384528132994371}
   - component: {fileID: 5478925533260263961}
   - component: {fileID: 2818670600156858071}
-  - component: {fileID: 3323165276790329718}
   m_Layer: 5
   m_Name: Icon Price Label
   m_TagString: Untagged
@@ -594,20 +593,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3323165276790329718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8021594027568556748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0954bf3d455dd4fab6eac7e54facb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sprtPressed: {fileID: 0}
-  _clrPressed: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1001 &8723221885412260697
 PrefabInstance:
   m_ObjectHideFlags: 0
