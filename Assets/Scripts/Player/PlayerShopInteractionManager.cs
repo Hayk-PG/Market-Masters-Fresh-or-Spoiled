@@ -51,7 +51,8 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
                 continue;
             }
 
-            AddItemToInventory(itemButton.AssosiatedItem);
+            AddItemToInventory(itemButton.AssociatedItem);
+            RemoveItemFromShopItemButton(itemButton);
             totalCost += itemButton.Price;          
         }
 
@@ -69,6 +70,11 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
     {
         _entityInventoryManager.AddItem(item);
         GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);
+    }
+
+    private void RemoveItemFromShopItemButton(ShopItemButton shopItemButton)
+    {
+        shopItemButton.RemoveItem();
     }
 
     [PunRPC]

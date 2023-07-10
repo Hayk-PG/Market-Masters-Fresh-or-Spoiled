@@ -51,6 +51,11 @@ public class ItemShopManager : MonoBehaviour
         OnTabActivity(gameEventType);
     }
 
+    /// <summary>
+    /// Updates the shop items based on the game event data.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">The event data.</param>
     private void UpdateShopItems(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.UpdateShopItems)
@@ -59,10 +64,7 @@ public class ItemShopManager : MonoBehaviour
         }
 
         UpdateShopItems(count: (int)data[0], priceRange: (System.Tuple<int, int>)data[1]);
-        DeselectItems(_shopItemButtons);
-        UpdateSelectedItemsList();
-        UpdateSelectedItemsTotalCostText();
-        SetBuyButtonInteractability();        
+        RestoreDefaultState(_shopItemButtons);      
     }
 
     /// <summary>
@@ -84,6 +86,11 @@ public class ItemShopManager : MonoBehaviour
         CheckPurchaseRequirements();
     }
 
+    /// <summary>
+    /// Handles the event when an item is deselected.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">The event data.</param>
     private void OnItemDeselect(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.OnShopItemButtonDeselect)
@@ -94,6 +101,9 @@ public class ItemShopManager : MonoBehaviour
         RemoveItemFromSelectedItemsList(shopItemButton: (ShopItemButton)data[0]);
     }
 
+    /// <summary>
+    /// Raises the event when the close button is selected.
+    /// </summary>
     private void OnCloseButtonSelect()
     {
         GameEventHandler.RaiseEvent(GameEventType.SellingBuyingTabActivity);
@@ -112,9 +122,7 @@ public class ItemShopManager : MonoBehaviour
         }
 
         SendSelectedItemsForConfirmation();
-        UpdateSelectedItemsTotalCostText(true);
-        UpdateSelectedItemsList();
-        DeselectItems(_selectedItems.ToArray());
+        RestoreDefaultState(_selectedItems.ToArray());
     }
 
     /// <summary>
@@ -126,6 +134,10 @@ public class ItemShopManager : MonoBehaviour
         GameEventHandler.RaiseEvent(GameEventType.TryBuySelectedShopItem, _selectedItemsData);
     }
 
+    /// <summary>
+    /// Handles the event when a tab activity occurs.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
     private void OnTabActivity(GameEventType gameEventType)
     {
         if(gameEventType != GameEventType.SellingBuyingTabActivity)
@@ -133,9 +145,26 @@ public class ItemShopManager : MonoBehaviour
             return;
         }
 
-        DeselectItems(_shopItemButtons);
+        RestoreDefaultState(_shopItemButtons);
     }
 
+    /// <summary>
+    /// Restores the default state of the shop item buttons.
+    /// </summary>
+    /// <param name="shopItemButtons">The array of shop item buttons.</param>
+    private void RestoreDefaultState(ShopItemButton[] shopItemButtons)
+    {
+        DeselectItems(shopItemButtons);
+        UpdateSelectedItemsList();
+        UpdateSelectedItemsTotalCostText();           
+        SetBuyButtonInteractability();
+    }
+
+    /// <summary>
+    /// Updates the shop items based on the specified count and price range.
+    /// </summary>
+    /// <param name="count">The number of items to update.</param>
+    /// <param name="priceRange">The price range for the items.</param>
     private void UpdateShopItems(int count, System.Tuple<int, int> priceRange)
     {
         int itemsCount = count;
@@ -167,10 +196,7 @@ public class ItemShopManager : MonoBehaviour
     /// </summary>
     private void DeselectItems(ShopItemButton[] shopItemButtons)
     {
-        for (int i = 0; i < shopItemButtons.Length; i++)
-        {
-            shopItemButtons[i].Deselect(true);
-        }
+        GlobalFunctions.Loop<ShopItemButton>.Foreach(shopItemButtons, shopItemButton => { shopItemButton.Deselect(true); });
     }
 
     /// <summary>
@@ -183,6 +209,10 @@ public class ItemShopManager : MonoBehaviour
         _canselButton.Deselect();
     }
 
+    /// <summary>
+    /// Removes the specified shop item button from the selected items list.
+    /// </summary>
+    /// <param name="shopItemButton">The shop item button to remove.</param>
     private void RemoveItemFromSelectedItemsList(ShopItemButton shopItemButton)
     {
         if(_selectedItems.Exists(itemButton => itemButton == shopItemButton))
@@ -220,14 +250,14 @@ public class ItemShopManager : MonoBehaviour
             return;
         }
 
-        foreach (var item in _selectedItems)
-        {
-            total += item.Price;
-        }
-
+        GlobalFunctions.Loop<ShopItemButton>.Foreach(_selectedItems, selectedItem => total += selectedItem.Price);
         SetTotalCostValueAndText(total);
     }
 
+    /// <summary>
+    /// Sets the total cost value and updates the total cost text.
+    /// </summary>
+    /// <param name="total">The total cost value to set.</param>
     private void SetTotalCostValueAndText(float total)
     {
         _selectedItemsTotalCost = total;

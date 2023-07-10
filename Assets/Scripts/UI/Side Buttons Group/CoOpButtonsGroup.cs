@@ -1,13 +1,10 @@
 using UnityEngine;
 using Pautik;
-using System.Collections.Generic;
 
 public class CoOpButtonsGroup : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private CanvasGroup _canvasGroup;
-
-    private Queue<bool> _openStatusQueue = new Queue<bool>();
 
     public bool IsActive
     {
@@ -25,60 +22,31 @@ public class CoOpButtonsGroup : MonoBehaviour
 
     private void OnGameEven(GameEventType gameEventType, object[] data)
     {
-        HideCoopButtonsWhenPopupActive(gameEventType);
-        ShowCoopButtonsWhenPopupInactive(gameEventType);
-        HideCoopButtonsWhenStorageActive(gameEventType);
-        ShowCoopButtonsWhenStoragetInactive(gameEventType);
+        Hide(gameEventType);
+        Unhide(gameEventType);
     }
 
-    private void HideCoopButtonsWhenPopupActive(GameEventType gameEventType)
+    private void Hide(GameEventType gameEventType)
     {
-        if (gameEventType != GameEventType.DisplayPopupNotification)
+        bool shouldHide = gameEventType == GameEventType.DisplayPopupNotification || gameEventType == GameEventType.OpenStorageUI;
+
+        if (!shouldHide)
         {
             return;
         }
 
-        CloseCoopButtonsGroup();
-    }
-
-    private void ShowCoopButtonsWhenPopupInactive(GameEventType gameEventType)
-    {
-        if (gameEventType != GameEventType.OnPopupNotificationClosed)
-        {
-            return;
-        }
-
-        TryOpenCoopButonsGroup();
-    }
-
-    private void HideCoopButtonsWhenStorageActive(GameEventType gameEventType)
-    {
-        if (gameEventType != GameEventType.OpenStorageUI)
-        {
-            return;
-        }
-
-        CloseCoopButtonsGroup();
-    }
-
-    private void ShowCoopButtonsWhenStoragetInactive(GameEventType gameEventType)
-    {
-        if (gameEventType != GameEventType.CloseStorageUI)
-        {
-            return;
-        }
-
-        TryOpenCoopButonsGroup();
-    }
-
-    private void CloseCoopButtonsGroup()
-    {
-        _openStatusQueue.Enqueue(_canvasGroup.interactable);
         IsActive = false;
     }
 
-    private void TryOpenCoopButonsGroup()
+    private void Unhide(GameEventType gameEventType)
     {
-        IsActive = _openStatusQueue.Count < 1 ? true : _openStatusQueue.Dequeue();
+        bool shouldUnhide = gameEventType == GameEventType.OnPopupNotificationClosed || gameEventType == GameEventType.CloseStorageUI;
+
+        if (!shouldUnhide)
+        {
+            return;
+        }
+
+        IsActive = true;
     }
 }
