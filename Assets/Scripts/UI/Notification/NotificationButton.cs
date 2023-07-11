@@ -14,11 +14,10 @@ public class NotificationButton : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite[] _sprites;
 
-    [Header("Queued Notifications")]
-    [SerializeField] private List<Notification> _queuedNotifications = new List<Notification>();
-
+    private List<Notification> _notifications = new List<Notification>();
     private Notification _currentDisplayedNotification;
     private const string _newNotificationAnim = "NotificationButtonAnim";
+    private int _unreadNotificationCount;
     private object[] _notificationData = new object[1];
 
 
@@ -40,7 +39,7 @@ public class NotificationButton : MonoBehaviour
     {
         PlaySoundEffect(0, 6);
         StartCoroutine(DeselectAfterDelay());
-        DisplayNotification();      
+        DisplayNotification(indexPointer: HasUnreadNotification() ? 1 : 0);
     }
 
     private IEnumerator DeselectAfterDelay()
@@ -69,21 +68,15 @@ public class NotificationButton : MonoBehaviour
             return;
         }
 
-        if (!HasQueuedNotification())
-        {
-            return;
-        }
-
-        DeselectButton();
-        DisplayNotification();
+        DisplayNotification(indexPointer: (int)data[0]);
     }
 
-    private void DisplayNotification()
+    private void DisplayNotification(int indexPointer)
     {
-        AssignCurrentDisplayedNotification();
+        AssignCurrentDisplayedNotification(indexPointer);
         WrapNotificationData();
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
-        RemoveNotification(_currentDisplayedNotification);
+        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);      
+        UpdateUnreadNotificationCount(-1);
         SetIcon();
     }
 
@@ -93,34 +86,40 @@ public class NotificationButton : MonoBehaviour
 
         if(notificationType == NotificationType.DisplayReadNotification)
         {
-            _queuedNotifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2]));
+            _notifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2]));
         }
 
         if(notificationType == NotificationType.DisplayReadNotificationWithImages)
         {
-            _queuedNotifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2], (Sprite[])data[3]));
+            _notifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2], (Sprite[])data[3]));
         }
-    }
 
-    private void RemoveNotification(Notification notification)
-    {
-        _queuedNotifications.Remove(notification);
+        UpdateUnreadNotificationCount(1);
     }
 
     private void SetIcon()
     {
-        _icon.IconSpriteChangeDelegate(_queuedNotifications.Count < 1 ? _sprites[0] : _sprites[1]);
+        _icon.IconSpriteChangeDelegate(HasUnreadNotification() ? _sprites[1] : _sprites[0]);
         _icon.ChangeReleasedSpriteDelegate();
     }
 
-    private void AssignCurrentDisplayedNotification()
+    private void AssignCurrentDisplayedNotification(int indexPointer)
     {
-        if(!HasQueuedNotification())
+        if(!HasNotification())
         {
             return;
         }
 
-        _currentDisplayedNotification = _queuedNotifications[_queuedNotifications.Count - 1];
+        int currentIndex = _notifications.IndexOf(_currentDisplayedNotification);
+        int nextIndex = currentIndex + indexPointer;
+        bool isOutOfRange = nextIndex >= _notifications.Count || nextIndex < 0;
+
+        if (isOutOfRange)
+        {
+            return;
+        }
+
+        _currentDisplayedNotification = _notifications[nextIndex];
     }
 
     private void WrapNotificationData()
@@ -128,9 +127,24 @@ public class NotificationButton : MonoBehaviour
         _notificationData[0] = _currentDisplayedNotification;
     }
 
-    private bool HasQueuedNotification()
+    private bool HasNotification()
     {
-        return _queuedNotifications.Count > 0;
+        return _notifications.Count > 0;
+    }
+
+    private bool HasUnreadNotification()
+    {
+        return _unreadNotificationCount > 0;
+    }
+
+    private void UpdateUnreadNotificationCount(int notificationValue)
+    {
+        _unreadNotificationCount += notificationValue;
+
+        if(_unreadNotificationCount < 0)
+        {
+            _unreadNotificationCount = 0;
+        }
     }
 
     private void DeselectButton()

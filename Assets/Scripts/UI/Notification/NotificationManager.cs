@@ -17,6 +17,8 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private Btn _denyButton;
     [SerializeField] private Btn _acceptButton;
     [SerializeField] private Btn _closeButton;
+    [SerializeField] private Btn _backButton;
+    [SerializeField] private Btn _forwardButton;
 
     [Header("TMP Texts")]
     [SerializeField] private TMP_Text _titleText;
@@ -31,6 +33,7 @@ public class NotificationManager : MonoBehaviour
     private string _notificationTitle;
     private string _notificationMessage;
     private object[] _data = new object[1];
+    private object[] _nextNotificationData = new object[1];
 
 
 
@@ -41,6 +44,8 @@ public class NotificationManager : MonoBehaviour
         _denyButton.OnSelect += OnDeny;
         _closeButton.OnSelect += Close;
         _acceptButton.OnSelect += OnAccept;
+        _backButton.OnPointerUpHandler += ()=> DisplayNotificationAtPosition(-1);
+        _forwardButton.OnPointerUpHandler += () => DisplayNotificationAtPosition(1);
     }
 
     /// <summary>
@@ -128,7 +133,6 @@ public class NotificationManager : MonoBehaviour
         GameEventHandler.RaiseEvent(GameEventType.SellSpoiledItems, _data);
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
         PlaySoundEffect(0, 11);
-        RaiseHideNotificationEvent();
     }
 
     /// <summary>
@@ -139,7 +143,6 @@ public class NotificationManager : MonoBehaviour
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
         PlaySoundEffect(4, 10);
-        RaiseHideNotificationEvent();
     }
 
     /// <summary>
@@ -149,7 +152,12 @@ public class NotificationManager : MonoBehaviour
     {
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
         PlaySoundEffect(0, 5);
-        RaiseHideNotificationEvent();
+    }
+
+    private void DisplayNotificationAtPosition(int notificationIndexPointer)
+    {
+        _nextNotificationData[0] = notificationIndexPointer;
+        GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification, _nextNotificationData);
     }
 
     /// <summary>
@@ -182,11 +190,6 @@ public class NotificationManager : MonoBehaviour
     {
         GlobalFunctions.CanvasGroupActivity(_denyAcceptButtonsCanvasGroup, !setCloseButtonSubTabActive);
         GlobalFunctions.CanvasGroupActivity(_closeButtonCanvasGroup, setCloseButtonSubTabActive);
-    }
-
-    private void RaiseHideNotificationEvent()
-    {
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification);
     }
 
     /// <summary>
