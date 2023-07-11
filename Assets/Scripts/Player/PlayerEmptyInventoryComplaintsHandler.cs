@@ -10,7 +10,7 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
     [SerializeField] private EntityInventoryManager _entityInventoryManager;
 
     private bool _isInventoryEmpty;
-    private object[] _notificationData = new object[4];
+    private object[] _notificationData = new object[3];
 
 
 
@@ -92,7 +92,6 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
         _notificationData[0] = NotificationType.DisplayReadNotification;
         _notificationData[1] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1;
         _notificationData[2] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2;
-        _notificationData[3] = null;
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

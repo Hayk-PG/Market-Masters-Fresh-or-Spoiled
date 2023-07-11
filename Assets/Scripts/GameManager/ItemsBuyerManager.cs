@@ -2,11 +2,14 @@ using UnityEngine;
 using Pautik;
 using Photon.Pun;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 
 public class ItemsBuyerManager : MonoBehaviourPun
 {
     private bool _isItemBought = true;
+    private object[] _demandDrivenItemsData = new object[4];
 
+    public byte[] DemandDrivenItemsIds { get; private set; }
     public Item BuyingItem { get; private set; }
     public int PreviousPayingAmount { get; private set; }
     public int CurrentPayingAmount { get; private set; }
@@ -17,6 +20,7 @@ public class ItemsBuyerManager : MonoBehaviourPun
     private void OnEnable()
     {
         GameEventHandler.OnEvent += OnGameEvent;
+        PhotonNetwork.NetworkingClient.EventReceived += OnPhotonNetworkEvent;
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
@@ -24,6 +28,15 @@ public class ItemsBuyerManager : MonoBehaviourPun
         UpdateBuyingItem(gameEventType);
     }
 
+    private void OnPhotonNetworkEvent(EventData eventData)
+    {
+        RetrieveDemandDrivenItemsData(eventData, eventData.CustomData);
+    }
+
+    /// <summary>
+    /// Updates the buying item based on the game event type.
+    /// </summary>
+    /// <param name="gameEventType">The game event type.</param>
     private void UpdateBuyingItem(GameEventType gameEventType)
     {
         if (gameEventType != GameEventType.UpdateGameTurn)
@@ -33,35 +46,96 @@ public class ItemsBuyerManager : MonoBehaviourPun
 
         bool canAssignBuyingItem = MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer) && _isItemBought;
 
-        if (canAssignBuyingItem)
-        {
-            AssignBuyingItem();
-        }
-    }
-
-    private void AssignBuyingItem()
-    {
-        List<Item> entitiesInventoryItems = new List<Item>();
-        GlobalFunctions.Loop<EntityInventoryManager>.Foreach(FindObjectsOfType<EntityInventoryManager>(), entityInventorManager => entitiesInventoryItems.AddRange(entityInventorManager.InventoryItems));
-
-        if(entitiesInventoryItems.Count == 0)
+        if (!canAssignBuyingItem)
         {
             return;
         }
 
-        int randomItemIndexFromCollection = GameSceneReferences.Manager.Items.Collection.IndexOf(entitiesInventoryItems[Random.Range(0, entitiesInventoryItems.Count)]);
-        int randomCostPercentage = Random.Range(25, 400);
-        photonView.RPC("AssignBuyingItemRPC", RpcTarget.AllViaServer, (byte)randomItemIndexFromCollection, (short)randomCostPercentage);
+        AssignBuyingItem();
+    }
+
+    /// <summary>
+    /// Retrieves the demand-driven items data from the Photon Network event.
+    /// </summary>
+    /// <param name="eventData">The Photon Network event data.</param>
+    /// <param name="data">The custom data of the event.</param>
+    private void RetrieveDemandDrivenItemsData(EventData eventData, object data)
+    {
+        if (eventData.Code != EventInfo.Code_DemandDrivenItemsId)
+        {
+            return;
+        }
+
+        DemandDrivenItemsIds = (byte[])data;
+        DisplayDemandDrivenItemsNotification();
+    }
+
+    /// <summary>
+    /// Displays a notification for the demand-driven items.
+    /// </summary>
+    private void DisplayDemandDrivenItemsNotification()
+    {
+        List<Sprite> itemsIcons = new List<Sprite>();
+        GlobalFunctions.Loop<byte>.Foreach(DemandDrivenItemsIds, id => itemsIcons.Add(GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == id).Icon));
+        _demandDrivenItemsData[0] = NotificationType.DisplayReadNotificationWithImages;
+        _demandDrivenItemsData[1] = HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10);
+        _demandDrivenItemsData[2] = HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10);
+        _demandDrivenItemsData[3] = itemsIcons.ToArray();
+        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _demandDrivenItemsData);
+    }
+
+    /// <summary>
+    /// Assigns the buying item based on the demand-driven items or the item collection.
+    /// </summary>
+    private void AssignBuyingItem()
+    {
+        byte itemId = 0;
+        short randomCostPercentage = (short)Random.Range(25, 400);
+        bool haveItemsInDemand = DemandDrivenItemsIds != null && DemandDrivenItemsIds.Length > 0;
+
+        if (haveItemsInDemand)
+        {
+            GetRandomItemIdFromDemandDrivenItems(out itemId);
+        }
+        else
+        {
+            GetRandomItemIdFromItemCollection(out itemId);
+        }
+
+        photonView.RPC("AssignBuyingItemRPC", RpcTarget.AllViaServer, itemId, randomCostPercentage);
+    }
+
+    /// <summary>
+    /// Gets a random item ID from the demand-driven items array.
+    /// </summary>
+    /// <param name="itemId">The randomly selected item ID.</param>
+    private void GetRandomItemIdFromDemandDrivenItems(out byte itemId)
+    {
+        itemId = DemandDrivenItemsIds[Random.Range(0, DemandDrivenItemsIds.Length)];
+    }
+
+    /// <summary>
+    /// Gets a random item ID from the item collection.
+    /// </summary>
+    /// <param name="itemId">The randomly selected item ID.</param>
+    private void GetRandomItemIdFromItemCollection(out byte itemId)
+    {
+        itemId = (byte)GameSceneReferences.Manager.Items.Collection[Random.Range(0, GameSceneReferences.Manager.Items.Collection.Count)].ID;
     }
 
     [PunRPC]
-    private void AssignBuyingItemRPC(byte randomItemIndexFromCollection, short randomCostPercentage)
+    private void AssignBuyingItemRPC(byte itemId, short randomCostPercentage)
     {
-        BuyingItem = GameSceneReferences.Manager.Items.Collection[randomItemIndexFromCollection];
+        BuyingItem = GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == itemId);
         SetPayingAmount(BuyingItem, randomCostPercentage);
         UpdateUI(BuyingItem, randomCostPercentage);
     }
 
+    /// <summary>
+    /// Sets the paying amount for the buying item based on the random cost percentage.
+    /// </summary>
+    /// <param name="item">The buying item.</param>
+    /// <param name="randomCostPercentage">The randomly generated cost percentage.</param>
     private void SetPayingAmount(Item item, short randomCostPercentage)
     {
         float itemPrice = item.Price;
@@ -70,6 +144,11 @@ public class ItemsBuyerManager : MonoBehaviourPun
         CurrentPayingAmount = currentPayingAmount;
     }
 
+    /// <summary>
+    /// Updates the UI with the buying item information.
+    /// </summary>
+    /// <param name="item">The buying item.</param>
+    /// <param name="randomCostPercentage">The randomly generated cost percentage.</param>
     private void UpdateUI(Item item, short randomCostPercentage)
     {
         GameSceneReferences.Manager.ItemsBuyerUIManager.UpdateUI(item.Icon, randomCostPercentage, CurrentPayingAmount);

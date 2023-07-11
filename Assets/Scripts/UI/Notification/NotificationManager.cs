@@ -1,24 +1,33 @@
 using UnityEngine;
 using TMPro;
 using Pautik;
-using System;
 
 public class NotificationManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    [Header("UI Elements")]
+    [Header("Canvas Groups")]
     [SerializeField] private CanvasGroup _denyAcceptButtonsCanvasGroup;
     [SerializeField] private CanvasGroup _closeButtonCanvasGroup;
+    [SerializeField] private CanvasGroup _messageSubTabCanvasGroup;
+    [SerializeField] private CanvasGroup _messageWithImagesSubTabCanvasGroup;
+
+    [Header("Buttons")]
     [SerializeField] private Btn _denyButton;
     [SerializeField] private Btn _acceptButton;
     [SerializeField] private Btn _closeButton;
+
+    [Header("TMP Texts")]
     [SerializeField] private TMP_Text _titleText;
     [SerializeField] private TMP_Text _messageText;
+    [SerializeField] private TMP_Text _messageWithImagesText;
 
+    [Header("Notification Images Group")]
+    [SerializeField] private NotificationImagesGroupManager _notificationImageGroupManager;
+
+    private Notification _notification;
     private NotificationType _notificationType;
-    private Action AcceptAction;
     private string _notificationTitle;
     private string _notificationMessage;
     private object[] _data = new object[1];
@@ -47,37 +56,54 @@ public class NotificationManager : MonoBehaviour
             return;
         }
 
-        RetrieveData(data);
-        Open();
+        RetrieveNotification((Notification)data[0]);
+        RetrieveNotificationType(_notification.NotificationType);
+        RetrieveTexts(_notification.NotificationTitle, _notification.NotificationMessage);     
         SetTitle();
         UpdateMessage();
-        OnReadonlyNotification();
+        Open();
+        OnReadonlyNotification(data);
+        OnReadonlyNotificationWithImages(data);
     }
 
-    /// <summary>
-    /// Retrieves data from the event parameters and stores them in local variables.
-    /// </summary>
-    /// <param name="data">The data associated with the event.</param>
-    private void RetrieveData(object[] data)
+    private void RetrieveNotification(Notification notification)
     {
-        _notificationType = ((Notification)data[0]).NotificationType;
-        _notificationTitle = ((Notification)data[0]).NotificationTitle;
-        _notificationMessage = ((Notification)data[0]).NotificationMessage;
-        AcceptAction = ((Notification)data[0]).AcceptAction;
+        _notification = notification;
     }
 
-    /// <summary>
-    /// Handles the logic for readonly notifications.
-    /// Shows or hides the buttons subtab based on the notification type.
-    /// </summary>
-    private void OnReadonlyNotification()
+    private void RetrieveNotificationType(NotificationType notificationType)
     {
-        if(_notificationType != NotificationType.DisplayReadNotification)
+        _notificationType = notificationType;
+    }
+
+    private void RetrieveTexts(string title, string message)
+    {
+        _notificationTitle = title;
+        _notificationMessage = message;
+    }
+
+    private void OnReadonlyNotification(object[] data)
+    {
+        if (_notificationType != NotificationType.DisplayReadNotification)
         {
             return;
         }
 
         ToggleButtonsSubTab(true);
+        ToggleMessageSubTabs(false);
+    }
+
+    private void OnReadonlyNotificationWithImages(object[] data)
+    {
+        if (_notificationType != NotificationType.DisplayReadNotificationWithImages)
+        {
+            return;
+        }
+
+        _messageWithImagesText.text = _notification.NotificationMessage;
+        _notificationImageGroupManager.Setup(_notification.Images);
+        ToggleButtonsSubTab(true);
+        ToggleMessageSubTabs(true);
     }
 
     /// <summary>
@@ -140,6 +166,12 @@ public class NotificationManager : MonoBehaviour
     private void UpdateMessage()
     {
         _messageText.text = _notificationMessage;
+    }
+
+    private void ToggleMessageSubTabs(bool isMessageWithGridSubTabActive)
+    {
+        GlobalFunctions.CanvasGroupActivity(_messageSubTabCanvasGroup, !isMessageWithGridSubTabActive);
+        GlobalFunctions.CanvasGroupActivity(_messageWithImagesSubTabCanvasGroup, isMessageWithGridSubTabActive);
     }
 
     /// <summary>

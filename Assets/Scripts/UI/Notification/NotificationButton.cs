@@ -89,7 +89,17 @@ public class NotificationButton : MonoBehaviour
 
     private void StoreNotification(object[] data)
     {
-        _queuedNotifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2], acceptAction: (System.Action)data[3]));
+        NotificationType notificationType = (NotificationType)data[0];
+
+        if(notificationType == NotificationType.DisplayReadNotification)
+        {
+            _queuedNotifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2]));
+        }
+
+        if(notificationType == NotificationType.DisplayReadNotificationWithImages)
+        {
+            _queuedNotifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2], (Sprite[])data[3]));
+        }
     }
 
     private void RemoveNotification(Notification notification)
