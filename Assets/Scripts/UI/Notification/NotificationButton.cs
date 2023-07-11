@@ -73,9 +73,14 @@ public class NotificationButton : MonoBehaviour
 
     private void DisplayNotification(int indexPointer)
     {
+        if (!HasNotification())
+        {
+            return;
+        }
+
         AssignCurrentDisplayedNotification(indexPointer);
         WrapNotificationData();
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);      
+        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
         UpdateUnreadNotificationCount(-1);
         SetIcon();
     }
