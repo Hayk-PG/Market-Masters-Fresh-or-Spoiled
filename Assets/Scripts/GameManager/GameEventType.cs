@@ -14,8 +14,6 @@ public enum GameEventType
 
    MeetsPurchaseRequirements,
 
-   InventoryItemDragNDrop,
-
    RequestStorageUIOpen,
    OpenStorageUI,
    CloseStorageUI,
@@ -26,10 +24,12 @@ public enum GameEventType
 
    CalculateStorageSpaceFee,
 
+   InventoryItemDragNDrop,
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,
    PublishSellingItemQuantity,
    PublishTeamCombinedSellingItemQuantity,
+   PublishInventoryData,
 
    UpdateShopItems,
    OnShopItemButtonSelect,

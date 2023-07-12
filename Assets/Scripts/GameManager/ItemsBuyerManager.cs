@@ -19,8 +19,13 @@ public class ItemsBuyerManager : MonoBehaviourPun
 
     private void OnEnable()
     {
-        GameEventHandler.OnEvent += OnGameEvent;
         PhotonNetwork.NetworkingClient.EventReceived += OnPhotonNetworkEvent;
+        GameEventHandler.OnEvent += OnGameEvent;        
+    }
+
+    private void OnPhotonNetworkEvent(EventData eventData)
+    {
+        RetrieveDemandDrivenItemsData(eventData, eventData.CustomData);
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
@@ -28,9 +33,21 @@ public class ItemsBuyerManager : MonoBehaviourPun
         UpdateBuyingItem(gameEventType);
     }
 
-    private void OnPhotonNetworkEvent(EventData eventData)
+    /// <summary>
+    /// Retrieves the demand-driven items data from the Photon Network event.
+    /// </summary>
+    /// <param name="eventData">The Photon Network event data.</param>
+    /// <param name="data">The custom data of the event.</param>
+    private void RetrieveDemandDrivenItemsData(EventData eventData, object data)
     {
-        RetrieveDemandDrivenItemsData(eventData, eventData.CustomData);
+        if (eventData.Code != EventInfo.Code_DemandDrivenItemsId)
+        {
+            return;
+        }
+
+        DemandDrivenItemsIds = (byte[])data;
+        DisplayDemandDrivenItemsNotification();
+        print($"Demand drivent items count: {DemandDrivenItemsIds.Length}");
     }
 
     /// <summary>
@@ -52,22 +69,6 @@ public class ItemsBuyerManager : MonoBehaviourPun
         }
 
         AssignBuyingItem();
-    }
-
-    /// <summary>
-    /// Retrieves the demand-driven items data from the Photon Network event.
-    /// </summary>
-    /// <param name="eventData">The Photon Network event data.</param>
-    /// <param name="data">The custom data of the event.</param>
-    private void RetrieveDemandDrivenItemsData(EventData eventData, object data)
-    {
-        if (eventData.Code != EventInfo.Code_DemandDrivenItemsId)
-        {
-            return;
-        }
-
-        DemandDrivenItemsIds = (byte[])data;
-        DisplayDemandDrivenItemsNotification();
     }
 
     /// <summary>
