@@ -12,7 +12,7 @@ public class PlayerStorageRentalFeeUpdater : MonoBehaviour
     private int _duration = 30;
     private int _waitTurnCount;
     private object[] _rentalFeeData = new object[1];
-    private object[] _notificationData = new object[4];
+    private object[] _notificationData = new object[1];
 
     private bool CanReceiveGameEvent => _entityManager.PlayerPhotonview.IsMine;
     private bool IsDiscountApplied => _waitTurnCount > GameSceneReferences.Manager.GameTurnManager.TurnCount;
@@ -91,10 +91,13 @@ public class PlayerStorageRentalFeeUpdater : MonoBehaviour
 
     private void DisplayNotification()
     {
-        _notificationData[0] = NotificationType.DisplayReadNotification;
-        _notificationData[1] = StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration);
-        _notificationData[2] = StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration);
-        _notificationData[3] = null;
+        _notificationData[0] = new Notification
+        {
+            NotificationType = NotificationType.DisplayReadNotification,
+            NotificationTitle = StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration),
+            NotificationMessage = StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration)
+        };
+
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

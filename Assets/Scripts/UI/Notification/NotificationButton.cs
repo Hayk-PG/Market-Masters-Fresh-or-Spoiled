@@ -87,18 +87,7 @@ public class NotificationButton : MonoBehaviour
 
     private void StoreNotification(object[] data)
     {
-        NotificationType notificationType = (NotificationType)data[0];
-
-        if(notificationType == NotificationType.DisplayReadNotification)
-        {
-            _notifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2]));
-        }
-
-        if(notificationType == NotificationType.DisplayReadNotificationWithImages)
-        {
-            _notifications.Add(new Notification(notificationType: (NotificationType)data[0], notificationTitle: (string)data[1], notificationMessage: (string)data[2], (Sprite[])data[3]));
-        }
-
+        _notifications.Add((Notification)data[0]);
         UpdateUnreadNotificationCount(1);
     }
 

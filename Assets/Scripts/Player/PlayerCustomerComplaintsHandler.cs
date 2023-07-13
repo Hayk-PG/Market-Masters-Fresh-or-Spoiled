@@ -8,7 +8,7 @@ public class PlayerCustomerComplaintsHandler : MonoBehaviour
     [SerializeField] private EntityIndexManager _entityIndexManager;
     [SerializeField] private PlayerReputationManager _playerReputationManager;
 
-    private object[] _notificationData = new object[3];
+    private object[] _notificationData = new object[1];
     private object[] _saleRestrictionData = new object[1];
 
 
@@ -106,9 +106,14 @@ public class PlayerCustomerComplaintsHandler : MonoBehaviour
     private void DisplayNotification(string additionalMessage = "")
     {
         int negativeReviewAndPublicityIndex = Random.Range(0, NegativeReviews.Texts.Length);
-        _notificationData[0] = NotificationType.DisplayReadNotification;
-        _notificationData[1] = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item1;
-        _notificationData[2] = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item2 + "\n\n" + additionalMessage;
+
+        _notificationData[0] = new Notification 
+        {
+            NotificationType = NotificationType.DisplayReadNotification,
+            NotificationTitle = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item1,
+            NotificationMessage = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item2 + "\n\n" + additionalMessage
+        };
+
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
@@ -10,7 +8,7 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
     [SerializeField] private EntityInventoryManager _entityInventoryManager;
 
     private bool _isInventoryEmpty;
-    private object[] _notificationData = new object[3];
+    private object[] _notificationData = new object[1];
 
 
 
@@ -89,9 +87,14 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
     private void DisplayNotification()
     {
         int emptyInventoryComplaintsIndex = Random.Range(0, EmptyInventoryComplaints.Texts.Length);
-        _notificationData[0] = NotificationType.DisplayReadNotification;
-        _notificationData[1] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1;
-        _notificationData[2] = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2;
+  
+        _notificationData[0] = new Notification
+        {
+            NotificationType = NotificationType.DisplayReadNotification,
+            NotificationTitle = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1,
+            NotificationMessage = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2
+        }; 
+
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

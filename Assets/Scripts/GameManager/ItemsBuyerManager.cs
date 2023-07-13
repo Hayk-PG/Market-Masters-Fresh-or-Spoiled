@@ -6,8 +6,8 @@ using ExitGames.Client.Photon;
 
 public class ItemsBuyerManager : MonoBehaviourPun
 {
+    private object[] _notificationData = new object[1];
     private bool _isItemBought = true;
-    private object[] _demandDrivenItemsData = new object[4];
 
     public byte[] DemandDrivenItemsIds { get; private set; }
     public Item BuyingItem { get; private set; }
@@ -78,11 +78,16 @@ public class ItemsBuyerManager : MonoBehaviourPun
     {
         List<Sprite> itemsIcons = new List<Sprite>();
         GlobalFunctions.Loop<byte>.Foreach(DemandDrivenItemsIds, id => itemsIcons.Add(GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == id).Icon));
-        _demandDrivenItemsData[0] = NotificationType.DisplayReadNotificationWithImages;
-        _demandDrivenItemsData[1] = HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10);
-        _demandDrivenItemsData[2] = HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10);
-        _demandDrivenItemsData[3] = itemsIcons.ToArray();
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _demandDrivenItemsData);
+
+        _notificationData[0] = new Notification
+        {
+            NotificationType = NotificationType.DisplayReadNotificationWithImages,
+            NotificationTitle = HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10),
+            NotificationMessage = HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10),
+            Images = itemsIcons.ToArray()
+        };
+
+        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 
     /// <summary>
