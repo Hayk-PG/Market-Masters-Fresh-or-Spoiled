@@ -21,6 +21,7 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private Btn _forwardButton;
 
     [Header("TMP Texts")]
+    [SerializeField] private TMP_Text _notificationPageText;
     [SerializeField] private TMP_Text _titleText;
     [SerializeField] private TMP_Text _messageText;
     [SerializeField] private TMP_Text _messageWithImagesText;
@@ -61,14 +62,23 @@ public class NotificationManager : MonoBehaviour
             return;
         }
 
-        RetrieveNotification((Notification)data[0]);
+        bool onlyUpdateNotification = (bool)data[0];
+
+        if (onlyUpdateNotification)
+        {
+            UpdatePageText(text: (string)data[2]);
+            return;
+        }
+
+        RetrieveNotification((Notification)data[1]);
         RetrieveNotificationType(_notification.NotificationType);
-        RetrieveTexts(_notification.NotificationTitle, _notification.NotificationMessage);     
+        RetrieveTexts(_notification.NotificationTitle, _notification.NotificationMessage);
+        UpdatePageText(text: (string)data[2]);
         SetTitle();
         UpdateMessage();
         Open();
-        OnReadonlyNotification(data);
-        OnReadonlyNotificationWithImages(data);
+        OnReadonlyNotification();
+        OnReadonlyNotificationWithImages();
     }
 
     private void RetrieveNotification(Notification notification)
@@ -87,7 +97,7 @@ public class NotificationManager : MonoBehaviour
         _notificationMessage = message;
     }
 
-    private void OnReadonlyNotification(object[] data)
+    private void OnReadonlyNotification()
     {
         if (_notificationType != NotificationType.DisplayReadNotification)
         {
@@ -98,7 +108,7 @@ public class NotificationManager : MonoBehaviour
         ToggleMessageSubTabs(false);
     }
 
-    private void OnReadonlyNotificationWithImages(object[] data)
+    private void OnReadonlyNotificationWithImages()
     {
         if (_notificationType != NotificationType.DisplayReadNotificationWithImages)
         {
@@ -158,6 +168,11 @@ public class NotificationManager : MonoBehaviour
     {
         _nextNotificationData[0] = notificationIndexPointer;
         GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification, _nextNotificationData);
+    }
+
+    private void UpdatePageText(string text)
+    {
+        _notificationPageText.text = text;
     }
 
     /// <summary>

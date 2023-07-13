@@ -18,7 +18,7 @@ public class NotificationButton : MonoBehaviour
     private Notification _currentDisplayedNotification;
     private const string _newNotificationAnim = "NotificationButtonAnim";
     private int _unreadNotificationCount;
-    private object[] _notificationData = new object[1];
+    private object[] _notificationData = new object[3];
 
 
 
@@ -56,6 +56,7 @@ public class NotificationButton : MonoBehaviour
         }
 
         StoreNotification(data);
+        RaiseDisplayNotificationEvent(true);
         SetIcon();
         PlaySoundEffect(7, 7);
         PlayAnimation(_newNotificationAnim);
@@ -79,8 +80,7 @@ public class NotificationButton : MonoBehaviour
         }
 
         AssignCurrentDisplayedNotification(indexPointer);
-        WrapNotificationData();
-        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
+        RaiseDisplayNotificationEvent(false);
         UpdateUnreadNotificationCount(-1);
         SetIcon();
     }
@@ -116,9 +116,12 @@ public class NotificationButton : MonoBehaviour
         _currentDisplayedNotification = _notifications[nextIndex];
     }
 
-    private void WrapNotificationData()
+    private void RaiseDisplayNotificationEvent(bool onlyUpdateNotification)
     {
-        _notificationData[0] = _currentDisplayedNotification;
+        _notificationData[0] = onlyUpdateNotification;
+        _notificationData[1] = _currentDisplayedNotification;
+        _notificationData[2] = $"{_notifications.IndexOf(_currentDisplayedNotification) + 1}/{_notifications.Count}";
+        GameEventHandler.RaiseEvent(GameEventType.DisplayNotification, _notificationData);
     }
 
     private bool HasNotification()

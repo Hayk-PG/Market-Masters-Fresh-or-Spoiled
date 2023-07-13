@@ -1,4 +1,4 @@
-public struct Notification 
+public class Notification 
 {
     public NotificationType NotificationType { get; set; }
     public string NotificationTitle { get; set; }
