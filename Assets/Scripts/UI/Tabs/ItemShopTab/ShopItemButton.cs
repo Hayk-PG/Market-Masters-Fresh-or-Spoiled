@@ -11,6 +11,7 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private Btn_Icon _itemIcon;  
     [SerializeField] private BtnTxt _itemPriceText;
     [SerializeField] private Image _itemPriceLabel;
+    [SerializeField] private Image _inDemandIndicator;
     [SerializeField] private UIShiny _uiShiny;
     [SerializeField] private CanvasGroup _emtpyIndicatorCanvasGroup;
 
@@ -61,6 +62,7 @@ public class ShopItemButton : MonoBehaviour
 
         ToggleSelectionState(!_isSelected);
         TogglePriceLabelColorBasedOnSelectionState();
+        ToggleInDemandIndicatorIconColor();
 
         if (!_isSelected)
         {
@@ -106,6 +108,7 @@ public class ShopItemButton : MonoBehaviour
         GlobalFunctions.CanvasGroupActivity(_emtpyIndicatorCanvasGroup, isEmpty);
         _itemIcon.gameObject.SetActive(!isEmpty);
         _itemPriceLabel.gameObject.SetActive(!isEmpty);
+        _inDemandIndicator.gameObject.SetActive(!isEmpty);
         _itemButton.IsInteractable = !isEmpty;
         _uiShiny.enabled = !isEmpty;
 
@@ -134,6 +137,7 @@ public class ShopItemButton : MonoBehaviour
         }
 
         TogglePriceLabelColorBasedOnSelectionState();
+        ToggleInDemandIndicatorIconColor();
     }
 
     /// <summary>
@@ -218,6 +222,26 @@ public class ShopItemButton : MonoBehaviour
     private void TogglePriceLabelColorBasedOnSelectionState()
     {
         _itemPriceLabel.color = _isSelected ? _transparent : _priceLabelDefaultColor;
+    }
+
+    private void ToggleInDemandIndicatorIconColor()
+    {
+        if (!HasAssociatedItem || _isSelected || GameSceneReferences.Manager.ItemsBuyerManager.DemandDrivenItemsIds == null)
+        {
+            _inDemandIndicator.color = _transparent;
+            return;
+        }
+
+        _inDemandIndicator.color = _transparent;
+
+        foreach (var itemId in GameSceneReferences.Manager.ItemsBuyerManager.DemandDrivenItemsIds)
+        {
+            if(AssociatedItem.ID == itemId)
+            {
+                _inDemandIndicator.color = Color.white;
+                return;
+            }
+        }
     }
 
     /// <summary>

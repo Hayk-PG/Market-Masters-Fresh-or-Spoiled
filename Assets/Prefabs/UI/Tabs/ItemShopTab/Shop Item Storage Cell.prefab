@@ -44,38 +44,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6979396004430618363}
     m_Modifications:
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 8.825642
-      objectReference: {fileID: 0}
-    - target: {fileID: 521844429183678958, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -8.390198
-      objectReference: {fileID: 0}
     - target: {fileID: 3074664756055158778, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
       propertyPath: m_Name
       value: Shop Item Button
@@ -163,10 +131,6 @@ PrefabInstance:
     - target: {fileID: 3074664756055158779, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8353574637718110533, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
-      propertyPath: m_fontSize
-      value: 18.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a7504171cda2ad4ea7945c6153612c1, type: 3}
