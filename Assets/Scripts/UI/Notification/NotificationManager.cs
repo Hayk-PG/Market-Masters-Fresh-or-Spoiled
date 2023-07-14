@@ -33,8 +33,9 @@ public class NotificationManager : MonoBehaviour
     private NotificationType _notificationType;
     private string _notificationTitle;
     private string _notificationMessage;
-    private object[] _data = new object[1];
     private object[] _nextNotificationData = new object[1];
+
+    private System.Action AcceptCallback { get; set; }
 
 
 
@@ -79,6 +80,7 @@ public class NotificationManager : MonoBehaviour
         Open();
         OnReadonlyNotification();
         OnReadonlyNotificationWithImages();
+        OnNotificationWithCallback();
     }
 
     private void RetrieveNotification(Notification notification)
@@ -121,6 +123,18 @@ public class NotificationManager : MonoBehaviour
         ToggleMessageSubTabs(true);
     }
 
+    private void OnNotificationWithCallback()
+    {
+        if (_notificationType != NotificationType.DisplayNotificationWithCallback)
+        {
+            return;
+        }
+
+        SetAcceptCallback(_notification.OnAcceptCallback);
+        ToggleButtonsSubTab(setCloseButtonSubTabActive: _notification.OnAcceptCallback == null);
+        ToggleMessageSubTabs(false);      
+    }
+
     /// <summary>
     /// Opens the notification and plays a sound effect.
     /// </summary>
@@ -139,10 +153,11 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     private void OnAccept()
     {
-        _data[0] = 40;
-        GameEventHandler.RaiseEvent(GameEventType.SellSpoiledItems, _data);
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
-        PlaySoundEffect(0, 11);
+        AcceptCallback?.Invoke();
+        SetAcceptCallback(null);
+        RemoveNotificationCallback();
+        ToggleButtonsSubTab(true);
+        PlaySoundEffect(10, 0);        
     }
 
     /// <summary>
@@ -151,7 +166,9 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     private void OnDeny()
     {
-        GlobalFunctions.CanvasGroupActivity(_canvasGroup, false);
+        SetAcceptCallback(null);
+        RemoveNotificationCallback();
+        ToggleButtonsSubTab(true);
         PlaySoundEffect(4, 10);
     }
 
@@ -168,6 +185,16 @@ public class NotificationManager : MonoBehaviour
     {
         _nextNotificationData[0] = notificationIndexPointer;
         GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification, _nextNotificationData);
+    }
+
+    private void SetAcceptCallback(System.Action callback)
+    {
+        AcceptCallback = callback;
+    }
+
+    private void RemoveNotificationCallback()
+    {
+        _notification.OnAcceptCallback = null;
     }
 
     private void UpdatePageText(string text)

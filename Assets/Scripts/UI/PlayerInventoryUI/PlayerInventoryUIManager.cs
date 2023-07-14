@@ -28,13 +28,11 @@ public class PlayerInventoryUIManager : MonoBehaviour
     private TeamIndex _controllerTeamIndex;
     private List<PlayerInventoryItemButton> _selectedItemButtonsList = new List<PlayerInventoryItemButton>();
 
-    /// <summary>
-    /// Gets a boolean value indicating if the player can confirm an item.
-    /// </summary>
     private bool CanConfirmItem
     {
         get => GameSceneReferences.Manager.GameTurnManager.CurrentTeamTurn == _controllerTeamIndex && !_isItemConfirmed;
     }
+    public PlayerInventoryItemButton[] PlayerInventoryItemButtons => _inventoryItemButtons;
 
 
 

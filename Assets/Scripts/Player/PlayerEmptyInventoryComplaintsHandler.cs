@@ -87,14 +87,7 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
     private void DisplayNotification()
     {
         int emptyInventoryComplaintsIndex = Random.Range(0, EmptyInventoryComplaints.Texts.Length);
-  
-        _notificationData[0] = new Notification
-        {
-            NotificationType = NotificationType.DisplayReadNotification,
-            NotificationTitle = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1,
-            NotificationMessage = EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2
-        }; 
-
+        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item1, EmptyInventoryComplaints.Texts[emptyInventoryComplaintsIndex].Item2);
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

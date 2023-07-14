@@ -37,7 +37,6 @@ public class NotificationButton : MonoBehaviour
 
     private void OnSelect()
     {
-        PlaySoundEffect(0, 6);
         StartCoroutine(DeselectAfterDelay());
         DisplayNotification(indexPointer: HasUnreadNotification() ? 1 : 0);
     }
@@ -58,7 +57,7 @@ public class NotificationButton : MonoBehaviour
         StoreNotification(data);
         RaiseDisplayNotificationEvent(true);
         SetIcon();
-        PlaySoundEffect(7, 7);
+        PlaySoundEffect(7, 5);
         PlayAnimation(_newNotificationAnim);
     }
 

@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class PlayerStorageRentalFeeUpdater : MonoBehaviour
+public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
 {
-    [Header("Components")]
-    [SerializeField] private EntityManager _entityManager;
-    [SerializeField] private EntityIndexManager _entityIndexManager;
-    [SerializeField] private PlayerReputationManager _playerReputationManager;
-
     private int _defaultFee = 15;
     private int _randomFee;
     private int _duration = 30;
@@ -14,25 +9,14 @@ public class PlayerStorageRentalFeeUpdater : MonoBehaviour
     private object[] _rentalFeeData = new object[1];
     private object[] _notificationData = new object[1];
 
-    private bool CanReceiveGameEvent => _entityManager.PlayerPhotonview.IsMine;
     private bool IsDiscountApplied => _waitTurnCount > GameSceneReferences.Manager.GameTurnManager.TurnCount;
     private bool CanApplyDiscount => IsRentalFeeUpdateTriggered() && !IsDiscountApplied;
 
 
 
 
-    private void OnEnable()
+    protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        GameEventHandler.OnEvent += OnGameEvent;
-    }
-
-    private void OnGameEvent(GameEventType gameEventType, object[] data)
-    {
-        if (!CanReceiveGameEvent)
-        {
-            return;
-        }
-
         ExecuteOnGameTurnUpdate(gameEventType, data);
     }
 
@@ -91,13 +75,7 @@ public class PlayerStorageRentalFeeUpdater : MonoBehaviour
 
     private void DisplayNotification()
     {
-        _notificationData[0] = new Notification
-        {
-            NotificationType = NotificationType.DisplayReadNotification,
-            NotificationTitle = StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration),
-            NotificationMessage = StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration)
-        };
-
+        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration), StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration));
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

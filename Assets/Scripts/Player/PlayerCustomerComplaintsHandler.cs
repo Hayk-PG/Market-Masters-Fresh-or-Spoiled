@@ -106,14 +106,7 @@ public class PlayerCustomerComplaintsHandler : MonoBehaviour
     private void DisplayNotification(string additionalMessage = "")
     {
         int negativeReviewAndPublicityIndex = Random.Range(0, NegativeReviews.Texts.Length);
-
-        _notificationData[0] = new Notification 
-        {
-            NotificationType = NotificationType.DisplayReadNotification,
-            NotificationTitle = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item1,
-            NotificationMessage = NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item2 + "\n\n" + additionalMessage
-        };
-
+        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item1, NegativeReviews.Texts[negativeReviewAndPublicityIndex].Item2 + "\n\n" + additionalMessage);
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 

@@ -78,15 +78,7 @@ public class ItemsBuyerManager : MonoBehaviourPun
     {
         List<Sprite> itemsIcons = new List<Sprite>();
         GlobalFunctions.Loop<byte>.Foreach(DemandDrivenItemsIds, id => itemsIcons.Add(GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == id).Icon));
-
-        _notificationData[0] = new Notification
-        {
-            NotificationType = NotificationType.DisplayReadNotificationWithImages,
-            NotificationTitle = HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10),
-            NotificationMessage = HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10),
-            Images = itemsIcons.ToArray()
-        };
-
+        _notificationData[0] = new Notification(NotificationType.DisplayReadNotificationWithImages, HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10), HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10), itemsIcons.ToArray());
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 
