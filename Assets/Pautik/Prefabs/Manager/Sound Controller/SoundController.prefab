@@ -543,6 +543,25 @@ MonoBehaviour:
   - _title: Pop up
     _clips:
     - {fileID: 8300000, guid: 5a67af141c57aae4193f603c7e96c917, type: 3}
+    - {fileID: 8300000, guid: 55937d68f05025740ba9aae9aba9a459, type: 3}
+    - {fileID: 8300000, guid: 46aac0e155cb0d64da0de19cc11b262a, type: 3}
+    - {fileID: 8300000, guid: a77b0f3cb07c5fa45b41f1f1ca44d2fe, type: 3}
+    - {fileID: 8300000, guid: d356723870019b241b9f95616ce428f1, type: 3}
+    - {fileID: 8300000, guid: 2ede5da223a58be4f897ad8e1e3fb4ce, type: 3}
+    - {fileID: 8300000, guid: 637cf0ee6c1dca647a060a8940155245, type: 3}
+    - {fileID: 8300000, guid: e4443c95109dd8b438a853b6ac982fea, type: 3}
+    - {fileID: 8300000, guid: aca303dfdb491b44bb0ce0be6579cbd6, type: 3}
+    - {fileID: 8300000, guid: 7578b6fa53029c541925eee8c56b1f7f, type: 3}
+    - {fileID: 8300000, guid: e2617a113106abf4280e5618eb8a1e5f, type: 3}
+    - {fileID: 8300000, guid: 3db78b71e7e9bd4409f8b78d7134009a, type: 3}
+    - {fileID: 8300000, guid: cbd3e37e1325390439054ec67bf462d2, type: 3}
+    - {fileID: 8300000, guid: b1bac470e965eaa44bbf1013b8e30b0b, type: 3}
+    - {fileID: 8300000, guid: a2e5fa933a784ec4ebe05a91a1fe09a0, type: 3}
+    - {fileID: 8300000, guid: 382e4c10a1316fb47ac1a0312c4cb5a6, type: 3}
+    - {fileID: 8300000, guid: 3c575f329958cbe4f8d861e7730da952, type: 3}
+    - {fileID: 8300000, guid: 7de6e5039e69ac64d9e78d30c4d8f3be, type: 3}
+    - {fileID: 8300000, guid: 41a37ab43437ddd41b746a67a49351f4, type: 3}
+    - {fileID: 8300000, guid: 2c44a05ec51008243876d98e8f0c82ce, type: 3}
   - _title: Timer
     _clips:
     - {fileID: 8300000, guid: e4af0c956d305fe4391a550dee2c37b7, type: 3}
@@ -552,11 +571,23 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: 0c4cfb44b5f87a948b15e25089570dce, type: 3}
     - {fileID: 8300000, guid: a9de8b6cb1e869342a9bb8feff559455, type: 3}
+    - {fileID: 8300000, guid: 9c77dbfb3a5506e48bf0106e47ce2b08, type: 3}
   - _title: Error
     _clips:
     - {fileID: 8300000, guid: 87d09e7a0c27b8b43b5d8e556cd71abb, type: 3}
     - {fileID: 8300000, guid: afceb3f385b8ca64fa56c94e9e7c8d40, type: 3}
     - {fileID: 8300000, guid: 96020dc0717d693408fd2adf25638a67, type: 3}
+    - {fileID: 8300000, guid: 56e86f7c11bda4949bd27852b7e87e05, type: 3}
+    - {fileID: 8300000, guid: 733bbba495444aa46a0d7897c0071255, type: 3}
+    - {fileID: 8300000, guid: c1974ec1f45dc374fa6919732187046a, type: 3}
+    - {fileID: 8300000, guid: ea64e60ca6be4cb48a3c8d6140428ca8, type: 3}
+    - {fileID: 8300000, guid: 32eeb8e869d203d499f061c9a5d331c3, type: 3}
+    - {fileID: 8300000, guid: 6d6e7c7ca23253c4ca1791f3445347da, type: 3}
+    - {fileID: 8300000, guid: b9c01da82b55cb548b83fb5484e7de2d, type: 3}
+    - {fileID: 8300000, guid: d2369f0ed211dc74499d5ba24085d6bf, type: 3}
+    - {fileID: 8300000, guid: af30197a76dd8804fa026dda9ded9796, type: 3}
+    - {fileID: 8300000, guid: aa32dee47a661f74e930502073769a3c, type: 3}
+    - {fileID: 8300000, guid: cc9fd0f11685f144c8afcddad29dc460, type: 3}
   - _title: Cash
     _clips:
     - {fileID: 8300000, guid: 916a1244ddaba6c4f8e8ede1fe568849, type: 3}
@@ -564,14 +595,27 @@ MonoBehaviour:
   - _title: Whooshes
     _clips:
     - {fileID: 8300000, guid: 0c099a5e62dfee943b5ffcaff7a97c1f, type: 3}
+    - {fileID: 8300000, guid: ad67af376917dff48a039902332f3973, type: 3}
   - _title: Notification
     _clips:
     - {fileID: 8300000, guid: 1bd19f99b37d59048b93468985b0f76b, type: 3}
-    - {fileID: 8300000, guid: 90848bb4e3d3e0043a64d5b65adba1a5, type: 3}
-    - {fileID: 8300000, guid: 0df42711a26149a48a77b2701e3a313f, type: 3}
     - {fileID: 8300000, guid: b712e322a1675cd4288c0c23355fbc32, type: 3}
     - {fileID: 8300000, guid: c377818fcf94d7e489fa4b4e0cb8ab79, type: 3}
     - {fileID: 8300000, guid: 937df876adce63f4588abef79c1e7252, type: 3}
+    - {fileID: 8300000, guid: f32a24d39d574734abe19f61f2228bb5, type: 3}
+    - {fileID: 8300000, guid: 3907823b0d39d244ab19699c29e9232e, type: 3}
+    - {fileID: 8300000, guid: 111dcbd0f9383fc4da588af7184d3834, type: 3}
+  - _title: Boing
+    _clips:
+    - {fileID: 8300000, guid: f088db5e2661ca74a8f486cadafda615, type: 3}
+    - {fileID: 8300000, guid: 4ce250411c40fe64495a52b034bcf3ed, type: 3}
+  - _title: Appear-Disappear
+    _clips:
+    - {fileID: 8300000, guid: 90848bb4e3d3e0043a64d5b65adba1a5, type: 3}
+    - {fileID: 8300000, guid: 0df42711a26149a48a77b2701e3a313f, type: 3}
+  - _title: Success
+    _clips:
+    - {fileID: 8300000, guid: ab343e09fdf179f40b1db7bdad8a2b7f, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0

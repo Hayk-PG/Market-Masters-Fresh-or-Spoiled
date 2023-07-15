@@ -15,6 +15,7 @@ public class EntityInventoryManager : MonoBehaviourPun
 
     public List<Item> InventoryItems => _inventoryItems;
     public int InventorySize => _inventorySize;
+    public bool HaveEnoughInventorySpace => _inventoryItems.Count < _inventorySize;
 
 
 

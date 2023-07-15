@@ -217,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6027077821312898211, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: m_Name
-      value: PlayerInventoryItemButton
+      value: PlayerInventoryItemButton Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6027077821312898211, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
       propertyPath: m_IsActive
@@ -332,6 +332,33 @@ MonoBehaviour:
   _playerInventoryItemSpoilUIManager: {fileID: 8360817565883078535}
   _button: {fileID: 1667449841685404192}
   _icon: {fileID: 8369184566004935088}
+  _item: {fileID: 0}
+--- !u!114 &5864668521454232791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826335220061800095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60d9a4e633b8df4bb4d9fac4a305f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventoryItemButton: {fileID: 1229885790180035447}
+--- !u!114 &7554809746436969057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826335220061800095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9901fcf45553fb4cad55c2fc8d0f7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventoryItemButton: {fileID: 1229885790180035447}
 --- !u!114 &8360817565883078535
 MonoBehaviour:
   m_ObjectHideFlags: 0

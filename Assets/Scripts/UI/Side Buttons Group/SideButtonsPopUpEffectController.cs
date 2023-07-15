@@ -29,7 +29,6 @@ public class SideButtonsPopUpEffectController : MonoBehaviour
         {
             PlayAnimation(index);
             UISoundController.PlaySound(1, 0);
-
             index++;
             yield return new WaitForSeconds(0.15f);
         }

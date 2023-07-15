@@ -48,6 +48,16 @@ namespace Pautik
             return "<color=#00F510>" + text + "</color>";
         }
 
+        public static string WhiteColorText(string text)
+        {
+            return "<color=#FFFFFF>" + text + "</color>";
+        }
+
+        public static string PartiallyTransparentText(string text)
+        {
+            return "<color=#FFFFFFC8>" + text + "</color>";
+        }
+
         public static bool LocalPlayerChecker(bool isLocalPlayer)
         {
             return isLocalPlayer;

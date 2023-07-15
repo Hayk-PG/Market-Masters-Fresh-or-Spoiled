@@ -20,14 +20,7 @@ public abstract class EntityShopInteractionManager : MonoBehaviourPun
 
     protected abstract void OnGameEvent(GameEventType gameEventType, object[] data);
 
-    protected virtual void AddItemToInventory(Item item)
-    {
-        _entityInventoryManager.AddItem(item);
-        GameSceneReferences.Manager.PlayerInventoryUIManager.AssignInvetoryItem(item);
-    }
+    protected abstract void AddItemToInventory(Item item);
 
-    protected virtual void UpdateStock(float totalCost)
-    {
-        GameSceneReferences.Manager.RemoteRPCWrapper.UpdateMoneyRegardlessOfSale((short)-totalCost, _entityIndexManager.TeamIndex);
-    }
+    protected abstract void UpdateStock(float totalCost);
 }
