@@ -124,8 +124,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1072913669574291920}
-  - {fileID: 2845258061425768400}
   - {fileID: 2845258061273106112}
+  - {fileID: 2845258061425768400}
   - {fileID: 2845258061725738332}
   m_Father: {fileID: 6721545565133671955}
   m_RootOrder: 0
@@ -225,6 +225,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6721545565106186720}
     m_Modifications:
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1787899525, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _btnTitle
       value: knockout opponent 2 for one round
@@ -233,6 +245,165 @@ PrefabInstance:
       propertyPath: m_text
       value: knockout opponent 2 for one round
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
+    - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Name
+      value: Side Bar Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+--- !u!224 &2845258061273106112 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+  m_PrefabInstance: {fileID: 6721545563950657883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6721545564824615567 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 874023892, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+  m_PrefabInstance: {fileID: 6721545563950657883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6721545564103163979
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6721545565106186720}
+    m_Modifications:
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -321,129 +492,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
---- !u!224 &2845258061273106112 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-  m_PrefabInstance: {fileID: 6721545563950657883}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6721545564824615567 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 874023892, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-  m_PrefabInstance: {fileID: 6721545563950657883}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6721545564103163979
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6721545565106186720}
-    m_Modifications:
-    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_Alpha
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: _buttonClickType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_Name
-      value: Side Bar Button
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8807872321204369307, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061425768400 stripped
@@ -463,6 +519,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6721545564173960169}
     m_Modifications:
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1787899525, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _btnTitle
       value: I'm Thinking to choose # Number
@@ -478,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _clrPressed.a
       value: 0
@@ -491,14 +559,46 @@ PrefabInstance:
       propertyPath: _clrPressed.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -588,9 +688,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061455196044 stripped
@@ -610,6 +734,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6721545564173960169}
     m_Modifications:
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1787899525, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _btnTitle
       value: it is the right time to get help
@@ -625,7 +761,7 @@ PrefabInstance:
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _clrPressed.a
       value: 0
@@ -645,11 +781,39 @@ PrefabInstance:
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -739,9 +903,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061503007089 stripped
@@ -773,6 +961,22 @@ PrefabInstance:
       propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -861,6 +1065,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061725738332 stripped
@@ -875,6 +1087,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6721545564173960169}
     m_Modifications:
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 874023887, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1787899525, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _btnTitle
       value: Choose this # number, please
@@ -890,7 +1114,7 @@ PrefabInstance:
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _clrPressed.a
       value: 0
@@ -903,14 +1127,46 @@ PrefabInstance:
       propertyPath: _clrPressed.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1000,9 +1256,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061625897250 stripped
@@ -1049,7 +1329,7 @@ PrefabInstance:
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
     - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _clrPressed.a
       value: 0
@@ -1062,14 +1342,46 @@ PrefabInstance:
       propertyPath: _clrPressed.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: _sprtPressed
       value: 
-      objectReference: {fileID: 21300000, guid: 775260260ef0bfe48b6f294526186821, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.b
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _clrPressed.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1159,9 +1471,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 431f948aa8b921448aa4e6713c9a3acf, type: 3}
+      objectReference: {fileID: 21300000, guid: a093cb6459e9a447e85a2e5dc818fdca, type: 3}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6513548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.33397114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &2845258061068934325 stripped
@@ -1188,6 +1524,22 @@ PrefabInstance:
       propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 109383353588296485, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _buttonClickType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098291325437466805, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: _sprtPressed
+      value: 
+      objectReference: {fileID: 21300000, guid: 24ccaeeef92408149a6a29ed0dbcf8f0, type: 3}
+    - target: {fileID: 8044082163175250141, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     - target: {fileID: 8807872321204369306, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
       propertyPath: m_Name
       value: Side Bar Button
@@ -1276,6 +1628,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807872321204369309, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb887208ecc47bd4d8afba703a57d033, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f152180362c87284bb9aa528d6ad0ea3, type: 3}
 --- !u!224 &1072913669574291920 stripped

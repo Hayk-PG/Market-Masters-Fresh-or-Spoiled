@@ -35,15 +35,14 @@ public class BotShopInteractionManager : EntityShopInteractionManager
     private void GenerateRandomShopPurchase()
     {
         float teamStock = _entityIndexManager.TeamIndex == TeamIndex.Team1 ? GameSceneReferences.Manager.TeamStockManager.Team1StockAmount : GameSceneReferences.Manager.TeamStockManager.Team2StockAmount;
-        float purchaseLimit = teamStock / 100f * 30f;
+        float purchaseLimit = teamStock * 0.9f;
         float totalMoneySpend = 0f;
 
-        for (int i = 0; i < GameSceneReferences.Manager.Items.Collection.Count; i++)
+        for (int i = 0; i < _entityInventoryManager.InventorySize; i++)
         {
             int randomItemIndex = GameSceneReferences.Manager.Items.Collection.IndexOf(GameSceneReferences.Manager.Items.Collection[Random.Range(0, GameSceneReferences.Manager.Items.Collection.Count)]);
-            int randomPercentage = (Random.Range(40, 400));
             float itemOriginalPrice = GameSceneReferences.Manager.Items.Collection[randomItemIndex].Price;
-            float newPrice = itemOriginalPrice / 100 * randomPercentage;
+            float newPrice = itemOriginalPrice * Random.Range(0.4f, 4f);
             bool canBuyNewItem = (teamStock - (newPrice + totalMoneySpend)) > purchaseLimit;
             bool haveEnoughInventorySpace = _entityInventoryManager.InventoryItems.Count < _entityInventoryManager.InventorySize;
 

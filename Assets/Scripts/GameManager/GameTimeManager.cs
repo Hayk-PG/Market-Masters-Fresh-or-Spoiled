@@ -7,8 +7,9 @@ public class GameTimeManager : MonoBehaviourPun
 {
     private float _gameTime = 5f;
     private float _roundDuration = 11f;
-
-    private object[] _data = new object[2];
+    private float _sessionTime = 900f;
+    private WaitForSeconds _delay = new WaitForSeconds(1f);
+    private object[] _data = new object[3];
 
 
 
@@ -32,8 +33,8 @@ public class GameTimeManager : MonoBehaviourPun
     {
         while(MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer))
         {
-            UpdateGameTime();           
-            yield return new WaitForSeconds(1f);
+            UpdateGameTime();
+            yield return _delay;
         }
     }
 
@@ -45,6 +46,7 @@ public class GameTimeManager : MonoBehaviourPun
         }
 
         _gameTime -= 1f;
+        _sessionTime -= 1f;
         PublishGameTime();
     }
 
@@ -65,19 +67,20 @@ public class GameTimeManager : MonoBehaviourPun
 
     private void PublishGameTime()
     {
-        photonView.RPC("PublishGameTimeRPC", RpcTarget.AllViaServer, _gameTime);
+        photonView.RPC("PublishGameTimeRPC", RpcTarget.AllViaServer, (short)_gameTime, (short)_sessionTime);
     }
 
     [PunRPC]
-    private void PublishGameTimeRPC(float gameTime)
+    private void PublishGameTimeRPC(short gameTime, short sessionTime)
     {
-        WrapGameTime(gameTime);
+        WrapGameTime(gameTime, sessionTime);
         GameEventHandler.RaiseEvent(GameEventType.UpdateGameTime, _data);
     }
 
-    private void WrapGameTime(float gameTime)
+    private void WrapGameTime(float gameTime, float sessionTime)
     {
         _data[0] = gameTime;
         _data[1] = _roundDuration;
+        _data[2] = sessionTime;
     }
 }
