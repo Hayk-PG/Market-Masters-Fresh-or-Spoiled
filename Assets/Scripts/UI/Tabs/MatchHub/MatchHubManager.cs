@@ -20,7 +20,7 @@ public class MatchHubManager : BaseMainHUDTab
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        PerformOpenCheck(gameEventType, data);
+        //PerformOpenCheck(gameEventType, data);
     }
 
     private void PerformOpenCheck(GameEventType gameEventType, object[] data)

@@ -540,6 +540,9 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 8466b904679ec68498f052624e4288ab, type: 3}
     - {fileID: 8300000, guid: 80eea64302a531344ae1a5e51bb3683e, type: 3}
     - {fileID: 8300000, guid: 4f5e3faa3c02bf740935b467f1a5d06b, type: 3}
+    - {fileID: 8300000, guid: 7278678b129fb6b4e93e478ab4925f27, type: 3}
+    - {fileID: 8300000, guid: 72da381ffb80a6042ace7185585d697c, type: 3}
+    - {fileID: 8300000, guid: 9a76e6f39705a5d40bb040b0bac5bbad, type: 3}
   - _title: Pop up
     _clips:
     - {fileID: 8300000, guid: 5a67af141c57aae4193f603c7e96c917, type: 3}

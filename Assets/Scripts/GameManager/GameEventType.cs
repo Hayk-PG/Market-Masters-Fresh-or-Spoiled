@@ -1,6 +1,9 @@
 
 public enum GameEventType 
 {
+   SelectOfflineGame,
+   SelectOnlineGame,
+
    OnConnectedToMaster,
    OnJoinedLobby,
    OnJoinedRoom,

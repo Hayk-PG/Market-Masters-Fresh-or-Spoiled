@@ -5,6 +5,12 @@ namespace Pautik
 {
     public class MyPhotonNetwork
     {
+        public static string Nickname
+        {
+            get => PhotonNetwork.NickName;
+            set => PhotonNetwork.NickName = value;
+        }
+
         /// <summary>
         /// Gets a value indicating whether Photon is in offline mode.
         /// </summary>
@@ -65,6 +71,11 @@ namespace Pautik
                 return;
 
             PhotonNetwork.OfflineMode = isOfflineMode;
+        }
+
+        public static void SetAuthValues(string userId)
+        {
+            PhotonNetwork.AuthValues = new AuthenticationValues { UserId = userId };
         }
 
         /// <summary>
