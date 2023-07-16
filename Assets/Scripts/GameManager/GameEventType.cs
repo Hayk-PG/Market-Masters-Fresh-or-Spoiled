@@ -9,6 +9,7 @@ public enum GameEventType
    OnJoinedRoom,
 
    StartGame,
+   EndGame,
    SetPlayerIndex,  
 
    OverrideGameTime,

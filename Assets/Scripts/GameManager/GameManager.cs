@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviourPun
     /// Indicates whether the game has started.
     /// </summary>
     public bool IsGameStarted { get; private set; }
+    public bool IsGameEnded { get; private set; }
 
     
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviourPun
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         CheckStartGame(gameEventType, data);
+        CheckGameEnd(gameEventType, data);
     }
 
     /// <summary>
@@ -34,6 +36,27 @@ public class GameManager : MonoBehaviourPun
         if(!IsGameStarted && gameEventType == GameEventType.UpdateGameTime)
         {
             AnnounceGameStart(time: (float)data[0]);            
+        }
+    }
+
+    private void CheckGameEnd(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.UpdateGameTime)
+        {
+            return;
+        }
+
+        if (!IsGameStarted)
+        {
+            return;
+        }
+
+        float remainingTime = (float)data[2];
+
+        if(remainingTime <= 0)
+        {
+            IsGameEnded = true;
+            GameEventHandler.RaiseEvent(GameEventType.EndGame);
         }
     }
 

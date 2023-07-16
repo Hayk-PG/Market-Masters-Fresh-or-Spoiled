@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 4580923918198490596}
   - component: {fileID: 7362792223365850437}
   - component: {fileID: 7521940034772029949}
+  - component: {fileID: 5962326461505532550}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -246,6 +247,22 @@ MonoBehaviour:
   _entityManager: {fileID: 1323113779927915979}
   _entityIndexManager: {fileID: 7880206720025241204}
   _entityInventoryManager: {fileID: 6838891361008963929}
+--- !u!114 &5962326461505532550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971789891742482625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02224d964dd4242ad9d89efea65a3671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityManager: {fileID: 1323113779927915979}
+  _entityIndexManager: {fileID: 7880206720025241204}
+  _victoryScreenPrefab: {fileID: 7255309324317811277, guid: 515a72b4b667b474ca05b56c51ab9c35, type: 3}
+  _defeatScreenPrefab: {fileID: 5779578182350451582, guid: c77ad2621b18a1643a128caac18da083, type: 3}
 --- !u!1 &8949319580664194801
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,9 +7,12 @@ public class GameTimeManager : MonoBehaviourPun
 {
     private float _gameTime = 5f;
     private float _roundDuration = 11f;
-    private float _sessionTime = 900f;
+    private float _remainingTime = 900f;
     private WaitForSeconds _delay = new WaitForSeconds(1f);
     private object[] _data = new object[3];
+
+    private bool IsMasterClient => MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer);
+    private bool IsGameContinue => !GameSceneReferences.Manager.GameManager.IsGameEnded;
 
 
 
@@ -31,7 +34,7 @@ public class GameTimeManager : MonoBehaviourPun
 
     private IEnumerator RunGameTimer()
     {
-        while(MyPhotonNetwork.IsMasterClient(MyPhotonNetwork.LocalPlayer))
+        while(IsMasterClient && IsGameContinue)
         {
             UpdateGameTime();
             yield return _delay;
@@ -45,8 +48,13 @@ public class GameTimeManager : MonoBehaviourPun
             _gameTime = _roundDuration;
         }
 
+        if(_remainingTime <= 0f)
+        {
+            _remainingTime = 0f;
+        }
+
         _gameTime -= 1f;
-        _sessionTime -= 1f;
+        _remainingTime -= 1f;
         PublishGameTime();
     }
 
@@ -67,20 +75,20 @@ public class GameTimeManager : MonoBehaviourPun
 
     private void PublishGameTime()
     {
-        photonView.RPC("PublishGameTimeRPC", RpcTarget.AllViaServer, (short)_gameTime, (short)_sessionTime);
+        photonView.RPC("PublishGameTimeRPC", RpcTarget.AllViaServer, (short)_gameTime, (short)_remainingTime);
     }
 
     [PunRPC]
-    private void PublishGameTimeRPC(short gameTime, short sessionTime)
+    private void PublishGameTimeRPC(short gameTime, short remainingTime)
     {
-        WrapGameTime(gameTime, sessionTime);
+        WrapGameTime(gameTime, remainingTime);
         GameEventHandler.RaiseEvent(GameEventType.UpdateGameTime, _data);
     }
 
-    private void WrapGameTime(float gameTime, float sessionTime)
+    private void WrapGameTime(float gameTime, float remainingTime)
     {
         _data[0] = gameTime;
         _data[1] = _roundDuration;
-        _data[2] = sessionTime;
+        _data[2] = remainingTime;
     }
 }
