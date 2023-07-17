@@ -1,6 +1,10 @@
 
 public class MainTabManager : BaseMainHUDTab
 {
+    private bool IsGameEnded => GameSceneReferences.Manager.GameManager.IsGameEnded;
+
+
+
     private void OnEnable()
     {
         GameEventHandler.OnEvent += OnGameEvent;
@@ -10,11 +14,17 @@ public class MainTabManager : BaseMainHUDTab
     {
         Open(gameEventType);
         Close(gameEventType);
+        CloseOnGameEnd(gameEventType);
     }
 
     private void Open(GameEventType gameEventType)
     {
         if (gameEventType != GameEventType.CloseErrorMessage)
+        {
+            return;
+        }
+
+        if(IsGameEnded)
         {
             return;
         }
@@ -29,7 +39,22 @@ public class MainTabManager : BaseMainHUDTab
             return;
         }
 
+        if (IsGameEnded)
+        {
+            return;
+        }
+
         SetCanvasGroupActive(0.3f);
+    }
+
+    private void CloseOnGameEnd(GameEventType gameEventType)
+    {
+        if (gameEventType != GameEventType.EndGame)
+        {
+            return;
+        }
+
+        SetCanvasGroupActive(0.1f);
     }
 
     private void SetCanvasGroupActive(float alpha)

@@ -267,7 +267,7 @@ Animator:
   m_GameObject: {fileID: 2762009731558235300}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32e34aedf8f99f342a36a424357a7ec7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -462,7 +462,14 @@ MonoBehaviour:
   - {fileID: 3106834402804611810}
   - {fileID: 7958947005503511673}
   - {fileID: 8850211625885162563}
-  _soundsList: []
+  _soundsList:
+  - _clips:
+    - _clip: {fileID: 8300000, guid: 1562e644cb6f732408dba31929db29d1, type: 3}
+      _clipName: Main Theme
+      _score: 0
+    - _clip: {fileID: 8300000, guid: 41a8e3c1a14448841b694f73b1f9ce52, type: 3}
+      _clipName: Game End Theme
+      _score: 0
 --- !u!114 &1686494609536666828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +626,17 @@ MonoBehaviour:
   - _title: Success
     _clips:
     - {fileID: 8300000, guid: ab343e09fdf179f40b1db7bdad8a2b7f, type: 3}
+  - _title: Win
+    _clips:
+    - {fileID: 8300000, guid: a6ca4f317e6c74744970f00c8afe8110, type: 3}
+    - {fileID: 8300000, guid: 879a91d2a1f02a84d966810fc83c8d89, type: 3}
+    - {fileID: 8300000, guid: 90747ea366d4e2f4cab4133d231e7e06, type: 3}
+    - {fileID: 8300000, guid: ca9fc1bcc445e2f419099e9762fc2fcf, type: 3}
+  - _title: Lost
+    _clips:
+    - {fileID: 8300000, guid: fedbc611c27bb924b927fcfffe97a344, type: 3}
+    - {fileID: 8300000, guid: 2cc7686d750b72848ba249ca9eef2b8b, type: 3}
+    - {fileID: 8300000, guid: ef57f38b1d80a694190a385a0fdc9a43, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0

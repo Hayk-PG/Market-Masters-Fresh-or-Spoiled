@@ -28,6 +28,7 @@ public class ErrorMessageManager : MonoBehaviour
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         DisplayErrorMessage(gameEventType, data);
+        DisableOnGameEnd(gameEventType);
     }
 
     private void OnCloseButtonSelect()
@@ -48,6 +49,16 @@ public class ErrorMessageManager : MonoBehaviour
         PrintMessage();
         PlayAnimation(_popUpAnimation);
         PlaySoundEffect(7, 1);
+    }
+
+    private void DisableOnGameEnd(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.EndGame)
+        {
+            return;
+        }
+
+        gameObject.SetActive(false);
     }
 
     private void RetrieveData(object[] data)

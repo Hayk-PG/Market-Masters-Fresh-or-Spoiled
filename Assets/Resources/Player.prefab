@@ -261,8 +261,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityManager: {fileID: 1323113779927915979}
   _entityIndexManager: {fileID: 7880206720025241204}
-  _victoryScreenPrefab: {fileID: 7255309324317811277, guid: 515a72b4b667b474ca05b56c51ab9c35, type: 3}
-  _defeatScreenPrefab: {fileID: 5779578182350451582, guid: c77ad2621b18a1643a128caac18da083, type: 3}
+  _victoryScreenUI: {fileID: 7516692632537452107, guid: 515a72b4b667b474ca05b56c51ab9c35, type: 3}
+  _defeatScreenUI: {fileID: 3155626060777021902, guid: c77ad2621b18a1643a128caac18da083, type: 3}
 --- !u!1 &8949319580664194801
 GameObject:
   m_ObjectHideFlags: 0
