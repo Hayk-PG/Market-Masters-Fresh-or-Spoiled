@@ -20,7 +20,6 @@ public class ItemShopManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private Btn _buyButton;
     [SerializeField] private Btn _canselButton;
-    [SerializeField] private Button _buyButtonComponent;
     [SerializeField] private BtnTxt _selectedItemsTotalText;
 
     private float _selectedItemsTotalCost;
@@ -99,6 +98,7 @@ public class ItemShopManager : MonoBehaviour
         }
 
         RemoveItemFromSelectedItemsList(shopItemButton: (ShopItemButton)data[0]);
+        CheckPurchaseRequirements();
     }
 
     /// <summary>
@@ -280,7 +280,7 @@ public class ItemShopManager : MonoBehaviour
     /// <param name="isInteractable">Whether the buy button should be interactable.</param>
     public void SetBuyButtonInteractability(bool isInteractable = true)
     {
-        _buyButtonComponent.interactable = isInteractable;
+        _buyButton.IsInteractable = isInteractable;
     }
 
     private void PlaySoundEffect(int listIndex, int clipIndex)

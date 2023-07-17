@@ -80,7 +80,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
         {
             if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
-                return;
+                break;
             }
 
             AddItemToInventory(selectedStorageItemButton.AssociatedStorageItem);
