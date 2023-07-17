@@ -67,7 +67,6 @@ public class DemandDrivenItemsManager : MonoBehaviourPun
     private void AddEntitiesInventoryItemsListRange(byte[] itemsIds)
     {
         _entitiesInventoryItemsList.AddRange(itemsIds);
-        print($"Entities inventory items count: {_entitiesInventoryItemsList.Count}");
     }
 
     private void EmptyEntitiesInventoryItemsList()

@@ -12,7 +12,7 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
 
     private int _storageCapacity = 8;
     private object[] _storedItemsData = new object[1];
-    private object[] _submittedStorageItemsData = new object[4];
+    private object[] _submittedStorageItemsData = new object[1];
 
     internal List<StorageItem> StorageItemsList { get; private set; } = new List<StorageItem>();
     private bool isItemStoringRestricted => _inventoryItemButton == null || _inventoryItemButton.AssociatedItem == null ||
@@ -105,10 +105,7 @@ public class StorageManagerButton : InventoryItemDragDropUIResponder
             return;
         }
 
-        _submittedStorageItemsData[0] = (List<StorageItemButton>)data[0];
-        _submittedStorageItemsData[1] = StorageItemsList;
-        _submittedStorageItemsData[2] = (Sprite)data[1];
-        _submittedStorageItemsData[3] = (System.Action)delegate { UpdateItemsCountText(); };
+        _submittedStorageItemsData[0] = new SubmittedStorageItemData((SelectedStorageItemButtonData)data[0], StorageItemsList, (System.Action)delegate { UpdateItemsCountText(); });
         GameEventHandler.RaiseEvent(GameEventType.SubmitStorageItem, _submittedStorageItemsData);
     }
 

@@ -8,7 +8,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
     [SerializeField] private EntityIndexManager _entityIndexManager;
     [SerializeField] private EntityInventoryManager _entityInventoryManager;
 
-    private List<StorageItemButton> _storageItemButtonsList;
+    private List<StorageItemButton> _selectedStorageItemsList;
     private List<StorageItem> _storageItemsList;
     private System.Action UpdateSorageItemsCountTextCallback;
 
@@ -63,9 +63,10 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        _storageItemButtonsList = (List<StorageItemButton>)data[0];
-        _storageItemsList = (List<StorageItem>)data[1];
-        UpdateSorageItemsCountTextCallback = (System.Action)data[3];
+        SubmittedStorageItemData submittedStorageItemData = (SubmittedStorageItemData)data[0];
+        _selectedStorageItemsList = submittedStorageItemData.SelectedStorageItemButtonData.SelectedStorageItemsList;
+        _storageItemsList = submittedStorageItemData.StorageItemsList;
+        UpdateSorageItemsCountTextCallback = submittedStorageItemData.UpdateItemsCountTextCallback;
 
         bool dontHaveInventorySpace = !_entityInventoryManager.HaveEnoughInventorySpace;
 
@@ -75,7 +76,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
             return;
         }
 
-        foreach (var selectedStorageItemButton in _storageItemButtonsList)
+        foreach (var selectedStorageItemButton in _selectedStorageItemsList)
         {
             if (!_entityInventoryManager.HaveEnoughInventorySpace)
             {
@@ -84,7 +85,7 @@ public class PlayerStorageInteractionManager : MonoBehaviour
 
             AddItemToInventory(selectedStorageItemButton.AssociatedStorageItem);
             RemoveItemFromStorageList(_storageItemsList, selectedStorageItemButton.AssociatedStorageItem);
-            RemoveItemFromSelectedCell(selectedStorageItemButton, (Sprite)data[2]);
+            RemoveItemFromSelectedCell(selectedStorageItemButton, submittedStorageItemData.SelectedStorageItemButtonData.EmptyCellSprite);
         }
 
         UpdateSorageItemsCountTextCallback();

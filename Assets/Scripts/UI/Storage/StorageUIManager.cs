@@ -17,7 +17,7 @@ public class StorageUIManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [SerializeField] private Sprite _blockedCellSprite;
 
     private bool _isPointerEntered;
-    private object[] selectedStorageItemButtonData = new object[2];
+    private object[] selectedStorageItemButtonData = new object[1];
     private List<StorageItem> _tempStorageItemsList;
     private List<StorageItemButton> _selectedStorageItemsList = new List<StorageItemButton>(); 
 
@@ -93,8 +93,7 @@ public class StorageUIManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
     /// </summary>
     private void SendSelectedItemsVorVerification()
     {
-        selectedStorageItemButtonData[0] = _selectedStorageItemsList;
-        selectedStorageItemButtonData[1] = _emptyCellSprite;
+        selectedStorageItemButtonData[0] = new SelectedStorageItemButtonData(_selectedStorageItemsList, _emptyCellSprite);
         GameEventHandler.RaiseEvent(GameEventType.SendStorageItemForVerification, selectedStorageItemButtonData);
     }
 
