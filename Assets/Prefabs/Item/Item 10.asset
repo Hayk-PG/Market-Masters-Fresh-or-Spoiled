@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1629056ac6fcfe744a1b0b0e932a5c3b, type: 3}
   m_Name: Item 10
   m_EditorClassIdentifier: 
-  _itemIcon: {fileID: 21300000, guid: 7ad7675b93e827b4d830b5286f8a7697, type: 3}
+  _itemIcon: {fileID: 21300000, guid: 673f1aff9bcb858488a0fa3c925d6c1d, type: 3}
   _itemCategory: 0
-  _itemDurabilityLevel: 2
-  _itemPriceLevel: 1
+  _itemDurabilityLevel: 5
+  _itemPriceLevel: 0
   _itemId: 9
-  _itemPrice: 17
+  _itemPrice: 7
