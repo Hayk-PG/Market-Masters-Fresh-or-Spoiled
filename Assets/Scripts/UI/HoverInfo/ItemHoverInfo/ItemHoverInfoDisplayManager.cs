@@ -47,7 +47,7 @@ public class ItemHoverInfoDisplayManager : MonoBehaviour
             return;
         }
 
-        transform.position = (Vector2)Input.mousePosition + (Vector2.up * 200);
+        transform.position = (Vector2)CameraPoint.WorldPoint(GameSceneReferences.Manager.MainCamera, Input.mousePosition) + (Vector2.up * 1.5f);
     }
 
     private void DisplayInfo(GameEventType gameEventType, object[] data)

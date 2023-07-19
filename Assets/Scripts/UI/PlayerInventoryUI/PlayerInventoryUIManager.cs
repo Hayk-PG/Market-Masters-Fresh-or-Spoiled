@@ -17,6 +17,9 @@ public class PlayerInventoryUIManager : MonoBehaviour
     [Header("Confirm Button Icon Sprites")]
     [SerializeField] private Sprite[] _confirmButtonIconSprites;
 
+    [Header("UI Particle")]
+    [SerializeField] private ParticleSystem _fliesParticle;
+
     private const string _errorAnimation = "ErrorAnim";
     private const string _confirmButtonSelectAnim = "ConfirmButtonSelectAnim";
     private const string _blockAnimation = "BlockAnim";
@@ -109,6 +112,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
         SellSpoiledItems(gameEventType);
         ApplySaleRestriction(gameEventType, data);
         CheckSaleRestriction(gameEventType, data);
+        SetFliesParticleActive(gameEventType);
     }
 
     /// <summary>
@@ -251,6 +255,43 @@ public class PlayerInventoryUIManager : MonoBehaviour
         {
             ToggleSaleRestrictionStatus(false);
             _saleRestrictionDuration = 0;
+        }
+    }
+
+    private void SetFliesParticleActive(GameEventType gameEventType)
+    {
+        if(gameEventType != GameEventType.UpdateGameTurn)
+        {
+            return;
+        }
+
+        bool hasSpoiledItem = false;
+
+        foreach (var itemButton in _inventoryItemButtons)
+        {
+            if(itemButton.AssociatedItem == null)
+            {
+                continue;
+            }
+
+            if(itemButton.ItemSpoilPercentage > 20)
+            {
+                hasSpoiledItem = true;
+            }
+        }
+
+        if(hasSpoiledItem == _fliesParticle.isPlaying)
+        {
+            return;
+        }
+
+        if (hasSpoiledItem)
+        {
+            _fliesParticle.Play(true);
+        }
+        else
+        {
+            _fliesParticle.Stop(true);
         }
     }
 
