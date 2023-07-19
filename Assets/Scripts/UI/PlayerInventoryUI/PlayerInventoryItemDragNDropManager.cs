@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Pautik;
 
 public class PlayerInventoryItemDragNDropManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -67,7 +68,7 @@ public class PlayerInventoryItemDragNDropManager : MonoBehaviour, IPointerEnterH
 
         if (IsDraggingAndMouseButtonHeld)
         {
-            RaiseInventoryItemDragNDropData(true, _playerInventoryItemButton, Input.mousePosition);
+            RaiseInventoryItemDragNDropData(true, _playerInventoryItemButton, CameraPoint.WorldPoint(GameSceneReferences.Manager.MainCamera, Input.mousePosition));
         }
     }
 

@@ -10,6 +10,9 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
     [SerializeField] private Btn_Icon _trashCanIcon;
     [SerializeField] private Sprite[] _trashCanSprites;
 
+    [Header("UI Particle")]
+    [SerializeField] private ParticleSystem _leavesParticle;
+
     private int _recyclingStartTurnCount = 0;
     private int _availableRecyclingTurnCount = 0;
     
@@ -66,6 +69,7 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
             DefineRecyclingStartTurnCount();
             DefineAvailableRecyclingTurnCount();
             DestroyItemFromInventory();
+            PlayParticle();
             PlaySoundEffect(1, 4);
         }
         else
@@ -96,6 +100,11 @@ public class RecycleUIManager : InventoryItemDragDropUIResponder
     private void DestroyItemFromInventory()
     {
         _inventoryItemButton.DestroySpoiledItemOnSeparateSale();
+    }
+
+    private void PlayParticle()
+    {
+        _leavesParticle.Play(true);
     }
 
     private void PlaySoundEffect(int listIndex, int clipIndex)

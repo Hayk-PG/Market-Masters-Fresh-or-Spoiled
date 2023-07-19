@@ -3,6 +3,9 @@ using UnityEngine;
 public class GameSceneReferences : MonoBehaviour
 {
     public static GameSceneReferences Manager { get; private set; }
+
+    [Header("Camera")]
+    [SerializeField] private Camera _mainCamera;
     
     [Header("Game Manager")]
     [SerializeField] private GameManager _gameManager;
@@ -24,6 +27,9 @@ public class GameSceneReferences : MonoBehaviour
 
     [Header("Scriptable Objects")]
     [SerializeField] private Items _items;
+
+    // Camera
+    public Camera MainCamera => Manager._mainCamera;
 
     // Game Manager
     public GameManager GameManager => Manager._gameManager;
