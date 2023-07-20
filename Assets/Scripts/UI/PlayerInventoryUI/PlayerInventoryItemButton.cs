@@ -11,6 +11,10 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     [Header("Assosiated Item")]
     [SerializeField] private Item _item;
+
+    [Header("Particle")]
+    [SerializeField] private ParticleSystem _itemSellParticle;
+
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
 
@@ -99,6 +103,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
     {
         _playerInventoryItemSpoilUIManager.ResetSpoilageOnSeparateSale();
         DestroyItemIfSpoiled();
+    }
+
+    public void PlayItemSellParticle()
+    {
+        _itemSellParticle.Play(true);
     }
 
     /// <summary>

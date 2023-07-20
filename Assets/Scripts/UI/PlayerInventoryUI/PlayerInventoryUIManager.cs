@@ -107,12 +107,33 @@ public class PlayerInventoryUIManager : MonoBehaviour
     /// <param name="data">The data associated with the game event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
+        DeselectItemsOnTurnUpdate(gameEventType);
         OnInventoryItemSelect(gameEventType, data);
         AllowItemConfirmation(gameEventType);
         SellSpoiledItems(gameEventType);
         ApplySaleRestriction(gameEventType, data);
         CheckSaleRestriction(gameEventType, data);
         SetFliesParticleActive(gameEventType);
+    }
+
+    private void DeselectItemsOnTurnUpdate(GameEventType gameEventType)
+    {      
+        if (gameEventType != GameEventType.UpdateGameTurn)
+        {
+            return;
+        }
+
+        RemoveAllSelectedItems();
+
+        foreach (var itemButton in _inventoryItemButtons)
+        {
+            if(itemButton.AssociatedItem == null)
+            {
+                continue;
+            }
+
+            itemButton.Deselect();
+        }
     }
 
     /// <summary>
@@ -349,6 +370,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
                 sellingItemSpoilPercentage += _selectedItemButtonsList[i].ItemSpoilPercentage;
                 isNoBuyingItemSelected = false;
                 _selectedItemButtonsList[i].RemoveAssociatedItem();
+                _selectedItemButtonsList[i].PlayItemSellParticle();
                 _selectedItemButtonsList[i] = null;
                 _isItemConfirmed = true;
                 continue;

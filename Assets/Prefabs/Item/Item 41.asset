@@ -15,6 +15,6 @@ MonoBehaviour:
   _itemIcon: {fileID: 21300000, guid: b1c5132a9e574c04999274b26f5f16e1, type: 3}
   _itemCategory: 0
   _itemDurabilityLevel: 0
-  _itemPriceLevel: 1
-  _itemId: 39
-  _itemPrice: 28
+  _itemPriceLevel: 0
+  _itemId: 9
+  _itemPrice: 9

@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4461794683900938165
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7826335220061800094}
+    m_Modifications:
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773352499152083982, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566504419374479510, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+      propertyPath: m_Name
+      value: CFXR2 Pickup Magic Stars (Sell Item)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+--- !u!198 &8408622648732499787 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5285562537111550206, guid: f786be6e4758d3649bddc5b38448f917, type: 3}
+  m_PrefabInstance: {fileID: 4461794683900938165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4555603446800323132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +374,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6911d1df72237b1449de61b5a21865a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7826335220061800094 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6027077821312898210, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
+  m_PrefabInstance: {fileID: 4555603446800323132}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7826335220061800095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6027077821312898211, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
@@ -333,6 +400,7 @@ MonoBehaviour:
   _button: {fileID: 1667449841685404192}
   _icon: {fileID: 8369184566004935088}
   _item: {fileID: 0}
+  _itemSellParticle: {fileID: 8408622648732499787}
 --- !u!114 &5864668521454232791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,3 +501,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0954bf3d455dd4fab6eac7e54facb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &6981281006677995497
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7826335220061800094}
+    m_Modifications:
+    - target: {fileID: 4230112698515221635, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412989, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_Name
+      value: CFXR2 Blood (Spherical) (Item Sell)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412989, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412992, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230112698708412995, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9bdd951bc5cc9e046a5aabe354bf266a, type: 3}
