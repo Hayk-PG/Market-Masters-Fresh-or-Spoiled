@@ -780,7 +780,7 @@ MonoBehaviour:
   _trashCanSprites:
   - {fileID: 21300000, guid: 24ccf1b490de4b540901b9a6d373b043, type: 3}
   - {fileID: 21300000, guid: c640790626a8f9f408d0d37e8dcf5658, type: 3}
-  _leavesParticle: {fileID: 1180111832}
+  _leavesParticle: {fileID: 5935590863401887292}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,11 +1859,6 @@ MonoBehaviour:
       for your convenience. Please try again tomorrow. Thank you for your understanding.
     _errorIcons:
     - {fileID: 21300000, guid: 9d7bc5143acba5149ad44c31a24d8417, type: 3}
---- !u!198 &1180111832 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7135983294599036887, guid: 2e81be760c0bc984b94f9bae3cfd3438, type: 3}
-  m_PrefabInstance: {fileID: 7135983295642561551}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1204407025 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6684223107787271580, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
@@ -10004,6 +9999,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802c8120ab18fb54585fb5c61c63bb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &5935590863401887292 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5935590863401887292, guid: 2e81be760c0bc984b94f9bae3cfd3438, type: 3}
+  m_PrefabInstance: {fileID: 7135983295642561551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6584137279366388452 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5904746777180784206, guid: 36f5604cca41bfe47af583cacde2cf45, type: 3}
