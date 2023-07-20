@@ -1,9 +1,13 @@
 using UnityEngine;
+using TMPro;
 
 public class StorageSpaceFeeManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private StorageManagerButton _storageManagerButton;
+
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text _storageRentalFeeText;
 
     private int _storageRentalFee;
 
@@ -29,6 +33,7 @@ public class StorageSpaceFeeManager : MonoBehaviour
         }
 
         _storageRentalFee = (int)data[0];
+        UpdateStorageRentalFeeText();
     }
 
     private void CalculateStorageSpaceFee(GameEventType gameEventType, object[] data)
@@ -72,5 +77,10 @@ public class StorageSpaceFeeManager : MonoBehaviour
         }
 
         CalculateTotalFee?.Invoke(storageSpaceFeeAmount);
+    }
+
+    private void UpdateStorageRentalFeeText()
+    {
+        _storageRentalFeeText.text = $"${_storageRentalFee}";
     }
 }

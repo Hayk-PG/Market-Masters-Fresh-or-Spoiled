@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1629056ac6fcfe744a1b0b0e932a5c3b, type: 3}
-  m_Name: Item 59
+  m_Name: Item 60
   m_EditorClassIdentifier: 
-  _itemIcon: {fileID: 21300000, guid: e9478005077415149b0c709d0b6f28de, type: 3}
+  _itemIcon: {fileID: 21300000, guid: 0b129f2a956d8b240b08f0f571d150ba, type: 3}
   _itemCategory: 0
-  _itemDurabilityLevel: 2
-  _itemPriceLevel: 2
-  _itemId: 57
-  _itemPrice: 74
+  _itemDurabilityLevel: 5
+  _itemPriceLevel: 1
+  _itemId: 58
+  _itemPrice: 22
