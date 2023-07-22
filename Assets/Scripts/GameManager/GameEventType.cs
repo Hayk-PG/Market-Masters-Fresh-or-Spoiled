@@ -54,6 +54,7 @@ public enum GameEventType
    UpdateReputationOnBuy,
    UpdateReputationOnEmptyInventory,
    UpdateReputationForItemExchange,
+   UpdateReputationOnSanitationInspection,
 
    RestrictSaleAbility,
 

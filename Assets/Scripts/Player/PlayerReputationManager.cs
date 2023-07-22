@@ -66,6 +66,7 @@ public class PlayerReputationManager : MonoBehaviour
         UpdateReputationOnBuy(gameEventType);
         UpdateReputationOnEmptyInventory(gameEventType);
         UpdateReputationForItemExchange(gameEventType, data);
+        UpdateReputationOnSanitationInspection(gameEventType, data);
     }
 
     /// <summary>
@@ -169,6 +170,18 @@ public class PlayerReputationManager : MonoBehaviour
     private void UpdateReputationForItemExchange(GameEventType gameEventType, object[] data)
     {
         if (gameEventType != GameEventType.UpdateReputationForItemExchange)
+        {
+            return;
+        }
+
+        UpdateReputationPoints(reputationPoints: (int)data[0]);
+        UpdateReputationState();
+        NotifyReputationChange();
+    }
+
+    private void UpdateReputationOnSanitationInspection(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.UpdateReputationOnSanitationInspection)
         {
             return;
         }
