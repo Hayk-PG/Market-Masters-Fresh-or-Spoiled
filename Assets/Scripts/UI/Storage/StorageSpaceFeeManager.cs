@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class StorageSpaceFeeManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class StorageSpaceFeeManager : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text _storageRentalFeeText;
+    [SerializeField] private Image _discountRemainingTimeBackground;
+    [SerializeField] private Image _discountRemainingTimeFill;
 
     private int _storageRentalFee;
 
@@ -22,7 +25,8 @@ public class StorageSpaceFeeManager : MonoBehaviour
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         UpdateStorageRentalFeeAmount(gameEventType, data);
-        CalculateStorageSpaceFee(gameEventType, data);      
+        CalculateStorageSpaceFee(gameEventType, data);
+        UpdateDiscountRemainingTime(gameEventType, data);
     }
 
     private void UpdateStorageRentalFeeAmount(GameEventType gameEventType, object[] data)
@@ -82,5 +86,37 @@ public class StorageSpaceFeeManager : MonoBehaviour
     private void UpdateStorageRentalFeeText()
     {
         _storageRentalFeeText.text = $"${_storageRentalFee}";
+    }
+
+    private void UpdateDiscountRemainingTime(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.PublishStorageDiscountRemainingTime)
+        {
+            return;
+        }
+
+        int remainingTime = (int)data[0];
+        int timeFrame = (int)data[1];
+
+        if(remainingTime < 1)
+        {
+            _discountRemainingTimeFill.fillAmount = 0;
+            SetDiscountRemainingTimeIndicatorActive(false);
+            return;
+        }
+
+        float fillAmount = Mathf.InverseLerp(0, timeFrame * 0.01f, remainingTime * 0.01f);
+        _discountRemainingTimeFill.fillAmount = fillAmount;
+        SetDiscountRemainingTimeIndicatorActive(true);
+    }
+
+    private void SetDiscountRemainingTimeIndicatorActive(bool isActive)
+    {
+        if(_discountRemainingTimeBackground.gameObject.activeInHierarchy == isActive)
+        {
+            return;
+        }
+
+        _discountRemainingTimeBackground.gameObject.SetActive(isActive);
     }
 }

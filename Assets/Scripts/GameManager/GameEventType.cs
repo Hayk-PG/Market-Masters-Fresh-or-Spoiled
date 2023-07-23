@@ -25,6 +25,7 @@ public enum GameEventType
    SendStorageItemForVerification,
    SubmitStorageItem,
    UpdateStorageRentalFee,
+   PublishStorageDiscountRemainingTime,
 
    CalculateStorageSpaceFee,
 

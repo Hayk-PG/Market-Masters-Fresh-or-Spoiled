@@ -25,6 +25,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
     private const string _blockAnimation = "BlockAnim";
     private const string _unblockAnimation = "Unblock";
     private object[] _sellingInventoryItemData = new object[3];
+    private bool _isControllerTeamIndexSet;
     private bool _isItemConfirmed;
     private bool _isSaleRestricted;
     private int _saleRestrictionDuration;
@@ -98,6 +99,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
     public void GetControllerTeam(TeamIndex teamIndex)
     {
         _controllerTeamIndex = teamIndex;
+        _isControllerTeamIndexSet = true;
     }
 
     /// <summary>
@@ -108,12 +110,39 @@ public class PlayerInventoryUIManager : MonoBehaviour
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         DeselectItemsOnTurnUpdate(gameEventType);
+        CheckItemsMatch(gameEventType, data);
         OnInventoryItemSelect(gameEventType, data);
         AllowItemConfirmation(gameEventType);
         SellSpoiledItems(gameEventType);
         ApplySaleRestriction(gameEventType, data);
         CheckSaleRestriction(gameEventType, data);
         SetFliesParticleActive(gameEventType);
+    }
+
+    private void CheckItemsMatch(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.UpdateGameTurn)
+        {
+            return;
+        }
+
+        if(!_isControllerTeamIndexSet)
+        {
+            return;
+        }
+
+        if(_controllerTeamIndex != (TeamIndex)data[2])
+        {
+            return;
+        }
+
+        foreach (var itemButton in _inventoryItemButtons)
+        {
+            if(GameSceneReferences.Manager.ItemsBuyerManager.BuyingItem == itemButton.AssociatedItem)
+            {
+                itemButton.PlayMatchAnimation();
+            }
+        }
     }
 
     private void DeselectItemsOnTurnUpdate(GameEventType gameEventType)

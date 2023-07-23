@@ -4,6 +4,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private PlayerInventoryItemSpoilUIManager _playerInventoryItemSpoilUIManager;
+    [SerializeField] private Animator _animator;
 
     [Header("UI Elements")]
     [SerializeField] private Btn _button;
@@ -17,6 +18,8 @@ public class PlayerInventoryItemButton : MonoBehaviour
 
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
+
+    private const string _itemMatchAnim = "ItemMatchAnim";
 
     /// <summary>
     /// The associated item of the button.
@@ -108,6 +111,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
     public void PlayItemSellParticle()
     {
         _itemSellParticle.Play(true);
+    }
+
+    public void PlayMatchAnimation()
+    {
+        _animator.Play(_itemMatchAnim, 0, 0);
     }
 
     /// <summary>

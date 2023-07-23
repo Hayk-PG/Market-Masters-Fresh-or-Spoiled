@@ -8,6 +8,7 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
     private int _waitTurnCount;
     private object[] _rentalFeeData = new object[1];
     private object[] _notificationData = new object[1];
+    private object[] _stroageDiscountRemainingTimeData = new object[2];
 
     private bool IsDiscountApplied => _waitTurnCount > GameSceneReferences.Manager.GameTurnManager.TurnCount;
     private bool CanApplyDiscount => IsRentalFeeUpdateTriggered() && !IsDiscountApplied;
@@ -33,15 +34,18 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
             DetermineWaitTurnCount();
             UpdateRentalFee(_randomFee);
             DisplayNotification();
-            print($"Applying discount: {_randomFee}");
             return;
         }
 
         if (!IsDiscountApplied)
         {
             UpdateRentalFee(_defaultFee);
-            print($"Setting default fee amount: {_defaultFee}");
+            PublishStorageDiscountRemainingTime(0);
         }
+        else
+        {
+            PublishStorageDiscountRemainingTime(remainingTime: _waitTurnCount - GameSceneReferences.Manager.GameTurnManager.TurnCount, discountTimeFrame: _duration);
+        }      
     }
 
     private bool IsRentalFeeUpdateTriggered()
@@ -77,5 +81,12 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
     {
         _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration), StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration));
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+    }
+
+    private void PublishStorageDiscountRemainingTime(int remainingTime, int discountTimeFrame = 0)
+    {
+        _stroageDiscountRemainingTimeData[0] = remainingTime;
+        _stroageDiscountRemainingTimeData[1] = discountTimeFrame;
+        GameEventHandler.RaiseEvent(GameEventType.PublishStorageDiscountRemainingTime, _stroageDiscountRemainingTimeData);
     }
 }
