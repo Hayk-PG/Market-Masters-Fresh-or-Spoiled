@@ -780,7 +780,7 @@ MonoBehaviour:
   _trashCanSprites:
   - {fileID: 21300000, guid: 24ccf1b490de4b540901b9a6d373b043, type: 3}
   - {fileID: 21300000, guid: c640790626a8f9f408d0d37e8dcf5658, type: 3}
-  _leavesParticle: {fileID: 5935590863401887292}
+  _leavesParticle: {fileID: 7135983295642561552}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -9999,11 +9999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802c8120ab18fb54585fb5c61c63bb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &5935590863401887292 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5935590863401887292, guid: 2e81be760c0bc984b94f9bae3cfd3438, type: 3}
-  m_PrefabInstance: {fileID: 7135983295642561551}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6584137279366388452 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5904746777180784206, guid: 36f5604cca41bfe47af583cacde2cf45, type: 3}
@@ -10728,6 +10723,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e81be760c0bc984b94f9bae3cfd3438, type: 3}
+--- !u!198 &7135983295642561552 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2704101602210514129, guid: 2e81be760c0bc984b94f9bae3cfd3438, type: 3}
+  m_PrefabInstance: {fileID: 7135983295642561551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9075902548042946560
 PrefabInstance:
   m_ObjectHideFlags: 0
