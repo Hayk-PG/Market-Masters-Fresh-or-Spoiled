@@ -50,15 +50,15 @@ public class NotificationManager : MonoBehaviour
         _forwardButton.OnPointerUpHandler += () => DisplayNotificationAtPosition(1);
     }
 
-    /// <summary>
-    /// Handles the GameEventType.DisplayNotification event.
-    /// Retrieves data from the event parameters and updates the notification.
-    /// </summary>
-    /// <param name="gameEventType">The type of game event.</param>
-    /// <param name="data">The data associated with the event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.DisplayNotification)
+        DisplayNotification(gameEventType, data);
+        RemoveNotificationCallback(gameEventType, data);
+    }
+
+    private void DisplayNotification(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.DisplayNotification)
         {
             return;
         }
@@ -81,6 +81,27 @@ public class NotificationManager : MonoBehaviour
         OnReadonlyNotification();
         OnReadonlyNotificationWithImages();
         OnNotificationWithCallback();
+    }
+
+    private void RemoveNotificationCallback(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.RemoveNotificationCallback)
+        {
+            return;
+        }
+
+        if(_notification == (Notification)data[0])
+        {
+            SetAcceptCallback(null);
+            RemoveNotificationCallback();
+            ToggleButtonsSubTab(true);
+        }
+        else
+        {
+            ((Notification)data[0]).OnAcceptCallback = null;
+        }
+
+        print($"Callback has been removed!");
     }
 
     private void RetrieveNotification(Notification notification)

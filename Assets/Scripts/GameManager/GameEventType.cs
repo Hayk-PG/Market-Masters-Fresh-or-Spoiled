@@ -43,6 +43,7 @@ public enum GameEventType
    TryBuySelectedShopItem,
 
    SellSpoiledItems,
+   GetMoneyFromSellingSpoiledItems,
    DestroySpoiledItem,
 
    UpdateStockUI,
@@ -65,6 +66,7 @@ public enum GameEventType
    QueueNotification,
    DisplayNotification,
    DisplayNextNotification,
+   RemoveNotificationCallback,
    DisplayPopupNotification,
    OnPopupNotificationClosed
 }

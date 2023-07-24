@@ -212,6 +212,8 @@ public class PlayerInventoryUIManager : MonoBehaviour
         UpdateConfirmButtonIcon(false);
         RemoveAllSelectedItems();
 
+        int moneyAmount = 0;
+
         foreach (var inventoryItemButton in _inventoryItemButtons)
         {
             if (inventoryItemButton.AssociatedItem == null)
@@ -219,13 +221,16 @@ public class PlayerInventoryUIManager : MonoBehaviour
                 continue;
             }
 
-            if (inventoryItemButton.ItemSpoilPercentage > 10)
+            if (inventoryItemButton.ItemSpoilPercentage >= 10)
             {
+                moneyAmount += Mathf.RoundToInt((inventoryItemButton.AssociatedItem.Price / 2f) > 0f ? inventoryItemButton.AssociatedItem.Price / 2f : 1f);
                 inventoryItemButton.DestroySpoiledItemOnSeparateSale();
             }
 
             inventoryItemButton.Deselect();
         }
+
+        GameEventHandler.RaiseEvent(GameEventType.GetMoneyFromSellingSpoiledItems, new object[] { moneyAmount });
     }
 
     /// <summary>

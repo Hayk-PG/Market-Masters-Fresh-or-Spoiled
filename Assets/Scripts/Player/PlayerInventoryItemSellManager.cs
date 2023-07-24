@@ -16,7 +16,7 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
         }
 
         RetrieveConfirmedSaleItemData(gameEventType, data);
-        SellSpoiledItems(gameEventType, data);
+        GetMoneyFromSellingSpoiledItems(gameEventType, data);
     }
 
     /// <summary>
@@ -68,15 +68,22 @@ public class PlayerInventoryItemSellManager : EntityInventoryItemSellManager
         GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnSale, _reputationOnSaleData);
     }
 
-    private void SellSpoiledItems(GameEventType gameEventType, object[] data)
+    private void GetMoneyFromSellingSpoiledItems(GameEventType gameEventType, object[] data)
     {
-        if (gameEventType != GameEventType.SellSpoiledItems)
+        if (gameEventType != GameEventType.GetMoneyFromSellingSpoiledItems)
+        {
+            return;
+        }
+
+        int moneyAmount = (int)data[0];
+
+        if(moneyAmount <= 0)
         {
             return;
         }
 
         UISoundController.PlaySound(5, 1);
-        photonView.RPC("SellSpoiledItemsRPC", RpcTarget.AllViaServer, (short)((int)data[0]), (byte)_entityIndexManager.TeamIndex);            
+        photonView.RPC("SellSpoiledItemsRPC", RpcTarget.AllViaServer, (short)moneyAmount, (byte)_entityIndexManager.TeamIndex);            
     }
 
     [PunRPC]
