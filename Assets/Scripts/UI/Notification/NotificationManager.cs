@@ -46,8 +46,8 @@ public class NotificationManager : MonoBehaviour
         _denyButton.OnSelect += OnDeny;
         _closeButton.OnSelect += Close;
         _acceptButton.OnSelect += OnAccept;
-        _backButton.OnPointerUpHandler += ()=> DisplayNotificationAtPosition(-1);
-        _forwardButton.OnPointerUpHandler += () => DisplayNotificationAtPosition(1);
+        _backButton.OnPointerUpHandler += delegate { DisplayNotificationAtPosition(-1); PlaySoundEffect(0, 8); };
+        _forwardButton.OnPointerUpHandler += delegate { DisplayNotificationAtPosition(1); PlaySoundEffect(0, 7); };
     }
 
     private void OnGameEvent(GameEventType gameEventType, object[] data)
@@ -162,6 +162,13 @@ public class NotificationManager : MonoBehaviour
     /// <param name="notificationSoundIndex">The index of the sound effect to play.</param>
     private void Open()
     {
+        bool wasInactive = _canvasGroup.alpha < 1f;
+
+        if (wasInactive)
+        {
+            PlaySoundEffect(9, 0);
+        }
+
         GlobalFunctions.CanvasGroupActivity(_canvasGroup, true);
         _denyButton.Deselect();
         _acceptButton.Deselect();

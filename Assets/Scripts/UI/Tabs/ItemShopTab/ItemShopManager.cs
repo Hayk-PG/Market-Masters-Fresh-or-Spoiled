@@ -171,20 +171,14 @@ public class ItemShopManager : MonoBehaviour
         int minRange = priceRange.Item1;
         int maxRange = priceRange.Item2;
 
-        for (int i = 0; i < _items.Collection.Count; i++)
+        for (int i = 0; i < _shopItemButtons.Length; i++)
         {
             bool isIndexInRange = i < itemsCount;
-            bool isIndexOutOfBounds = i >= _shopItemButtons.Length;
 
             if (isIndexInRange)
             {
                 _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)], minRange, maxRange);
                 continue;
-            }
-
-            if (isIndexOutOfBounds)
-            {
-                break;
             }
 
             _shopItemButtons[i].SetCellEmpty(true);
