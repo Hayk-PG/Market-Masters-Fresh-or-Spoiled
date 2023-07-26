@@ -606,6 +606,7 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: 0c099a5e62dfee943b5ffcaff7a97c1f, type: 3}
     - {fileID: 8300000, guid: ad67af376917dff48a039902332f3973, type: 3}
+    - {fileID: 8300000, guid: ffa28947e37949147bdcf3c41c3bee9b, type: 3}
   - _title: Notification
     _clips:
     - {fileID: 8300000, guid: 1bd19f99b37d59048b93468985b0f76b, type: 3}
@@ -637,6 +638,9 @@ MonoBehaviour:
     - {fileID: 8300000, guid: fedbc611c27bb924b927fcfffe97a344, type: 3}
     - {fileID: 8300000, guid: 2cc7686d750b72848ba249ca9eef2b8b, type: 3}
     - {fileID: 8300000, guid: ef57f38b1d80a694190a385a0fdc9a43, type: 3}
+  - _title: Helicopter
+    _clips:
+    - {fileID: 8300000, guid: f1ecb3ead40544f4385235683a614fa8, type: 3}
 --- !u!114 &5036155503698902212
 MonoBehaviour:
   m_ObjectHideFlags: 0

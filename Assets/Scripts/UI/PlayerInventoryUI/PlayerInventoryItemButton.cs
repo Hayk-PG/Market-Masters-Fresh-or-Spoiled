@@ -13,8 +13,9 @@ public class PlayerInventoryItemButton : MonoBehaviour
     [Header("Assosiated Item")]
     [SerializeField] private Item _item;
 
-    [Header("Particle")]
+    [Header("Particles")]
     [SerializeField] private ParticleSystem _itemSellParticle;
+    [SerializeField] private ParticleSystem _itemChangeParticle;
 
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
@@ -49,14 +50,15 @@ public class PlayerInventoryItemButton : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
-    /// <summary>
-    /// Handles the game event related to the player's game turn.
-    /// </summary>
-    /// <param name="gameEventType">The type of game event.</param>
-    /// <param name="data">The data associated with the game event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.UpdateGameTurn)
+        UpdateItemLifecycleWithGameTurnUpdate(gameEventType, data);
+        ChangeItem(gameEventType, data);
+    }
+
+    private void UpdateItemLifecycleWithGameTurnUpdate(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.UpdateGameTurn)
         {
             return;
         }
@@ -67,6 +69,24 @@ public class PlayerInventoryItemButton : MonoBehaviour
             RunLifeTimeCycle(currentTurnCount);
             DestroyItemIfSpoiled();
         }
+    }
+
+    private void ChangeItem(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.ChangeInventoryItem)
+        {
+            return;
+        }
+
+        if((PlayerInventoryItemButton)data[0] != this)
+        {
+            return;
+        }
+
+        AssignItem(item: (Item)data[1]);
+        PlayMatchAnimation();
+        PlayItemChangeParticle();
+        UISoundController.PlaySound(1, 6);
     }
 
     /// <summary>
@@ -111,6 +131,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
     public void PlayItemSellParticle()
     {
         _itemSellParticle.Play(true);
+    }
+
+    public void PlayItemChangeParticle()
+    {
+        _itemChangeParticle.Play();
     }
 
     public void PlayMatchAnimation()

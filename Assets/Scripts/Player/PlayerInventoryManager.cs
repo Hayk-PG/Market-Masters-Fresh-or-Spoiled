@@ -25,6 +25,7 @@ public class PlayerInventoryManager : EntityInventoryManager
 
         SetInventoryUIManagerTeam(gameEventType, data);
         DestroySpoiledItem(gameEventType, data);
+        ChangeItem(gameEventType, data);
     }
 
     /// <summary>
@@ -76,6 +77,16 @@ public class PlayerInventoryManager : EntityInventoryManager
 
         int spoiledItemId = (int)data[0];
         RemoveItem(null, spoiledItemId);
+    }
+
+    private void ChangeItem(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.ChangeInventoryItem)
+        {
+            return;
+        }
+
+        AddItem(item: (Item)data[1]);
     }
 
     /// <summary>
