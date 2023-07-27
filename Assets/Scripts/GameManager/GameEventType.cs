@@ -38,7 +38,7 @@ public enum GameEventType
    PublishTeamCombinedSellingItemQuantity,
    PublishInventoryData,
    ChangeInventoryItem,
-   RecordSuccessfulSale,
+   RecordSaleAttempts,
 
    UpdateShopItems,
    OnShopItemButtonSelect,

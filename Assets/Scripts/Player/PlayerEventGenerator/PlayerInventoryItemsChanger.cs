@@ -4,7 +4,7 @@ public class PlayerInventoryItemsChanger : PlayerSpoiledItemsSeller
 {
     protected override void OnGameEvent(GameEventType gameEventType, object[] data)
     {
-        if (gameEventType != GameEventType.RecordSuccessfulSale)
+        if (gameEventType != GameEventType.RecordSaleAttempts)
         {
             return;
         }
@@ -14,9 +14,10 @@ public class PlayerInventoryItemsChanger : PlayerSpoiledItemsSeller
             return;
         }
 
-        int successfulSalesCount = (int)data[0];
+        int successfulSaleAttempts = (int)data[0];
+        int failedSaleAttempts = (int)data[1];
 
-        if (successfulSalesCount < 4)
+        if (failedSaleAttempts < 4)
         {
             return;
         }
@@ -38,7 +39,7 @@ public class PlayerInventoryItemsChanger : PlayerSpoiledItemsSeller
 
     protected override void QueueNotification()
     {
-        _notificationData[0] = _notification = new Notification(NotificationType.DisplayNotificationWithCallback, ReplaceUnsoldItemsOfferMessage.Title, ReplaceUnsoldItemsOfferMessage.Message, delegate { GameEventHandler.RaiseEvent(GameEventType.ActivateItemsDroppingHelicopter); });
+        _notificationData[0] = _notification = new Notification(NotificationType.DisplayNotificationWithCallback, ReplaceUnsoldItemsOfferMessage.Title, ReplaceUnsoldItemsOfferMessage.Message, delegate { GameEventHandler.RaiseEvent(GameEventType.ActivateItemsDroppingHelicopter); _notification = null; });
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

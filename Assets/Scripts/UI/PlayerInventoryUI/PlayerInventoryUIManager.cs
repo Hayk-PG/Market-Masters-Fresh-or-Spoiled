@@ -25,12 +25,14 @@ public class PlayerInventoryUIManager : MonoBehaviour
     private const string _blockAnimation = "BlockAnim";
     private const string _unblockAnimation = "Unblock";
     private object[] _sellingInventoryItemData = new object[3];
-    private object[] _successfulSalesCountData = new object[1];
+    private object[] _saleAttemptsData = new object[2];
     private bool _isControllerTeamIndexSet;
     private bool _isItemConfirmed;
     private bool _isSaleRestricted;
     private int _saleRestrictionDuration;
-    private int _successfulSalesCount;
+    private int _successfulSaleTurnCount;
+    private int _successfulSaleAttempts;
+    private int _failedSaleAttempts;
     private TeamIndex _controllerTeamIndex;
     private List<PlayerInventoryItemButton> _selectedItemButtonsList = new List<PlayerInventoryItemButton>();
 
@@ -119,6 +121,7 @@ public class PlayerInventoryUIManager : MonoBehaviour
         ApplySaleRestriction(gameEventType, data);
         CheckSaleRestriction(gameEventType, data);
         SetFliesParticleActive(gameEventType);
+        RecordSaleAttempts(gameEventType, data);
     }
 
     private void CheckItemsMatch(GameEventType gameEventType, object[] data)
@@ -352,6 +355,41 @@ public class PlayerInventoryUIManager : MonoBehaviour
         }
     }
 
+    private void RecordSaleAttempts(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.UpdateGameTurn)
+        {
+            return;
+        }
+
+        if (!_isControllerTeamIndexSet)
+        {
+            return;
+        }
+
+        if(_controllerTeamIndex != (TeamIndex)data[2])
+        {
+            return;
+        }
+
+        if(_successfulSaleTurnCount == (int)data[3] - 2)
+        {
+            _successfulSaleAttempts++;
+            _failedSaleAttempts = 0;
+            _saleAttemptsData[0] = _successfulSaleAttempts;
+            _saleAttemptsData[1] = _failedSaleAttempts;
+        }
+        else
+        {
+            _successfulSaleAttempts = 0;
+            _failedSaleAttempts++;
+            _saleAttemptsData[0] = _successfulSaleAttempts;
+            _saleAttemptsData[1] = _failedSaleAttempts;
+        }
+
+        GameEventHandler.RaiseEvent(GameEventType.RecordSaleAttempts, _saleAttemptsData);
+    }
+
     /// <summary>
     /// Executes actions when the confirm button is selected.
     /// </summary>
@@ -433,19 +471,13 @@ public class PlayerInventoryUIManager : MonoBehaviour
             _sellingInventoryItemData[1] = sellingItemId;
             _sellingInventoryItemData[2] = sellingItemSpoilPercentage;
             GameEventHandler.RaiseEvent(GameEventType.ConfirmInventoryItemForSale, _sellingInventoryItemData);
-            RecordSuccessfulSale(_successfulSalesCount + 1);
-        }
-        else
-        {
-            RecordSuccessfulSale(0);
+            RecordSuccessfulSaleTurnCount();
         }
     }
 
-    private void RecordSuccessfulSale(int value)
+    private void RecordSuccessfulSaleTurnCount()
     {
-        _successfulSalesCount = value;
-        _successfulSalesCountData[0] = _successfulSalesCount;
-        GameEventHandler.RaiseEvent(GameEventType.RecordSuccessfulSale, _successfulSalesCountData);
+        _successfulSaleTurnCount = GameSceneReferences.Manager.GameTurnManager.TurnCount;
     }
 
     /// <summary>
