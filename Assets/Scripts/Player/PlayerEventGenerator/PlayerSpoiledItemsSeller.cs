@@ -3,19 +3,14 @@ using UnityEngine;
 
 public class PlayerSpoiledItemsSeller : PlayerBaseEventGenerator
 {
-    private int _executionTurnCount;
-    private object[] _notificationData = new object[1];
-    private Notification _notification;
+    protected int _executionTurnCount;
+    protected object[] _notificationData = new object[1];
+    protected Notification _notification;
 
 
 
 
     protected override void OnGameEvent(GameEventType gameEventType, object[] data)
-    {
-        ExecuteOnTurnUpdate(gameEventType, data);
-    }
-
-    private void ExecuteOnTurnUpdate(GameEventType gameEventType, object[] data)
     {
         if (gameEventType != GameEventType.UpdateGameTurn)
         {
@@ -27,7 +22,7 @@ public class PlayerSpoiledItemsSeller : PlayerBaseEventGenerator
             return;
         }
 
-        if(Random.Range(0, 11) != 8)
+        if (!IsRandomNumberTriggerNumber(8))
         {
             return;
         }
@@ -37,18 +32,23 @@ public class PlayerSpoiledItemsSeller : PlayerBaseEventGenerator
         StartCoroutine(CheckRemoveNotificationCallback());
     }
 
-    private void QueueNotification()
+    protected virtual bool IsRandomNumberTriggerNumber(int triggerNumber)
+    {
+        return Random.Range(0, 11) == triggerNumber;
+    }
+
+    protected virtual void QueueNotification()
     {
         _notificationData[0] = _notification = new Notification(NotificationType.DisplayNotificationWithCallback, SpoiledItemsSellOfferMessage.Title, SpoiledItemsSellOfferMessage.Message, delegate { GameEventHandler.RaiseEvent(GameEventType.SellSpoiledItems); _notification = null; });
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 
-    private void SetExecutionTurnCount(int turnCount)
+    protected virtual void SetExecutionTurnCount(int turnCount)
     {
         _executionTurnCount = turnCount;
     }
 
-    private IEnumerator CheckRemoveNotificationCallback()
+    protected virtual IEnumerator CheckRemoveNotificationCallback()
     {
         while(_executionTurnCount > GameSceneReferences.Manager.GameTurnManager.TurnCount - 3)
         {

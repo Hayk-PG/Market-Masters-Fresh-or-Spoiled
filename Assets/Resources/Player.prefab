@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 3496890235495067038}
   - component: {fileID: 7799948240990851284}
   - component: {fileID: 372617602970788538}
+  - component: {fileID: 5677696664874639171}
   m_Layer: 0
   m_Name: Player Event Generator
   m_TagString: Untagged
@@ -356,6 +357,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fed3231496df724f99ab0999e86d790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityManager: {fileID: 1323113779927915979}
+  _entityInventoryManager: {fileID: 6838891361008963929}
+  _entityIndexManager: {fileID: 7880206720025241204}
+  _playerReputationManager: {fileID: 4580923918198490596}
+--- !u!114 &5677696664874639171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949319580664194801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bdbe27ac5174640b12d0d37f223e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _entityManager: {fileID: 1323113779927915979}

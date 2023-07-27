@@ -29,6 +29,8 @@ public enum GameEventType
 
    CalculateStorageSpaceFee,
 
+   ActivateItemsDroppingHelicopter,
+
    InventoryItemDragNDrop,
    SelectInventoryItemForSale,
    ConfirmInventoryItemForSale,
@@ -36,6 +38,7 @@ public enum GameEventType
    PublishTeamCombinedSellingItemQuantity,
    PublishInventoryData,
    ChangeInventoryItem,
+   RecordSuccessfulSale,
 
    UpdateShopItems,
    OnShopItemButtonSelect,

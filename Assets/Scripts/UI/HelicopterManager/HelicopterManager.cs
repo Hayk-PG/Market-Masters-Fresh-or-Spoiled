@@ -14,13 +14,25 @@ public class HelicopterManager : MonoBehaviour
     
 
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        GameEventHandler.OnEvent += OnGameEvent;
+    }
+
+    private void OnGameEvent(GameEventType gameEventType, object[] data)
+    {
+        if(gameEventType != GameEventType.ActivateItemsDroppingHelicopter)
         {
-            _animator.Play("HelicopterMovementAnim", 0, 0);
-            _audioSource.gameObject.SetActive(true);
+            return;
         }
+
+        ActivateItemsDroppingHelicopter();
+    }
+
+    private void ActivateItemsDroppingHelicopter()
+    {
+        _animator.Play("HelicopterMovementAnim", 0, 0);
+        _audioSource.gameObject.SetActive(true);
     }
 
     // Animation Event

@@ -25,10 +25,12 @@ public class PlayerInventoryUIManager : MonoBehaviour
     private const string _blockAnimation = "BlockAnim";
     private const string _unblockAnimation = "Unblock";
     private object[] _sellingInventoryItemData = new object[3];
+    private object[] _successfulSalesCountData = new object[1];
     private bool _isControllerTeamIndexSet;
     private bool _isItemConfirmed;
     private bool _isSaleRestricted;
     private int _saleRestrictionDuration;
+    private int _successfulSalesCount;
     private TeamIndex _controllerTeamIndex;
     private List<PlayerInventoryItemButton> _selectedItemButtonsList = new List<PlayerInventoryItemButton>();
 
@@ -431,7 +433,19 @@ public class PlayerInventoryUIManager : MonoBehaviour
             _sellingInventoryItemData[1] = sellingItemId;
             _sellingInventoryItemData[2] = sellingItemSpoilPercentage;
             GameEventHandler.RaiseEvent(GameEventType.ConfirmInventoryItemForSale, _sellingInventoryItemData);
+            RecordSuccessfulSale(_successfulSalesCount + 1);
         }
+        else
+        {
+            RecordSuccessfulSale(0);
+        }
+    }
+
+    private void RecordSuccessfulSale(int value)
+    {
+        _successfulSalesCount = value;
+        _successfulSalesCountData[0] = _successfulSalesCount;
+        GameEventHandler.RaiseEvent(GameEventType.RecordSuccessfulSale, _successfulSalesCountData);
     }
 
     /// <summary>
