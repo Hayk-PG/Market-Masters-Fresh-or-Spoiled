@@ -1970,6 +1970,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213309113}
   m_CullTransparentMesh: 1
+--- !u!1 &1481944976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4182100658345513524, guid: fa83ea02054aa05449c56208dd8bbca8, type: 3}
+  m_PrefabInstance: {fileID: 6721545564158684862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1481944977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481944976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0
+  m_Width: 0.1
+  m_Rotation: 110
+  m_Softness: 0.01
+  m_Brightness: 0.1
+  m_Gloss: 0
+  m_EffectArea: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 1
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
 --- !u!1 &1535020497
 GameObject:
   m_ObjectHideFlags: 0
@@ -10835,6 +10866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _storageManagerButton: {fileID: 6721545564158684870}
+  _uiShinyEffect: {fileID: 1481944977}
   _storageRentalFeeText: {fileID: 1863649925}
   _discountRemainingTimeBackground: {fileID: 3632485169756888769}
   _discountRemainingTimeFill: {fileID: 4976732040331207093}

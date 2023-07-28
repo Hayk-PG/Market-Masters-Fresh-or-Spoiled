@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Coffee.UIEffects;
 
 public class StorageSpaceFeeManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private StorageManagerButton _storageManagerButton;
+    [SerializeField] private UIShiny _uiShinyEffect;
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text _storageRentalFeeText;
     [SerializeField] private Image _discountRemainingTimeBackground;
     [SerializeField] private Image _discountRemainingTimeFill;
 
-    private int _storageRentalFee;
+    private int _previousStorageRentalFee;
+    private int _currentStorageRentalFee;
 
 
 
@@ -36,8 +39,16 @@ public class StorageSpaceFeeManager : MonoBehaviour
             return;
         }
 
-        _storageRentalFee = (int)data[0];
+        _previousStorageRentalFee = _currentStorageRentalFee;
+        _currentStorageRentalFee = (int)data[0];
+
+        if(_currentStorageRentalFee == _previousStorageRentalFee)
+        {
+            return;
+        }
+
         UpdateStorageRentalFeeText();
+        PlayUIShinyEffect();
     }
 
     private void CalculateStorageSpaceFee(GameEventType gameEventType, object[] data)
@@ -66,7 +77,7 @@ public class StorageSpaceFeeManager : MonoBehaviour
             }
 
             int turnCountSinceFeeProcessStart = GameSceneReferences.Manager.GameTurnManager.TurnCount - storageItem.StorageFeeProcessTurnCount;
-            storageSpaceFeeAmount += (turnCountSinceFeeProcessStart * _storageRentalFee);          
+            storageSpaceFeeAmount += (turnCountSinceFeeProcessStart * _currentStorageRentalFee);          
             storageItem.UpdateStorageFeeProcessTurnCount(GameSceneReferences.Manager.GameTurnManager.TurnCount);
         }
 
@@ -85,7 +96,12 @@ public class StorageSpaceFeeManager : MonoBehaviour
 
     private void UpdateStorageRentalFeeText()
     {
-        _storageRentalFeeText.text = $"${_storageRentalFee}";
+        _storageRentalFeeText.text = $"${_currentStorageRentalFee}";
+    }
+
+    private void PlayUIShinyEffect()
+    {
+        _uiShinyEffect.Play();
     }
 
     private void UpdateDiscountRemainingTime(GameEventType gameEventType, object[] data)
