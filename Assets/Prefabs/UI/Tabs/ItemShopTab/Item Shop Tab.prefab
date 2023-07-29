@@ -178,9 +178,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3005546674063251610}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &2507279364354728737
 MonoBehaviour:
@@ -241,7 +241,6 @@ MonoBehaviour:
   _selectedItems: []
   _buyButton: {fileID: 1863326553524942559}
   _canselButton: {fileID: 7275259977530739668}
-  _buyButtonComponent: {fileID: 7089966542480288358}
   _selectedItemsTotalText: {fileID: 3240282955065722348}
 --- !u!1 &6981365403646633709
 GameObject:
@@ -302,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.52653646, g: 0.25, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2176,17 +2175,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6027077821312898210, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
   m_PrefabInstance: {fileID: 3585116378267172547}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7089966542480288358 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6027077821312898213, guid: fe970f98a23bc4944a89fb6baf69c70b, type: 3}
-  m_PrefabInstance: {fileID: 3585116378267172547}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3614832710837738650
 PrefabInstance:
   m_ObjectHideFlags: 0
