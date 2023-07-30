@@ -10,6 +10,7 @@ public class ItemShopManager : MonoBehaviour
 {
     [Header("Items")]
     [SerializeField] private Items _items;
+    private Item _currentItem;
 
     [Header("Shop Items")]
     [SerializeField] private ShopItemButton[] _shopItemButtons;
@@ -23,7 +24,7 @@ public class ItemShopManager : MonoBehaviour
     [SerializeField] private BtnTxt _selectedItemsTotalText;
 
     private float _selectedItemsTotalCost;
-
+    private short[] _recallItemsIdArray;
     private object[] _selectedItemsData;
     private object[] _purchaseRequirementData = new object[2];
 
@@ -44,10 +45,21 @@ public class ItemShopManager : MonoBehaviour
     /// <param name="data">The event data.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
+        UpdateRecallItemsIdArray(gameEventType, data);
         UpdateShopItems(gameEventType, data);
         OnItemSelect(gameEventType, data);
         OnItemDeselect(gameEventType, data);
         OnTabActivity(gameEventType);
+    }
+
+    private void UpdateRecallItemsIdArray(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.DispatchRecallItems)
+        {
+            return;
+        }
+
+        _recallItemsIdArray = (short[])data[0];
     }
 
     /// <summary>
@@ -177,7 +189,21 @@ public class ItemShopManager : MonoBehaviour
 
             if (isIndexInRange)
             {
-                _shopItemButtons[i].UpdateItem(item: _items.Collection[Random.Range(0, _items.Collection.Count)], minRange, maxRange);
+                reAssignItemLabel:
+                _currentItem = _items.Collection[Random.Range(0, _items.Collection.Count)];
+
+                if (_recallItemsIdArray != null)
+                {
+                    foreach (var recallItemId in _recallItemsIdArray)
+                    {
+                        if(_currentItem.ID == recallItemId)
+                        {
+                            goto reAssignItemLabel;
+                        }
+                    }
+                }
+
+                _shopItemButtons[i].UpdateItem(_currentItem, minRange, maxRange);
                 continue;
             }
 

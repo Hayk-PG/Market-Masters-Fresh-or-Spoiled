@@ -72,5 +72,8 @@ public enum GameEventType
    DisplayNextNotification,
    RemoveNotificationCallback,
    DisplayPopupNotification,
-   OnPopupNotificationClosed
+   OnPopupNotificationClosed,
+
+   TriggerItemRecallAlert,
+   DispatchRecallItems
 }
