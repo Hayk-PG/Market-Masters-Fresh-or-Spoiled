@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using Pautik;
 
+/// <summary>
+/// Manages and displays notifications to the player.
+/// </summary>
 public class NotificationManager : MonoBehaviour
 {
     [Header("Components")]
@@ -35,6 +38,9 @@ public class NotificationManager : MonoBehaviour
     private string _notificationMessage;
     private object[] _nextNotificationData = new object[1];
 
+    /// <summary>
+    /// The callback method for the accept button.
+    /// </summary>
     private System.Action AcceptCallback { get; set; }
 
 
@@ -50,12 +56,22 @@ public class NotificationManager : MonoBehaviour
         _forwardButton.OnPointerUpHandler += delegate { DisplayNotificationAtPosition(1); PlaySoundEffect(0, 7); };
     }
 
+    /// <summary>
+    /// Handles game events and displays the notification.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         DisplayNotification(gameEventType, data);
         RemoveNotificationCallback(gameEventType, data);
     }
 
+    /// <summary>
+    /// Displays the notification.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void DisplayNotification(GameEventType gameEventType, object[] data)
     {
         if (gameEventType != GameEventType.DisplayNotification)
@@ -81,8 +97,14 @@ public class NotificationManager : MonoBehaviour
         OnReadonlyNotification();
         OnReadonlyNotificationWithImages();
         OnNotificationWithCallback();
+        OnNotificationWithImagesAndCallback();
     }
 
+    /// <summary>
+    /// Handles the removal of a notification's callback.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void RemoveNotificationCallback(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.RemoveNotificationCallback)
@@ -100,26 +122,40 @@ public class NotificationManager : MonoBehaviour
         {
             ((Notification)data[0]).OnAcceptCallback = null;
         }
-
-        print($"Callback has been removed!");
     }
 
+    /// <summary>
+    /// Retrieves the notification.
+    /// </summary>
+    /// <param name="notification">The notification to be displayed.</param>
     private void RetrieveNotification(Notification notification)
     {
         _notification = notification;
     }
 
+    /// <summary>
+    /// Retrieves the notification type.
+    /// </summary>
+    /// <param name="notificationType">The type of notification.</param>
     private void RetrieveNotificationType(NotificationType notificationType)
     {
         _notificationType = notificationType;
     }
 
+    /// <summary>
+    /// Retrieves the notification's title and message.
+    /// </summary>
+    /// <param name="title">The title of the notification.</param>
+    /// <param name="message">The message of the notification.</param>
     private void RetrieveTexts(string title, string message)
     {
         _notificationTitle = title;
         _notificationMessage = message;
     }
 
+    /// <summary>
+    /// Handles readonly notifications without callback.
+    /// </summary>
     private void OnReadonlyNotification()
     {
         if (_notificationType != NotificationType.DisplayReadNotification)
@@ -131,6 +167,9 @@ public class NotificationManager : MonoBehaviour
         ToggleMessageSubTabs(false);
     }
 
+    /// <summary>
+    /// Handles readonly notifications with images without callback.
+    /// </summary>
     private void OnReadonlyNotificationWithImages()
     {
         if (_notificationType != NotificationType.DisplayReadNotificationWithImages)
@@ -144,6 +183,9 @@ public class NotificationManager : MonoBehaviour
         ToggleMessageSubTabs(true);
     }
 
+    /// <summary>
+    /// Handles notifications with callback.
+    /// </summary>
     private void OnNotificationWithCallback()
     {
         if (_notificationType != NotificationType.DisplayNotificationWithCallback)
@@ -157,9 +199,25 @@ public class NotificationManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Handles notifications with images and callback.
+    /// </summary>
+    private void OnNotificationWithImagesAndCallback()
+    {
+        if(_notificationType != NotificationType.DisplayNotificationWithImagesAndCallback)
+        {
+            return;
+        }
+
+        _messageWithImagesText.text = _notification.NotificationMessage;
+        _notificationImageGroupManager.Setup(_notification.Images);
+        SetAcceptCallback(_notification.OnAcceptCallback);
+        ToggleButtonsSubTab(setCloseButtonSubTabActive: _notification.OnAcceptCallback == null);
+        ToggleMessageSubTabs(true);
+    }
+
+    /// <summary>
     /// Opens the notification and plays a sound effect.
     /// </summary>
-    /// <param name="notificationSoundIndex">The index of the sound effect to play.</param>
     private void Open()
     {
         bool wasInactive = _canvasGroup.alpha < 1f;
@@ -209,22 +267,37 @@ public class NotificationManager : MonoBehaviour
         PlaySoundEffect(0, 5);
     }
 
+    /// <summary>
+    /// Displays the next notification at the specified position.
+    /// </summary>
+    /// <param name="notificationIndexPointer">The index pointer to navigate to the next or previous notification.</param>
     private void DisplayNotificationAtPosition(int notificationIndexPointer)
     {
         _nextNotificationData[0] = notificationIndexPointer;
         GameEventHandler.RaiseEvent(GameEventType.DisplayNextNotification, _nextNotificationData);
     }
 
+    /// <summary>
+    /// Sets the callback for the accept button.
+    /// </summary>
+    /// <param name="callback">The callback method to be invoked on accept.</param>
     private void SetAcceptCallback(System.Action callback)
     {
         AcceptCallback = callback;
     }
 
+    /// <summary>
+    /// Removes the callback from the current notification.
+    /// </summary>
     private void RemoveNotificationCallback()
     {
         _notification.OnAcceptCallback = null;
     }
 
+    /// <summary>
+    /// Updates the text of the notification page.
+    /// </summary>
+    /// <param name="text">The text to update the notification page with.</param>
     private void UpdatePageText(string text)
     {
         _notificationPageText.text = text;
@@ -246,6 +319,10 @@ public class NotificationManager : MonoBehaviour
         _messageText.text = _notificationMessage;
     }
 
+    /// <summary>
+    /// Toggles the visibility of message subtabs based on the provided flag.
+    /// </summary>
+    /// <param name="isMessageWithGridSubTabActive">True to show the message with images subtab, false to show the regular message subtab.</param>
     private void ToggleMessageSubTabs(bool isMessageWithGridSubTabActive)
     {
         GlobalFunctions.CanvasGroupActivity(_messageSubTabCanvasGroup, !isMessageWithGridSubTabActive);

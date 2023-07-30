@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Represents a button in the player's inventory for managing items.
+/// </summary>
 public class PlayerInventoryItemButton : MonoBehaviour
 {
     [Header("Components")]
@@ -17,6 +20,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     [SerializeField] private ParticleSystem _itemSellParticle;
     [SerializeField] private ParticleSystem _itemChangeParticle;
 
+    private int _spoilageRate = 0;
     private object[] _buttonData = new object[3];
     private object[] _spoiledItemData = new object[1];
 
@@ -50,12 +54,23 @@ public class PlayerInventoryItemButton : MonoBehaviour
         GameEventHandler.OnEvent += OnGameEvent;
     }
 
+    /// <summary>
+    /// Handles game events to update item lifecycle, change item, and update spoilage rate.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void OnGameEvent(GameEventType gameEventType, object[] data)
     {
         UpdateItemLifecycleWithGameTurnUpdate(gameEventType, data);
         ChangeItem(gameEventType, data);
+        UpdateItemSpoilageRate(gameEventType, data);
     }
 
+    /// <summary>
+    /// Updates the item lifecycle with the game turn update event.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void UpdateItemLifecycleWithGameTurnUpdate(GameEventType gameEventType, object[] data)
     {
         if (gameEventType != GameEventType.UpdateGameTurn)
@@ -71,6 +86,11 @@ public class PlayerInventoryItemButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the item change event.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void ChangeItem(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.ChangeInventoryItem)
@@ -87,6 +107,21 @@ public class PlayerInventoryItemButton : MonoBehaviour
         PlayMatchAnimation();
         PlayItemChangeParticle();
         UISoundController.PlaySound(1, 6);
+    }
+
+    /// <summary>
+    /// Updates the spoilage rate of the item.
+    /// </summary>
+    /// <param name="gameEventType">The type of game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
+    private void UpdateItemSpoilageRate(GameEventType gameEventType, object[] data)
+    {
+        if (gameEventType != GameEventType.UpdateSpoilageRate)
+        {
+            return;
+        }
+
+        _spoilageRate = (int)data[0];
     }
 
     /// <summary>
@@ -128,16 +163,25 @@ public class PlayerInventoryItemButton : MonoBehaviour
         DestroyItemIfSpoiled();
     }
 
+    /// <summary>
+    /// Plays the particle effect when selling the item.
+    /// </summary>
     public void PlayItemSellParticle()
     {
         _itemSellParticle.Play(true);
     }
 
+    /// <summary>
+    /// Plays the particle effect when changing the item.
+    /// </summary>
     public void PlayItemChangeParticle()
     {
         _itemChangeParticle.Play();
     }
 
+    /// <summary>
+    /// Plays the match animation when changing the item.
+    /// </summary>
     public void PlayMatchAnimation()
     {
         _animator.Play(_itemMatchAnim, 0, 0);
@@ -155,7 +199,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the lifetime cycle for the associated item
+    /// Resets the lifetime cycle for the associated item.
     /// </summary>
     private void ResetLifetimeCycle()
     {
@@ -168,7 +212,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     /// <param name="currentTurnCount">The current turn count.</param>
     private void RunLifeTimeCycle(int currentTurnCount)
     {
-        _playerInventoryItemSpoilUIManager.RunLifeTimeCycle(currentTurnCount);     
+        _playerInventoryItemSpoilUIManager.RunLifeTimeCycle(currentTurnCount + _spoilageRate);     
     }
 
     /// <summary>
@@ -203,7 +247,7 @@ public class PlayerInventoryItemButton : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the button's default icon.
+    /// Deselects the button.
     /// </summary>
     private void UpdateBtnDefaultIcon()
     {

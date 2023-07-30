@@ -49,7 +49,8 @@ public enum GameEventType
    SellSpoiledItems,
    GetMoneyFromSellingSpoiledItems,
    DestroySpoiledItem,
-   IncreaseSpoilageRate,
+   ItemSpoilageSurge,
+   UpdateSpoilageRate,
 
    UpdateStockUI,
    UpdateMoneyRegardlessOfSale,
