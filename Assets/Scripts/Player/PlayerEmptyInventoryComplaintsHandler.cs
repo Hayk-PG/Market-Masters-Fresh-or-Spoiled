@@ -78,7 +78,7 @@ public class PlayerEmptyInventoryComplaintsHandler : MonoBehaviour
     /// </summary>
     private void UpdateReputation()
     {
-        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnEmptyInventory);
+        new Reputation(-5);
     }
 
     /// <summary>

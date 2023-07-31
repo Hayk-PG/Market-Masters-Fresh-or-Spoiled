@@ -14,7 +14,6 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
     private object[] _itemRecallAlertPopupNotificationData = new object[1];
     private object[] _dispatchRecalItemsData = new object[1];
     private object[] _refundData = new object[1];
-    private object[] _reputationData = new object[2];
 
 
 
@@ -233,9 +232,7 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
             return;
         }
 
-        _reputationData[0] = reputationPoints;
-        _reputationData[1] = 0;
-        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnSale, _reputationData);
+        new Reputation(reputationPoints * 2);
     }
 
     /// <summary>

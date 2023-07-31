@@ -3,10 +3,9 @@ using Photon.Pun;
 
 public class PlayerShopInteractionManager : EntityShopInteractionManager
 {
-    private object[] _stockData = new object[2];
-
     private int _itemBoughTurn = 0;
-
+    private object[] _stockData = new object[2];
+    
     protected override bool HavePermission => _entityManager.PlayerPhotonview.IsMine;
 
 
@@ -110,7 +109,7 @@ public class PlayerShopInteractionManager : EntityShopInteractionManager
             return;
         }
 
-        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnBuy);
+        new Reputation(1);
         _itemBoughTurn = GameSceneReferences.Manager.GameTurnManager.TurnCount;
     }
 

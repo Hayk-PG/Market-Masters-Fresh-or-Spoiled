@@ -2,7 +2,6 @@
 public class PlayerReputationEnhancer : PlayerBaseEventGenerator
 {
     private object[] _notificationData = new object[1];
-    private object[] _reputationUpdateData = new object[1];
     private bool _isCharitableGivingNotificationDisplayed;
     private int _charitableGivingNotificationTurn;
     private int _nextCharitableGivingNotificationTurn;
@@ -70,7 +69,7 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
 
     private void UpdateReputationForItemExchangeCallback()
     {
-        int reputationPoint = 0;
+        int reputationPoints = 0;
 
         foreach (var inventoryItemButton in GameSceneReferences.Manager.PlayerInventoryUIManager.PlayerInventoryItemButtons)
         {
@@ -80,15 +79,14 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
             }
 
             inventoryItemButton.DestroySpoiledItemOnSeparateSale();
-            reputationPoint += 2;
+            reputationPoints += 2;
         }
 
-        if(reputationPoint == 0)
+        if(reputationPoints == 0)
         {
             return;
         }
 
-        _reputationUpdateData[0] = reputationPoint;
-        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationForItemExchange, _reputationUpdateData);
+        new Reputation(reputationPoints);
     }
 }

@@ -4,7 +4,6 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
 {
     private int _sanitationInspectionTurnCount;
     private bool _isReportTriggered;
-    private object[] _reputationData = new object[1];
     private object[] _notificationData = new object[1];
 
 
@@ -61,14 +60,14 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
 
         if (hasFoundIssue)
         {
-            WrapData(-5, SanitationInspectionReport.IssueTitle, SanitationInspectionReport.IssueMessage);
+            UpdateReputation(-5);
+            QueueNotification(SanitationInspectionReport.IssueTitle, SanitationInspectionReport.IssueMessage);
         }
         else
         {
-            WrapData(8, SanitationInspectionReport.NoIssueTitle, SanitationInspectionReport.NoIssueMessage);
+            UpdateReputation(8);
+            QueueNotification(SanitationInspectionReport.NoIssueTitle, SanitationInspectionReport.NoIssueMessage);
         }
-
-        RaiseEvents();
     }
 
     private void ResetReportTriggeredState(object[] data)
@@ -89,15 +88,14 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
         _isReportTriggered = false;
     }
 
-    private void WrapData(int reputationPoint, string notificationTitle, string notificationMessage)
+    private void UpdateReputation(int reputationPoints)
     {
-        _reputationData[0] = reputationPoint;
-        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, notificationTitle, notificationMessage);
+        new Reputation(reputationPoints);
     }
 
-    private void RaiseEvents()
+    private void QueueNotification(string notificationTitle, string notificationMessage)
     {
-        GameEventHandler.RaiseEvent(GameEventType.UpdateReputationOnSanitationInspection, _reputationData);
+        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, notificationTitle, notificationMessage);
         GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

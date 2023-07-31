@@ -63,10 +63,7 @@ public class PlayerReputationManager : MonoBehaviour
 
         UpdateReputationOnSale(gameEventType, data);
         UpdateReputationOnNoSale(gameEventType, data);
-        UpdateReputationOnBuy(gameEventType);
-        UpdateReputationOnEmptyInventory(gameEventType);
-        UpdateReputationForItemExchange(gameEventType, data);
-        UpdateReputationOnSanitationInspection(gameEventType, data);
+        UpdateReputation(gameEventType, data);
     }
 
     /// <summary>
@@ -135,58 +132,14 @@ public class PlayerReputationManager : MonoBehaviour
         UpdateLastSuccessfulSellTurn(turnCount);
     }
 
-    /// <summary>
-    /// Updates the player's reputation when a purchase is made.
-    /// </summary>
-    /// <param name="gameEventType">The game event type triggering the reputation update.</param>
-    private void UpdateReputationOnBuy(GameEventType gameEventType)
+    private void UpdateReputation(GameEventType gameEventType, object[] data)
     {
-        if(gameEventType != GameEventType.UpdateReputationOnBuy)
+        if(gameEventType != GameEventType.UpdateReputation)
         {
             return;
         }
 
-        UpdateReputationPoints(1);
-        UpdateReputationState();
-        NotifyReputationChange();
-    }
-
-    /// <summary>
-    /// Updates the reputation when the inventory is empty.
-    /// </summary>
-    /// <param name="gameEventType">The type of game event.</param>
-    private void UpdateReputationOnEmptyInventory(GameEventType gameEventType)
-    {
-        if(gameEventType != GameEventType.UpdateReputationOnEmptyInventory)
-        {
-            return;
-        }
-
-        UpdateReputationPoints(-5);
-        UpdateReputationState();
-        NotifyReputationChange();
-    }
-
-    private void UpdateReputationForItemExchange(GameEventType gameEventType, object[] data)
-    {
-        if (gameEventType != GameEventType.UpdateReputationForItemExchange)
-        {
-            return;
-        }
-
-        UpdateReputationPoints(reputationPoints: (int)data[0]);
-        UpdateReputationState();
-        NotifyReputationChange();
-    }
-
-    private void UpdateReputationOnSanitationInspection(GameEventType gameEventType, object[] data)
-    {
-        if (gameEventType != GameEventType.UpdateReputationOnSanitationInspection)
-        {
-            return;
-        }
-
-        UpdateReputationPoints(reputationPoints: (int)data[0]);
+        UpdateReputationPoints( reputationPoints: (int)data[0]);
         UpdateReputationState();
         NotifyReputationChange();
     }
