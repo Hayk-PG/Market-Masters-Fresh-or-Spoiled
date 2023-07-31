@@ -31,11 +31,10 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
             return;
         }
 
-        int randomTriggerValue = Random.Range(0, 11);
-        int triggerValue = 6;
+        bool isRandomNumberTriggerNumber = Random.Range(0, 21) == 14;
         bool hasFoundIssue = false;
 
-        if (randomTriggerValue != triggerValue)
+        if (!isRandomNumberTriggerNumber)
         {
             return;
         }

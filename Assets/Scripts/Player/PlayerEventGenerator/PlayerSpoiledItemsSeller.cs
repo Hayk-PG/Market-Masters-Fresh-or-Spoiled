@@ -21,7 +21,7 @@ public class PlayerSpoiledItemsSeller : PlayerBaseEventGenerator
             return;
         }
 
-        if (!IsRandomNumberTriggerNumber(8))
+        if (!IsRandomNumberTriggerNumber(13))
         {
             return;
         }
@@ -38,7 +38,7 @@ public class PlayerSpoiledItemsSeller : PlayerBaseEventGenerator
     /// <returns>True if the random number matches the trigger number; otherwise, false.</returns>
     protected virtual bool IsRandomNumberTriggerNumber(int triggerNumber)
     {
-        return Random.Range(0, 11) == triggerNumber;
+        return Random.Range(0, 21) == triggerNumber;
     }
 
     /// <summary>
