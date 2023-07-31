@@ -6,7 +6,6 @@ using ExitGames.Client.Photon;
 
 public class ItemsBuyerManager : MonoBehaviourPun
 {
-    private object[] _notificationData = new object[1];
     private bool _isItemBought = true;
 
     public byte[] DemandDrivenItemsIds { get; private set; }
@@ -47,7 +46,6 @@ public class ItemsBuyerManager : MonoBehaviourPun
 
         DemandDrivenItemsIds = (byte[])data;
         DisplayDemandDrivenItemsNotification();
-        print($"Demand drivent items count: {DemandDrivenItemsIds.Length}");
     }
 
     /// <summary>
@@ -78,8 +76,7 @@ public class ItemsBuyerManager : MonoBehaviourPun
     {
         List<Sprite> itemsIcons = new List<Sprite>();
         GlobalFunctions.Loop<byte>.Foreach(DemandDrivenItemsIds, id => itemsIcons.Add(GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == id).Icon));
-        _notificationData[0] = new Notification(NotificationType.DisplayReadNotificationWithImages, HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10), HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10), itemsIcons.ToArray());
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        new Notification(NotificationType.DisplayReadNotificationWithImages, HighDemandItemsNotificationMessage.HighDemandItemsAlertTitle(10), HighDemandItemsNotificationMessage.HighDemandItemsAlertMessage(10), itemsIcons.ToArray());
     }
 
     /// <summary>

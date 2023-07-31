@@ -39,7 +39,6 @@ public class PlayerInventoryItemsChanger : PlayerSpoiledItemsSeller
 
     protected override void QueueNotification()
     {
-        _notificationData[0] = _notification = new Notification(NotificationType.DisplayNotificationWithCallback, ReplaceUnsoldItemsOfferMessage.Title, ReplaceUnsoldItemsOfferMessage.Message, delegate { GameEventHandler.RaiseEvent(GameEventType.ActivateItemsDroppingHelicopter); _notification = null; });
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        _notification = new Notification(NotificationType.DisplayNotificationWithCallback, ReplaceUnsoldItemsOfferMessage.Title, ReplaceUnsoldItemsOfferMessage.Message, delegate { GameEventHandler.RaiseEvent(GameEventType.ActivateItemsDroppingHelicopter); _notification = null; });
     }
 }

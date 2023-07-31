@@ -15,7 +15,6 @@ public class PlayerReputationManager : MonoBehaviour
     [SerializeField] private int _reputationPoints;
 
     private int _lastSuccessfulSellTurn = 0;
-    private object[] _data = new object[1];
     private object[] _reputationPointsData = new object[1];
 
     public bool HasRecentlySoldSpoiledItem { get; private set; }
@@ -175,10 +174,9 @@ public class PlayerReputationManager : MonoBehaviour
             return;
         }
 
-        WrapData();
+        SetRightMessageForPopupNotificationAndDisplay();
         SetPreviousReputationState();
         ToggleReputationChangeFlag(true);
-        GameEventHandler.RaiseEvent(GameEventType.DisplayPopupNotification, _data);
     }
 
     /// <summary>
@@ -217,30 +215,39 @@ public class PlayerReputationManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Wraps the data based on the current reputation state.
+    /// Sets the right message for the popup notification based on the reputation state and displays it.
     /// </summary>
-    private void WrapData()
+    private void SetRightMessageForPopupNotificationAndDisplay()
     {
         switch (ReputationState)
         {
-            case ReputationState.Terrible: _data[0] = ReputationMessages.TerribleReputationMessage; break;
-            case ReputationState.Poor: _data[0] = ReputationMessages.PoorReputationMessage; break;
+            case ReputationState.Terrible: InitializePopupNotification(ReputationMessages.TerribleReputationMessage); break;
+            case ReputationState.Poor: InitializePopupNotification(ReputationMessages.PoorReputationMessage); break;
 
             case ReputationState.Neutral:
                 bool isAdvancing = (int)_previousReputationState < (int)ReputationState;
 
                 if (isAdvancing)
                 {
-                    _data[0] = ReputationMessages.AdvanceNeutralReputationMessage;
+                    InitializePopupNotification(ReputationMessages.AdvanceNeutralReputationMessage);
                 }
                 else
                 {
-                    _data[0] = ReputationMessages.FallNeutralReputationMessage;
+                    InitializePopupNotification(ReputationMessages.FallNeutralReputationMessage);
                 }
                 break;
 
-            case ReputationState.Good: _data[0] = ReputationMessages.GoodReputationMessage; break;
-            case ReputationState.Excellent: _data[0] = ReputationMessages.ExcellentReputationMessage; break;
+            case ReputationState.Good: InitializePopupNotification(ReputationMessages.GoodReputationMessage); break;
+            case ReputationState.Excellent: InitializePopupNotification(ReputationMessages.ExcellentReputationMessage); break;
         }
+    }
+
+    /// <summary>
+    /// Initializes a popup notification with the given message.
+    /// </summary>
+    /// <param name="message">The message for the popup notification.</param>
+    private void InitializePopupNotification(string message)
+    {
+        new PopupNotification(message);
     }
 }

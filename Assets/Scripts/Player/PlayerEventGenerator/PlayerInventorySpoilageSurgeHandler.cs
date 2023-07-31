@@ -8,8 +8,6 @@ public class PlayerInventorySpoilageSurgeHandler : PlayerBaseEventGenerator
     private int _spoilageSurgeDuration;
     private bool _isItemSpoilageSurgeActive;
     private object[] _spoilageRateData = new object[1];
-    private object[] _notificationData = new object[1];
-
 
 
 
@@ -104,7 +102,6 @@ public class PlayerInventorySpoilageSurgeHandler : PlayerBaseEventGenerator
     /// <param name="message">The content of the notification.</param>
     private void QueueNotification(string title, string message)
     {
-        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, title, message);
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        new Notification(NotificationType.DisplayReadNotification, title, message);
     }
 }

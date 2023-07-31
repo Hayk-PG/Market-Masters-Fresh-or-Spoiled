@@ -1,7 +1,6 @@
 
 public class PlayerReputationEnhancer : PlayerBaseEventGenerator
 {
-    private object[] _notificationData = new object[1];
     private bool _isCharitableGivingNotificationDisplayed;
     private int _charitableGivingNotificationTurn;
     private int _nextCharitableGivingNotificationTurn;
@@ -14,6 +13,11 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
         HandleGameTurnUpdateEvent(gameEventType, data);
     }
 
+    /// <summary>
+    /// Handles the actions on the game turn update event.
+    /// </summary>
+    /// <param name="gameEventType">The type of the game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void HandleGameTurnUpdateEvent(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.UpdateGameTurn)
@@ -25,6 +29,10 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
         ResetCharitableGivingNotificationDisplayState(data);
     }
 
+    /// <summary>
+    /// Displays the charitable giving notification if the conditions are met.
+    /// </summary>
+    /// <param name="data">Data associated with the game turn update event.</param>
     private void DisplayCharitableGivingNotification(object[] data)
     {
         if (_entityIndexManager.TeamIndex == (TeamIndex)data[2])
@@ -46,6 +54,10 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
         RegisterCharitableGivingNotificationTime(turnCount: (int)data[3]);
     }
 
+    /// <summary>
+    /// Registers the turn count for displaying the charitable giving notification.
+    /// </summary>
+    /// <param name="turnCount">The current turn count.</param>
     private void RegisterCharitableGivingNotificationTime(int turnCount)
     {
         _charitableGivingNotificationTurn = turnCount;
@@ -53,6 +65,10 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
         _isCharitableGivingNotificationDisplayed = true;
     }
 
+    /// <summary>
+    /// Resets the charitable giving notification display state if necessary.
+    /// </summary>
+    /// <param name="data">Data associated with the game turn update event.</param>
     private void ResetCharitableGivingNotificationDisplayState(object[] data)
     {
         if((int)data[3] > _nextCharitableGivingNotificationTurn && _isCharitableGivingNotificationDisplayed)
@@ -61,12 +77,17 @@ public class PlayerReputationEnhancer : PlayerBaseEventGenerator
         }
     }
 
+    /// <summary>
+    /// Displays the charitable giving notification.
+    /// </summary>
     private void DisplayNotification()
     {
-        _notificationData[0] = new Notification(NotificationType.DisplayNotificationWithCallback, ReputationBoostMessage.CharitableGivingTitle, ReputationBoostMessage.CharitableGivingMessage, UpdateReputationForItemExchangeCallback);
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        new Notification(NotificationType.DisplayNotificationWithCallback, ReputationBoostMessage.CharitableGivingTitle, ReputationBoostMessage.CharitableGivingMessage, UpdateReputationForItemExchangeCallback);
     }
 
+    /// <summary>
+    /// Callback function for updating reputation when the charitable giving notification is accepted.
+    /// </summary>
     private void UpdateReputationForItemExchangeCallback()
     {
         int reputationPoints = 0;

@@ -4,7 +4,6 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
 {
     private int _sanitationInspectionTurnCount;
     private bool _isReportTriggered;
-    private object[] _notificationData = new object[1];
 
 
 
@@ -95,7 +94,6 @@ public class PlayerSanitationInspectionReport : PlayerBaseEventGenerator
 
     private void QueueNotification(string notificationTitle, string notificationMessage)
     {
-        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, notificationTitle, notificationMessage);
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        new Notification(NotificationType.DisplayReadNotification, notificationTitle, notificationMessage);
     }
 }

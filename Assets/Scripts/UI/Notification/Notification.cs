@@ -3,6 +3,8 @@
 /// </summary>
 public class Notification 
 {
+    private object[] _notificationData = new object[1];
+
     /// <summary>
     /// The type of notification.
     /// </summary>
@@ -50,6 +52,7 @@ public class Notification
         NotificationType = notificationType;
         NotificationTitle = title;
         NotificationMessage = message;
+        RaiseNotificationQueueEvent();
     }
 
     /// <summary>
@@ -65,6 +68,7 @@ public class Notification
         NotificationTitle = title;
         NotificationMessage = message;
         Images = images;
+        RaiseNotificationQueueEvent();
     }
 
     /// <summary>
@@ -80,6 +84,7 @@ public class Notification
         NotificationTitle = title;
         NotificationMessage = message;
         this.OnAcceptCallback = OnAcceptCallback;
+        RaiseNotificationQueueEvent();
     }
 
     /// <summary>
@@ -97,5 +102,17 @@ public class Notification
         NotificationMessage = message;
         Images = images;
         this.OnAcceptCallback = OnAcceptCallback;
+        RaiseNotificationQueueEvent();
+    }
+
+    public void RemoveCallbackFromNotificationManager()
+    {
+        GameEventHandler.RaiseEvent(GameEventType.RemoveNotificationCallback, _notificationData);
+    }
+
+    private void RaiseNotificationQueueEvent()
+    {
+        _notificationData[0] = this;
+        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
     }
 }

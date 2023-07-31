@@ -10,8 +10,6 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
     private short _recallLevel;   
     private Sprite[] _recallItemsIcons;
     private short[] _recallItemsIdsArray;
-    private object[] _itemRecallAlerNotificationData = new object[1];
-    private object[] _itemRecallAlertPopupNotificationData = new object[1];
     private object[] _dispatchRecalItemsData = new object[1];
     private object[] _refundData = new object[1];
 
@@ -135,8 +133,7 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
             _recallItemsIcons[i] = GameSceneReferences.Manager.Items.Collection.Find(item => item.ID == _recallItemsIdsArray[i]).Icon;
         }
 
-        _itemRecallAlerNotificationData[0] = _notification = new Notification(NotificationType.DisplayNotificationWithImagesAndCallback, ItemRecallAlertMessage.Title, ItemRecallAlertMessage.Message, _recallItemsIcons, RemoveRecallItemsCallback);
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _itemRecallAlerNotificationData);
+        _notification = new Notification(NotificationType.DisplayNotificationWithImagesAndCallback, ItemRecallAlertMessage.Title, ItemRecallAlertMessage.Message, _recallItemsIcons, ProcessPlayerResponseCallback);
     }
 
     /// <summary>
@@ -145,8 +142,7 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
     /// <param name="message">The message to display in the popup notification.</param>
     private void DisplayPopupNotification(string message)
     {
-        _itemRecallAlertPopupNotificationData[0] = message;
-        GameEventHandler.RaiseEvent(GameEventType.DisplayPopupNotification, _itemRecallAlertPopupNotificationData);
+        new PopupNotification(message);
     }
 
     /// <summary>
@@ -159,9 +155,9 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
     }
 
     /// <summary>
-    /// Removes the recall items callback and processes the player's response.
+    /// Process the player's response callback for item recall alert.
     /// </summary>
-    private void RemoveRecallItemsCallback()
+    private void ProcessPlayerResponseCallback()
     {       
         int refundAmount = 0;
         int reputationPoints = 0;
@@ -199,9 +195,17 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
             }
         }
 
-        RemoveNotificationCallback();
+        // Get refund for spoiled items
         GetRefund(isApplicableForRefund: refundAmount > 0, refundAmount: refundAmount);
+        // Update reputation points
         UpdateReputation(canIncreaseReputationPoints: reputationPoints > 0, reputationPoints: reputationPoints);
+        // If there is no active notification, return
+        if (_notification == null)
+        {
+            return;
+        }
+        // Remove the notification callback
+        RemoveNotificationCallback();
     }
 
     /// <summary>
@@ -240,7 +244,7 @@ public class PlayerItemRecallAlertHandler : PlayerBaseEventGenerator
     /// </summary>
     private void RemoveNotificationCallback()
     {
-        GameEventHandler.RaiseEvent(GameEventType.RemoveNotificationCallback, new object[] { _notification });
+        _notification.RemoveCallbackFromNotificationManager();
         _notification = null;
     }
 }

@@ -7,7 +7,6 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
     private int _duration = 30;
     private int _waitTurnCount;
     private object[] _rentalFeeData = new object[1];
-    private object[] _notificationData = new object[1];
     private object[] _stroageDiscountRemainingTimeData = new object[2];
 
     private bool IsDiscountApplied => _waitTurnCount > GameSceneReferences.Manager.GameTurnManager.TurnCount;
@@ -21,6 +20,11 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
         ExecuteOnGameTurnUpdate(gameEventType, data);
     }
 
+    /// <summary>
+    /// Executes the actions on game turn update event.
+    /// </summary>
+    /// <param name="gameEventType">The type of the game event.</param>
+    /// <param name="data">Data associated with the game event.</param>
     private void ExecuteOnGameTurnUpdate(GameEventType gameEventType, object[] data)
     {
         if(gameEventType != GameEventType.UpdateGameTurn)
@@ -48,6 +52,10 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
         }      
     }
 
+    /// <summary>
+    /// Checks if the rental fee update should be triggered based on the player's reputation.
+    /// </summary>
+    /// <returns>True if the rental fee update should be triggered, otherwise false.</returns>
     private bool IsRentalFeeUpdateTriggered()
     {
         int minPossibilityRange = _playerReputationManager.ReputationState == ReputationState.Terrible ? 0 : _playerReputationManager.ReputationState == ReputationState.Poor ? 10 :
@@ -58,6 +66,9 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
         return randomPossibilityNumber == targetNumber;
     }
 
+    /// <summary>
+    /// Sets a random rental fee based on the player's reputation.
+    /// </summary>
     private void SetRandomFee()
     {
         int minFeeRange = 0;
@@ -66,23 +77,37 @@ public class PlayerStorageRentalFeeUpdater : PlayerBaseEventGenerator
         _randomFee = Random.Range(minFeeRange, maxFeeRange);
     }
 
+    /// <summary>
+    /// Determines the turn count when the discount period ends.
+    /// </summary>
     private void DetermineWaitTurnCount()
     {
         _waitTurnCount = GameSceneReferences.Manager.GameTurnManager.TurnCount + _duration;
     }
 
+    /// <summary>
+    /// Updates the rental fee with the given fee value.
+    /// </summary>
+    /// <param name="fee">The new rental fee value.</param>
     private void UpdateRentalFee(int fee)
     {       
         _rentalFeeData[0] = fee;
         GameEventHandler.RaiseEvent(GameEventType.UpdateStorageRentalFee, _rentalFeeData);
     }
 
+    /// <summary>
+    /// Displays a notification for the storage rental discount.
+    /// </summary>
     private void DisplayNotification()
     {
-        _notificationData[0] = new Notification(NotificationType.DisplayReadNotification, StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration), StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration));
-        GameEventHandler.RaiseEvent(GameEventType.QueueNotification, _notificationData);
+        new Notification(NotificationType.DisplayReadNotification, StorageRentalNotificationMessage.StorageRentDiscountTitle(_duration), StorageRentalNotificationMessage.StorageRentDiscountMessage(_duration));
     }
 
+    /// <summary>
+    /// Publishes the remaining storage discount time to update the UI.
+    /// </summary>
+    /// <param name="remainingTime">The remaining time for the discount to end.</param>
+    /// <param name="discountTimeFrame">The total duration of the discount period.</param>
     private void PublishStorageDiscountRemainingTime(int remainingTime, int discountTimeFrame = 0)
     {
         _stroageDiscountRemainingTimeData[0] = remainingTime;
